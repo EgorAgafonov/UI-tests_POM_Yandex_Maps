@@ -32,7 +32,7 @@ def driver():
     driver = webdriver.Chrome(options=options)
     url = os.getenv("LOGIN_URL") or "https://www.mvideo.ru"
     driver.get(url)
-    driver.add_cookie({"name": "session", "value": cookie_value})
+    # driver.add_cookie({"name": "MVID_NS_SESSION_REFRESH", "value": cookie_value})
     yield driver
     driver.quit()
 

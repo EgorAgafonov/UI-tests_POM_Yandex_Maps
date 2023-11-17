@@ -7,10 +7,8 @@ class MainPageLocators:
     MAIN_CATALOG_BTN = (By.XPATH, "//div[@class='header-main__catalog-btn']")
 
 
-
-
-class AuthLocators:
-    AUTH_EMAIL = (By.ID, "email")
-    AUTH_PASS = (By.ID, "pass")
-    AUTH_BTN = (By.CLASS_NAME, "btn-success")
-    AUTH_ALERT_MSG = (By.XPATH, "//div[@role='alert']")
+# class AuthLocators:
+#     AUTH_EMAIL = (By.ID, "email")
+#     AUTH_PASS = (By.ID, "pass")
+#     AUTH_BTN = (By.CLASS_NAME, "btn-success")
+#     AUTH_ALERT_MSG = (By.XPATH, "//div[@role='alert']")

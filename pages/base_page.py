@@ -6,8 +6,7 @@ from colorama import Style, Fore
 class BasePage(object):
     """Базовый(родительский) класс веб-страницы. Определяет основные методы взаимодействия со страницами в рамках
     проектирования UI-тестов по паттерну PageObjectModel. Создан для наследования последующими классами веб-страниц,
-    в свою очередь, содержащих методы управления элементами каждой конкретной страницы платформы
-    www.petfriends.skillfactory.ru."""
+    в свою очередь, содержащих методы управления элементами каждой конкретной страницы сайта https://www.mvideo.ru/."""
 
     driver = None
 
@@ -43,16 +42,16 @@ class BasePage(object):
             self.driver.execute_script('window.scrollTo(0, -document.body.scrollHeight);')
 
     def switch_to_iframe(self, iframe):
-        """ Switch to iframe by it's name. """
+        """ Фокусировка на элементе страницы по его имени."""
 
         self.driver.switch_to.frame(iframe)
 
     def switch_out_iframe(self):
-        """ Cancel iframe focus. """
+        """ Отмена фокусировки на элементе страницы по его имени."""
         self.driver.switch_to.default_content()
 
     def get_page_source(self):
-        """ Returns current page body. """
+        """Возвращает код(разметку) страницы в текстовом формате."""
 
         source = ''
         try:

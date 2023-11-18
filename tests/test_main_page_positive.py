@@ -12,10 +12,9 @@ class TestMainPagePositive:
         после ввода всех необходимых данных в форму карточки, пользователь остается на страницы path = "/my_pets", а
         карточка отображается в стеке питомцев пользователя со всеми переданными данными (без фото соответственно)."""
         page = MainPage(driver)
-        time.sleep(2)
-        page.enter_products_name("Iphone 14 pro")
-        time.sleep(2)
-        page.submit_search_btn_click()
-        time.sleep(5)
+        page.scroll_down(10)
+        link = page.get_relative_link()
+        page.make_screenshot()
+        print(link)
 
 

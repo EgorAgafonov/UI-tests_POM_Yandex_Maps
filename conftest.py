@@ -2,8 +2,12 @@ import pytest
 from selenium import webdriver
 from settings import *
 from selenium.webdriver.chrome.options import *
+from selenium.webdriver.common.by import By
 from datetime import *
 import os
+
+# driver = webdriver.Chrome()
+# driver.find_element(By.XPATH, "//").send_keys()
 
 
 @pytest.fixture(scope='function', autouse=True)
@@ -30,7 +34,7 @@ def driver():
     options = Options()
     options.add_argument("--start-maximized")
     driver = webdriver.Chrome(options=options)
-    url = os.getenv("LOGIN_URL") or "https://www.mvideo.ru"
+    url = os.getenv("MAIN_URL") or "https://www.mvideo.ru"
     driver.get(url)
     # driver.add_cookie({"name": "MVID_NS_SESSION_REFRESH", "value": cookie_value})
     yield driver

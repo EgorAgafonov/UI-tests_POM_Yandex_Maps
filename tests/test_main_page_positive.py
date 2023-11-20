@@ -13,10 +13,11 @@ class TestMainPagePositive:
         карточка отображается в стеке питомцев пользователя со всеми переданными данными (без фото соответственно)."""
 
         page = MainPage(driver)
-        page.clear_search_field()
-        page.enter_searching_data("Купить Nintendo Switch в Моcкве")
+        time.sleep(2)
+        page.enter_products_name("Сушёное манго")
+        time.sleep(2)
         page.submit_search_btn_click()
-        page.scroll_up()
+        time.sleep(2)
         link = page.get_relative_link()
         page.make_screenshot()
         print(f"{link}")

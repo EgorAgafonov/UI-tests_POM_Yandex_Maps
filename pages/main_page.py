@@ -12,9 +12,9 @@ class MainPage(BasePage):
 
         self.search_field = driver.find_element(*MainPageLocators.MAIN_SEARCH_FIELD)
         self.submit_search_btn = driver.find_element(*MainPageLocators.MAIN_SUBMIT_SEARCH_BTN)
-        self.catalog_btn = driver.find_element(*MainPageLocators.MAIN_NEWS_BTN)
+        self.catalog_btn = driver.find_element(*MainPageLocators.MAIN_CATALOG_BTN)
 
-    def enter_searching_data(self, value):
+    def enter_products_name(self, value):
         self.search_field.send_keys(value)
 
     def clear_search_field(self):

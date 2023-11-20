@@ -34,9 +34,8 @@ def driver():
     options = Options()
     options.add_argument("--start-maximized")
     driver = webdriver.Chrome(options=options)
-    url = os.getenv("MAIN_URL") or "https://www.rambler.ru/"
+    url = os.getenv("MAIN_URL") or "https://www.ozon.ru/"
     driver.get(url)
-    # driver.add_cookie({"name": "MVID_NS_SESSION_REFRESH", "value": cookie_value})
     yield driver
     driver.quit()
 

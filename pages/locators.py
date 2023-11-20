@@ -2,9 +2,9 @@ from selenium.webdriver.common.by import By
 
 
 class MainPageLocators:
-    MAIN_SEARCH_FIELD = (By.CSS_SELECTOR, "#app > div.ad_branding_header > div > div > div.rc__781Li.rc__o-jux > div > form > input")
-    MAIN_SUBMIT_SEARCH_BTN = (By.CSS_SELECTOR, "#app > div.ad_branding_header > div > div > div.rc__781Li.rc__o-jux > div > form > button")
-    MAIN_NEWS_BTN = (By.CSS_SELECTOR, "#app > div.ad_branding_header > header > div > div > nav > div:nth-child(1) > a")
+    MAIN_SEARCH_FIELD = (By.XPATH, "//input[@name='text']")
+    MAIN_SUBMIT_SEARCH_BTN = (By.XPATH, "//button[@type='submit']")
+    MAIN_CATALOG_BTN = (By.CSS_SELECTOR, "#stickyHeader > div.dn6 > div > div > button")
 
 
 # class AuthLocators:

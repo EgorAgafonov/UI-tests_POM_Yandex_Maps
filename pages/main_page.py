@@ -4,7 +4,6 @@ from selenium.webdriver.common.action_chains import ActionChains
 import os
 
 
-
 class MainPage(BasePage):
     """Класс с атрибутами и методами для управления элементами главной страницы https://www.mvideo.ru/
      в рамках проектирования UI-тестов по паттерну Page Object Model."""
@@ -30,23 +29,34 @@ class MainPage(BasePage):
     def my_current_geoloc_btn_click(self):
         self.current_geo_btn.click()
 
-    def incrise_map_size(self, enlargement="low"):
-        if enlargement == "low":
+    def incrise_map_size(self, amount="low"):
+        if amount == "low":
             self.incrise_view_size.click()
-        elif enlargement == "medium":
+        elif amount == "medium":
             self.incrise_view_size.click()
             self.incrise_view_size.click()
-        elif enlargement == "high":
+        elif amount == "high":
             self.incrise_view_size.click()
             self.incrise_view_size.click()
             self.incrise_view_size.click()
         else:
-            raise Exception(f"\nОшибка! Неверно указано значение параметра enlargement! Доступные значения:"
+            raise Exception(
+                f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\nДоступные значения:"
+                f"\n'low', 'medium' или 'high'")
+
+    def dicrise_map_size(self, amount="low"):
+        if amount == "low":
+            self.dicrise_view_size.click()
+        elif amount == "medium":
+            self.dicrise_view_size.click()
+            self.dicrise_view_size.click()
+        elif amount == "high":
+            self.dicrise_view_size.click()
+            self.dicrise_view_size.click()
+            self.dicrise_view_size.click()
+        else:
+            raise Exception(f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\nДоступные значения:"
                             f"\n'low', 'medium' или 'high'")
-
-
-    def dicrise_map_size(self):
-        self.dicrise_view_size.click()
 
     # def get_toponym_descript(self, driver):
     #     parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text

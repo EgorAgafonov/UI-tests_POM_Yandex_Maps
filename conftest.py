@@ -10,7 +10,6 @@ from datetime import *
 import os
 
 
-
 @pytest.fixture(scope='function', autouse=True)
 def duration_of_test(request):
     start_time = datetime.now()

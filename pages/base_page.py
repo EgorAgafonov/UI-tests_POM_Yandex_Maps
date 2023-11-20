@@ -3,7 +3,6 @@ from settings import screenshots_folder
 from colorama import Style, Fore
 
 
-
 class BasePage(object):
     """Базовый(родительский) класс веб-страницы. Определяет основные методы взаимодействия со страницами в рамках
     проектирования UI-тестов по паттерну PageObjectModel. Создан для наследования последующими классами веб-страниц,

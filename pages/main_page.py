@@ -1,6 +1,8 @@
 from pages.base_page import BasePage
 from pages.locators import MainPageLocators
+from selenium.webdriver.common.action_chains import ActionChains
 import os
+
 
 
 class MainPage(BasePage):
@@ -28,11 +30,23 @@ class MainPage(BasePage):
     def my_current_geoloc_btn_click(self):
         self.current_geo_btn.click()
 
-    def incrise_map_size(self):
-        self.incrise_view_size.double_click(self.incrise_view_size)
+    def incrise_map_size(self, enlargement="low"):
+        if enlargement == "low":
+            self.incrise_view_size.click()
+        elif enlargement == "medium":
+            self.incrise_view_size.click()
+            self.incrise_view_size.click()
+        elif enlargement == "high":
+            self.incrise_view_size.click()
+            self.incrise_view_size.click()
+            self.incrise_view_size.click()
+        else:
+            raise Exception(f"\nОшибка! Неверно указано значение параметра enlargement! Доступные значения:"
+                            f"\n'low', 'medium' или 'high'")
+
 
     def dicrise_map_size(self):
-        self.dicrise_view_size.double_click(self.dicrise_view_size)
+        self.dicrise_view_size.click()
 
     # def get_toponym_descript(self, driver):
     #     parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text

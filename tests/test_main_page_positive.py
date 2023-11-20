@@ -13,13 +13,15 @@ class TestMainPagePositive:
         карточка отображается в стеке питомцев пользователя со всеми переданными данными (без фото соответственно)."""
 
         page = MainPage(driver)
+        time.sleep(2)
         page.my_current_geoloc_btn_click()
-        time.sleep(3)
+        time.sleep(2)
         page.incrise_map_size()
-        time.sleep(3)
+        time.sleep(2)
         page.clear_search_field()
         page.enter_searching_address("Москва, Красная площадь")
         page.submit_search_btn_click()
-        time.sleep(5)
+        time.sleep(2)
+        page.dicrise_map_size()
         page.make_screenshot()
 

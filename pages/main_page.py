@@ -41,7 +41,8 @@ class MainPage(BasePage):
             self.incrise_view_size.click()
         else:
             raise Exception(
-                f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\nДоступные значения:"
+                f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\n"
+                f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
     def dicrise_map_size(self, amount="low"):
@@ -55,8 +56,10 @@ class MainPage(BasePage):
             self.dicrise_view_size.click()
             self.dicrise_view_size.click()
         else:
-            raise Exception(f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\nДоступные значения:"
-                            f"\n'low', 'medium' или 'high'")
+            raise Exception(
+                f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"
+                f"Доступные значения:"
+                f"\n'low', 'medium' или 'high'")
 
     # def get_toponym_descript(self, driver):
     #     parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text

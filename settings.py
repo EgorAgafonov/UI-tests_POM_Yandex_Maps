@@ -7,8 +7,6 @@ email = os.getenv('email')
 password = os.getenv('pass')
 invalid_email = os.getenv('invalid_email')
 invalid_password = os.getenv('invalid_pass')
-cookie_value_1 = os.getenv("cookie_value_1")
-cookie_value_2 = os.getenv("cookie_value_2")
 
 
 def strings_generator(n):

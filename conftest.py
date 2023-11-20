@@ -34,7 +34,7 @@ def driver():
     options = Options()
     options.add_argument("--start-maximized")
     driver = webdriver.Chrome(options=options)
-    url = os.getenv("MAIN_URL") or "https://www.ozon.ru/"
+    url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
     driver.get(url)
     yield driver
     driver.quit()

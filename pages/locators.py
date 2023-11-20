@@ -4,7 +4,10 @@ from selenium.webdriver.common.by import By
 class MainPageLocators:
     MAIN_SEARCH_FIELD = (By.XPATH, "//input[@placeholder='Поиск мест и адресов']")
     MAIN_SUBMIT_SEARCH_BTN = (By.XPATH, "//button[@aria-label='Найти']")
-    # MAIN_CATALOG_BTN = (By.CSS_SELECTOR, "#stickyHeader > div.dn6 > div > div > button")
+    MAIN_MY_GEO_BTN = (By.XPATH, "//button[@aria-label='Моё местоположение']")
+    MAIN_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
+    MAIN_DICRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
+    # MAIN_TOPONYM_DESCRIPTION = (By.XPATH, "//div[@class='toponym-card-title-view__description']")
 
 
 # class AuthLocators:

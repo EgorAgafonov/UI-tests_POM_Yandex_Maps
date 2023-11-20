@@ -3,11 +3,12 @@ from selenium import webdriver
 from settings import *
 from selenium.webdriver.chrome.options import *
 from selenium.webdriver.common.by import By
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from datetime import *
 import os
 
-# driver = webdriver.Chrome()
-# driver.find_element(By.XPATH, "//").send_keys()
 
 
 @pytest.fixture(scope='function', autouse=True)

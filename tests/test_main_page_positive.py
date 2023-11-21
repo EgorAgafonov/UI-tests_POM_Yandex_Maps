@@ -14,9 +14,12 @@ class TestMainPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
+        page.dicrise_map_size(amount='low')
+        page.wait_page_loaded(check_js_complete=True, check_images=True)
         page.clear_search_field()
         page.enter_searching_address("Музей ВВС, Монино")
         page.submit_search_btn_click()
+        page.wait_page_loaded(check_js_complete=True, check_images=True)
         parsed_toponym = str(page.get_toponym_descript(driver))
         assert "воздушных" in parsed_toponym
         page.make_screenshot()

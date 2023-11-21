@@ -4,8 +4,7 @@ from settings import *
 from selenium.webdriver.chrome.options import *
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+
 from datetime import *
 import os
 
@@ -32,7 +31,6 @@ def driver():
     повышает восприятие и "читаемость" кода."""
 
     options = Options()
-    options.page_load_strategy = "eager"
     options.add_argument("--start-maximized")
     driver = webdriver.Chrome(options=options)
     url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"

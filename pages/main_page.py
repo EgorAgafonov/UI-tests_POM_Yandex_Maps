@@ -45,7 +45,7 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-    def dicrise_map_size(self, amount="low"):
+    def decrise_map_size(self, amount="low"):
         if amount == "low":
             self.dicrise_view_size.click()
         elif amount == "medium":
@@ -66,12 +66,6 @@ class MainPage(BasePage):
         return parsed_toponym
 
 
-    # def catalog_btn_click(self):
-    #     self.catalog_btn.click()
-
-
-
     # def get_pets_quantity(self, driver):
     #     num = len(driver.find_elements(*MyPetsLocators.MY_PETS_CARDS_QUANTITY))
     #     return num
-

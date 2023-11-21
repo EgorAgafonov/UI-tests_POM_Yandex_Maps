@@ -1,10 +1,6 @@
 import pytest
-from selenium import webdriver
-from settings import *
 from selenium.webdriver.chrome.options import *
-from selenium.webdriver.common.by import By
 from selenium import webdriver
-
 from datetime import *
 import os
 
@@ -37,16 +33,3 @@ def driver():
     driver.get(url)
     yield driver
     driver.quit()
-
-
-# @pytest.fixture()
-# def auth_driver():
-#     """Pytest-фикстура(декоратор) для запуска UI-тестов проверки модуля авторизации пользователя на сайте
-#     www.petfriends.skillfactory.ru.Аналогична setup-фикстуре driver (см. выше), за исключением отсутствия возможности
-#     предварительной авторизации соответственно."""
-#
-#     options = Options()
-#     options.add_argument("--start-maximized")
-#     driver = webdriver.Chrome(options=options)
-#     yield driver
-#     driver.quit()

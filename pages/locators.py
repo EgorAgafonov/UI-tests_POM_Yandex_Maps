@@ -7,7 +7,7 @@ class MainPageLocators:
     MAIN_MY_GEO_BTN = (By.XPATH, "//button[@aria-label='Моё местоположение']")
     MAIN_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
     MAIN_DICRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
-    # MAIN_TOPONYM_DESCRIPTION = (By.XPATH, "//div[@class='toponym-card-title-view__description']")
+    MAIN_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
 
 
 # class AuthLocators:

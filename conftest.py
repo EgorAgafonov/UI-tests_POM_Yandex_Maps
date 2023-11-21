@@ -32,6 +32,7 @@ def driver():
     повышает восприятие и "читаемость" кода."""
 
     options = Options()
+    options.page_load_strategy = "eager"
     options.add_argument("--start-maximized")
     driver = webdriver.Chrome(options=options)
     url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"

@@ -14,16 +14,10 @@ class TestMainPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        time.sleep(2)
-        page.my_current_geoloc_btn_click()
-        time.sleep(2)
-        page.incrise_map_size(amount="low")
-        time.sleep(2)
         page.clear_search_field()
-        page.enter_searching_address("Москва, Красная площадь")
+        page.enter_searching_address("Музей ВВС, Монино")
         page.submit_search_btn_click()
-        time.sleep(2)
-        page.dicrise_map_size(amount="medium")
-        time.sleep(5)
+        parsed_toponym = str(page.get_toponym_descript(driver))
+        assert "воздушных" in parsed_toponym
         page.make_screenshot()
 

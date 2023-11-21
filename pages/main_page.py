@@ -61,9 +61,9 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-    # def get_toponym_descript(self, driver):
-    #     parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text
-    #     return parsed_toponym
+    def get_toponym_descript(self, driver):
+        parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text
+        return parsed_toponym
 
 
     # def catalog_btn_click(self):

@@ -1,12 +1,12 @@
 from pages.base_page import BasePage
 from pages.locators import MainPageLocators
-from selenium.webdriver.common.action_chains import ActionChains
 import os
 
 
 class MainPage(BasePage):
-    """Класс с атрибутами и методами для управления элементами главной страницы https://www.mvideo.ru/
-     в рамках проектирования UI-тестов по паттерну Page Object Model."""
+    """Класс с атрибутами и методами для управления элементами на главной странице веб-приложения "Яндекс Карты"
+    (поисково-информационная картографическая служба Яндекса) в рамках проектирования UI-тестов по паттерну Page Object
+    Model."""
 
     def __init__(self, driver, timeout=10):
         super().__init__(driver, timeout)

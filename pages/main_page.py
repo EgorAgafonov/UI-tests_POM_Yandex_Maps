@@ -65,7 +65,3 @@ class MainPage(BasePage):
         parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text
         return parsed_toponym
 
-
-    # def get_pets_quantity(self, driver):
-    #     num = len(driver.find_elements(*MyPetsLocators.MY_PETS_CARDS_QUANTITY))
-    #     return num

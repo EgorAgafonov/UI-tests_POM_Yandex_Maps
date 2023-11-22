@@ -48,14 +48,14 @@ class TestMapPagePositive:
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
         page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\map_size\\initial.png")
+        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
         page.incrise_map_size(amount="high")
         page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\map_size\\increased.png")
+        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
         page.decrise_map_size()
         page.decrise_map_size(amount="high")
         page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\map_size\\decreased.png")
+        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
 
         if True:
             print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")

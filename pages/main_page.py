@@ -13,6 +13,7 @@ class MainPage(BasePage):
 
         self.search_field = driver.find_element(*MainPageLocators.MAIN_SEARCH_FIELD)
         self.submit_search_btn = driver.find_element(*MainPageLocators.MAIN_SUBMIT_SEARCH_BTN)
+        self.tilt_rotate_3D_btn = driver.find_element(*MainPageLocators.MAIN_3D_TILT_ROTATE_BTN)
         self.current_geo_btn = driver.find_element(*MainPageLocators.MAIN_MY_GEO_BTN)
         self.incrise_view_size = driver.find_element(*MainPageLocators.MAIN_INCRISE_VIEW_SIZE)
         self.dicrise_view_size = driver.find_element(*MainPageLocators.MAIN_DICRISE_VIEW_SIZE)
@@ -64,4 +65,7 @@ class MainPage(BasePage):
     def get_toponym_descript(self, driver):
         parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text
         return parsed_toponym
+
+    def tilt_rotate_3D_btn_click(self):
+        self.tilt_rotate_3D_btn.click()
 

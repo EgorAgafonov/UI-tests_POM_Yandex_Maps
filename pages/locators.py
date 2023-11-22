@@ -8,6 +8,7 @@ class MainPageLocators:
     MAIN_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
     MAIN_DICRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
     MAIN_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
+    MAIN_3D_TILT_ROTATE_BTN = (By.XPATH, "//div[@style='transform: rotateX(0rad);']")
 
 
 # class AuthLocators:

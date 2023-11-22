@@ -38,4 +38,4 @@ def random_num(start=1, end=10000):
     return str(num)
 
 
-screenshots_folder = os.path.abspath(f"C:\\Users\\agafo\\PycharmProjects\\pythonProject15\\screenshots\\")
+screenshots_folder = os.path.abspath("C:\\Users\\agafo\\PycharmProjects\\YandexMaps\\screens")

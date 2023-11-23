@@ -16,7 +16,7 @@ class MainPage(BasePage):
         self.tilt_rotate_3D_btn = driver.find_element(*MainPageLocators.MAIN_3D_TILT_ROTATE_BTN)
         self.current_geo_btn = driver.find_element(*MainPageLocators.MAIN_MY_GEO_BTN)
         self.incrise_view_size = driver.find_element(*MainPageLocators.MAIN_INCRISE_VIEW_SIZE)
-        self.dicrise_view_size = driver.find_element(*MainPageLocators.MAIN_DICRISE_VIEW_SIZE)
+        self.decrease_view_size = driver.find_element(*MainPageLocators.MAIN_DICRISE_VIEW_SIZE)
 
     def enter_searching_address(self, value):
         self.search_field.send_keys(value)
@@ -46,16 +46,16 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-    def decrise_map_size(self, amount="low"):
+    def decrease_map_size(self, amount="low"):
         if amount == "low":
-            self.dicrise_view_size.click()
+            self.decrease_view_size.click()
         elif amount == "medium":
-            self.dicrise_view_size.click()
-            self.dicrise_view_size.click()
+            self.decrease_view_size.click()
+            self.decrease_view_size.click()
         elif amount == "high":
-            self.dicrise_view_size.click()
-            self.dicrise_view_size.click()
-            self.dicrise_view_size.click()
+            self.decrease_view_size.click()
+            self.decrease_view_size.click()
+            self.decrease_view_size.click()
         else:
             raise Exception(
                 f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"

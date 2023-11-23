@@ -9,10 +9,3 @@ class MainPageLocators:
     MAIN_DICRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
     MAIN_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
     MAIN_3D_TILT_ROTATE_BTN = (By.XPATH, "//div[@style='transform: rotateX(0rad);']")
-
-
-# class AuthLocators:
-#     AUTH_EMAIL = (By.ID, "email")
-#     AUTH_PASS = (By.ID, "pass")
-#     AUTH_BTN = (By.CLASS_NAME, "btn-success")
-#     AUTH_ALERT_MSG = (By.XPATH, "//div[@role='alert']")

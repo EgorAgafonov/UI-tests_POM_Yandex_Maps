@@ -12,13 +12,13 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
         page.clear_search_field()
         page.enter_searching_address("Поклонная гора, Москва")
         page.submit_search_btn_click()
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
         page.incrise_map_size(amount="low")
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
         parsed_toponyms_name = page.get_toponym_descript(driver)
         page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
@@ -33,9 +33,9 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.decrise_map_size(amount="medium")
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
+        page.decrease_map_size(amount="medium")
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
 
     @pytest.mark.map_size
@@ -47,14 +47,14 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
         page.incrise_map_size(amount="high")
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
-        page.decrise_map_size()
-        page.decrise_map_size(amount="high")
-        page.wait_page_loaded()
+        page.decrease_map_size()
+        page.decrease_map_size(amount="high")
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
 
         if True:
@@ -62,10 +62,7 @@ class TestMapPagePositive:
 
     @pytest.mark.tilt_rotate
     def test_3D_tilt_rotate_btn_click(self, driver):
-        """Позитивный тест проверки работы кнопки "Моё местоположение", по нажатию определяющую текущую геолокацию
-        пользователя. Тестирование выполняется без предварительной авторизации пользователя в системе. Валидация теста
-        выполнена успешно в случае, если фактическое местонахождение пользователя в момент теста (МО, г. Видное)
-        совпадает с местом, отображаемом на карте после нажатия на кнопку "Моё местоположение"."""
+        """Позитивный тест проверки работы кнопки  . Валидация теста выполнена успешно в случае, если."""
 
         page = MainPage(driver)
         page.wait_page_loaded()

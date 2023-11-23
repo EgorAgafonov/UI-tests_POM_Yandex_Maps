@@ -2,9 +2,15 @@ from urllib.parse import urlparse
 from settings import screenshots_folder
 from colorama import Style, Fore
 import time
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import json
+
+driver = webdriver.Chrome()
+driver.find_elements(By.XPATH, '//img')
+
 
 
 class BasePage(object):
@@ -66,7 +72,7 @@ class BasePage(object):
         return source
 
     def wait_page_loaded(self, timeout=60, check_js_complete=True,
-                         check_page_changes=True, check_images=True,
+                         check_page_changes=True, check_images=False,
                          wait_for_element=None,
                          wait_for_xpath_to_disappear='',
                          sleep_time=2):
@@ -148,3 +154,63 @@ class BasePage(object):
 
         # Go up:
         self.driver.execute_script('window.scrollTo(document.body.scrollHeight, 0);')
+
+
+    # # Методы open page, wait_for_animation, wait_for_ajax_loading в рамках текущего проекта неактивны (не используются)
+    #
+    # def open_page(self, driver, url):
+    #     """ This is advanced function which also checks that all images completely loaded. """
+    #
+    #     driver.get(url)
+    #
+    #     page_loaded = False
+    #     images_loaded = False
+    #
+    #     script = ("return arguments[0].complete && typeof arguments[0].natural"
+    #               "Width != \"undefined\" && arguments[0].naturalWidth > 0")
+    #
+    #     # Wait until page loaded (and scroll it, to make sure all objects will be loaded):
+    #     while not page_loaded and not images_loaded:
+    #         time.sleep(1)
+    #
+    #         # Scroll down and wait when page will be loaded:
+    #         driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+    #         page_loaded = driver.execute_script("return document.readyState == 'complete';")
+    #
+    #         # Make sure that every image loaded completely
+    #         # (sometimes we have to scroll to the image to push browser upload it):
+    #         pictures = driver.find_elements(By.XPATH, '//img')
+    #         res = []
+    #
+    #         for image in pictures:
+    #             src = image.get_attribute('src')
+    #             if src:
+    #                 # Scroll down to each image on the page:
+    #                 image.location_once_scrolled_into_view
+    #                 driver.execute_script("window.scrollTo(0, 155)")
+    #
+    #                 image_ready = driver.execute_script(script, image)
+    #
+    #                 if not image_ready:
+    #                     # if the image not ready, give it a try to load and check again:
+    #                     time.sleep(5)
+    #                     image_ready = driver.execute_script(script, image)
+    #
+    #                 res.append(image_ready)
+    #
+    #         # Check that every image loaded and has some width > 0:
+    #         images_loaded = False not in res
+    #
+    #     # Go up:
+    #     driver.execute_script('window.scrollTo(document.body.scrollHeight, 0);')
+    #
+    # def wait_for_animation(self, driver, selector):
+    #     """Waits until jQuery animations have finished for the given jQuery  selector."""
+    #
+    #     WebDriverWait(driver, 10).until(lambda driver: driver.execute_script('return jQuery(%s).is(":animated")'
+    #                                                                          % json.dumps(selector)) == False)
+    #
+    # def wait_for_ajax_loading(self, driver, class_name):
+    #     """Waits until the ajax loading indicator disappears."""
+    #
+    #     WebDriverWait(driver, 10).until(lambda driver: len(driver.find_elements(By.CLASS_NAME, class_name)) == 0)

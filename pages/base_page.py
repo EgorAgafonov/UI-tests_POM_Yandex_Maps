@@ -8,10 +8,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import json
 
-driver = webdriver.Chrome()
-driver.find_elements(By.XPATH, '//img')
-
-
 
 class BasePage(object):
     """Базовый(родительский) класс веб-страницы. Определяет основные методы взаимодействия со страницами в рамках
@@ -71,20 +67,16 @@ class BasePage(object):
 
         return source
 
-    def wait_page_loaded(self, timeout=60, check_js_complete=True,
-                         check_page_changes=True, check_images=False,
-                         wait_for_element=None,
-                         wait_for_xpath_to_disappear='',
-                         sleep_time=2):
-        """ This function waits until the page will be completely loaded.
-            We use many different ways to detect is page loaded or not:
+    def wait_page_loaded(self, timeout=60, check_js_complete=True, check_page_changes=True, check_images=False,
+                         wait_for_element=None, wait_for_xpath_to_disappear='', sleep_time=2):
 
-            1) Check JS status
-            2) Check modification in source code of the page
-            3) Check that all images uploaded completely
-               (Note: this check is disabled by default)
-            4) Check that expected elements presented on the page
-        """
+        """ This function waits until the page will be completely loaded. We use many ways to detect is page loaded or
+        not:
+        1) Check JS status
+        2) Check modification in source code of the page
+        3) Check that all images uploaded completely
+           (Note: this check is disabled by default)
+        4) Check that expected elements presented on the page."""
 
         page_loaded = False
         double_check = False

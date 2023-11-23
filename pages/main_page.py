@@ -1,5 +1,6 @@
+from selenium.webdriver import ActionChains
 from pages.base_page import BasePage
-from pages.locators import MainPageLocators
+from pages.locators import MapPageLocators
 import os
 
 
@@ -11,12 +12,13 @@ class MainPage(BasePage):
     def __init__(self, driver, timeout=10):
         super().__init__(driver, timeout)
 
-        self.search_field = driver.find_element(*MainPageLocators.MAIN_SEARCH_FIELD)
-        self.submit_search_btn = driver.find_element(*MainPageLocators.MAIN_SUBMIT_SEARCH_BTN)
-        self.tilt_rotate_3D_btn = driver.find_element(*MainPageLocators.MAIN_3D_TILT_ROTATE_BTN)
-        self.current_geo_btn = driver.find_element(*MainPageLocators.MAIN_MY_GEO_BTN)
-        self.incrise_view_size = driver.find_element(*MainPageLocators.MAIN_INCRISE_VIEW_SIZE)
-        self.decrease_view_size = driver.find_element(*MainPageLocators.MAIN_DICRISE_VIEW_SIZE)
+        self.search_field = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
+        self.submit_search_btn = driver.find_element(*MapPageLocators.MAP_SUBMIT_SEARCH_BTN)
+        self.current_geo_btn = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
+        self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
+        self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+        self.switch_to_3D_map_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
+        self.rotate_3D_map_ring = driver.find_element(*MapPageLocators.MAP_ROTATE_RING_CONTROLLER)
 
     def enter_searching_address(self, value):
         self.search_field.send_keys(value)
@@ -63,9 +65,17 @@ class MainPage(BasePage):
                 f"\n'low', 'medium' или 'high'")
 
     def get_toponym_descript(self, driver):
-        parsed_toponym = driver.find_element(*MainPageLocators.MAIN_TOPONYM_DESCRIPTION).text
+        parsed_toponym = driver.find_element(*MapPageLocators.MAP_TOPONYM_DESCRIPTION).text
         return parsed_toponym
 
-    def tilt_rotate_3D_btn_click(self):
-        self.tilt_rotate_3D_btn.click()
+    def switch_to_3D_map_click(self):
+        self.switch_to_3D_map_btn.click()
+
+    # def rotate_3D_map_ring(self, x_offset=-20, y_offset=0):
+    #     clickable = self.rotate_3D_map_ring
+    #     ActionChains(driver=self.driver) \
+    #         .move_to_element_with_offset(clickable, 8, 0)\
+    #         .click_and_hold(clickable) \
+    #         .move_by_offset(x_offset, y_offset) \
+    #         .perform()
 

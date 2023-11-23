@@ -1,6 +1,12 @@
+import time
+
 import pytest
 from pages.main_page import MainPage
 from settings import *
+from selenium.webdriver import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestMapPagePositive:
@@ -12,13 +18,13 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.clear_search_field()
         page.enter_searching_address("Поклонная гора, Москва")
         page.submit_search_btn_click()
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.incrise_map_size(amount="low")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         parsed_toponyms_name = page.get_toponym_descript(driver)
         page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
@@ -61,16 +67,34 @@ class TestMapPagePositive:
             print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
 
     @pytest.mark.tilt_rotate
-    def test_3D_tilt_rotate_btn_click(self, driver):
+    def test_3D_map_btn_click(self, driver):
         """Позитивный тест проверки работы кнопки  . Валидация теста выполнена успешно в случае, если."""
 
         page = MainPage(driver)
-        page.wait_page_loaded()
+        page.my_current_geoloc_btn_click()
+        page.incrise_map_size(amount="high")
+        page.wait_page_loaded(check_images=True)
+        page.switch_to_3D_map_click()
+        page.wait_page_loaded(check_images=True)
+        page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+
+    @pytest.mark.tilt_rotate
+    def test_rotate_3D_map(self, driver):
+        """Позитивный тест проверки работы кнопки  . Валидация теста выполнена успешно в случае, если."""
+
+        page = MainPage(driver)
         page.my_current_geoloc_btn_click()
         page.incrise_map_size(amount="high")
         page.wait_page_loaded()
-        page.tilt_rotate_3D_btn_click()
+        page.switch_to_3D_map_click()
         page.wait_page_loaded()
-        # page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
+        tilt_ring = driver.find_element(By.XPATH, "body/div[1]/div[2]/nav[1]/div[6]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/div[1]")
+        tilt_ring.click()
+        time.sleep(3)
+        # action = ActionChains(driver)
+        # action.double_click(clickable). \
+        #     pause(2).click_and_hold(on_element=clickable).perform()
+
+
 
 

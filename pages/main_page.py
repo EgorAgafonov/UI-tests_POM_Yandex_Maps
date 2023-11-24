@@ -71,11 +71,4 @@ class MainPage(BasePage):
     def switch_to_3D_map_click(self):
         self.switch_to_3D_map_btn.click()
 
-    # def rotate_3D_map_ring(self, x_offset=-20, y_offset=0):
-    #     clickable = self.rotate_3D_map_ring
-    #     ActionChains(driver=self.driver) \
-    #         .move_to_element_with_offset(clickable, 8, 0)\
-    #         .click_and_hold(clickable) \
-    #         .move_by_offset(x_offset, y_offset) \
-    #         .perform()
-
+   

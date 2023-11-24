@@ -9,5 +9,8 @@ class MapPageLocators:
     MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
     MAP_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.XPATH, "//div[@class ='map-tilt-rotate-control__tilt']")
-    MAP_ROTATE_RING_CONTROLLER = (By.XPATH, "//div[@class ='map-tilt-rotate-control__ring']")
+    MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@aria-label='Построить маршрут']")
+    MAP_ROUTE_BY_CAR_BTN = (By.XPATH, "//div[@aria-label='На автомобиле']")
+    MAP_ROUTE_FROM_WHERE_FIELD = (By.XPATH, "//input[@placeholder='Откуда']")
+
 

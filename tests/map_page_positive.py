@@ -1,5 +1,4 @@
 import time
-
 import pytest
 from pages.main_page import MainPage
 from settings import *
@@ -18,6 +17,8 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
+        page.wait_page_loaded()
+        page.refresh_page()
         page.wait_page_loaded()
         page.clear_search_field()
         page.enter_searching_address("Поклонная гора, Москва")
@@ -66,7 +67,7 @@ class TestMapPagePositive:
         if True:
             print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
 
-    @pytest.mark.tilt_rotate
+    @pytest.mark.map_3D_click
     def test_3D_map_btn_click(self, driver):
         """Позитивный тест проверки работы кнопки  . Валидация теста выполнена успешно в случае, если."""
 
@@ -78,9 +79,14 @@ class TestMapPagePositive:
         page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
 
-    @pytest.mark.tilt_rotate
     def test_build_route_by_car(self, driver):
-        page.
+        page = MainPage(driver)
+        page.wait_page_loaded()
+        driver.find_element(By.XPATH, "//a[@class='button _view_search _size_medium _link']").click()
+        time.sleep(3)
+        # page.route_by_car_btn_click()
+        # page.enter_departure_address(value="МО, г. Видное, улица Школьная, дом 77")
+        # time.sleep(3)
 
 
 

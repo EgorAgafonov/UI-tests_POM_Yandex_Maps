@@ -40,9 +40,9 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.decrease_map_size(amount="medium")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
 
     @pytest.mark.map_size
@@ -54,14 +54,14 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
         page.incrise_map_size(amount="high")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
         page.decrease_map_size()
         page.decrease_map_size(amount="high")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
 
         if True:
@@ -74,9 +74,9 @@ class TestMapPagePositive:
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
         page.incrise_map_size(amount="high")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.switch_to_3D_map_click()
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
 
     def test_build_route_by_car(self, driver):

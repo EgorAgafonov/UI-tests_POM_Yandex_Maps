@@ -85,12 +85,24 @@ class TestMapPagePositive:
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
         page.incrise_map_size(amount="high")
+        # page.wait_page_loaded()
+        # page.switch_to_3D_map_click()
         page.wait_page_loaded()
-        page.switch_to_3D_map_click()
-        page.wait_page_loaded()
-        tilt_ring = driver.find_element(By.XPATH, "body/div[1]/div[2]/nav[1]/div[6]/div[1]/div[2]/div[3]/div[1]/div[1]/div[2]/div[1]")
-        tilt_ring.click()
-        time.sleep(3)
+
+        WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='map-tilt-rotate-control__ring']"))).click()
+
+        # element = driver.find_element(By.XPATH, "//div[@class='map-tilt-rotate-control__ring']").click()
+        # driver.execute_script("arguments[0].click();", element)
+
+        # WebDriverWait(driver, 20).until(EC.invisibility_of_element((By.XPATH, "//div[@class='map-tilt-rotate-control__tilt']")))
+        # WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, "//div[@class='map-tilt-rotate-control__ring']"))).click()
+
+        # WebDriverWait(driver, 20).until(EC.invisibility_of_element((By.XPATH, "//div[@class='map-tilt-rotate-control__tilt']")))
+        # driver.execute_script("arguments[0].click();", WebDriverWait(driver, 20).until(
+        #     EC.element_to_be_clickable((By.XPATH, "//span[@class='map-tilt-rotate-control__ring']"))))
+
+        time.sleep(1)
+
         # action = ActionChains(driver)
         # action.double_click(clickable). \
         #     pause(2).click_and_hold(on_element=clickable).perform()

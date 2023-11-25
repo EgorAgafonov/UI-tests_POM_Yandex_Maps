@@ -78,12 +78,11 @@ class TestMapPagePositive:
 
     def test_build_route_by_car(self, driver):
         page = MainPage(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_page_changes=True)
+        page.switch_to_3D_map_click()
+        page.wait_page_loaded(check_page_changes=True)
         page.build_route_btn_click()
         time.sleep(2)
-        page.wait_page_loaded(wait_for_element=page.build_route_btn)
-        # page.enter_departure_address(value="МО, г. Видное, улица Школьная, дом 77")
-        # time.sleep(3)
 
 
 

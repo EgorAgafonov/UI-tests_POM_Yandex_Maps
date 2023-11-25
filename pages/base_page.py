@@ -12,8 +12,6 @@ class BasePage(object):
     проектирования UI-тестов по паттерну PageObjectModel. Создан для наследования последующими классами веб-страниц,
     в свою очередь, содержащих методы управления элементами каждой конкретной страницы сайта https://www.mvideo.ru/."""
 
-    driver = None
-
     def __init__(self, driver, url):
         self.driver = driver
         self.url = url

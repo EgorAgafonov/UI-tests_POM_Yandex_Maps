@@ -8,8 +8,7 @@ class MapPageLocators:
     MAP_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
     MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
     MAP_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
-    MAP_SWITCH_TO_3D_MAP_BTN = (By.XPATH, "//div[@class ='map-tilt-rotate-control__tilt']")
-    MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@aria-label='Построить маршрут']")
-    # MAP_DEPARTURE_ADDRESS_FIELD = (By.XPATH, "//*[@id='c01a9f48-9468-42e8-9ada-d68de9340a11']")
+    MAP_SWITCH_TO_3D_MAP_BTN = (By.XPATH, "//div[@class='map-tilt-rotate-control__tilt']")
+    MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@title='Построить маршрут']")
 
 

@@ -19,7 +19,6 @@ class MainPage(BasePage):
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
         self.switch_to_3D_map_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
         self.build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
-        # self.input_departure_address = driver.find_element(*MapPageLocators.MAP_DEPARTURE_ADDRESS_FIELD)
 
     def enter_searching_address(self, value):
         self.search_field.send_keys(value)

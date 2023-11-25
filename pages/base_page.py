@@ -2,11 +2,9 @@ from urllib.parse import urlparse
 from settings import screenshots_folder
 from colorama import Style, Fore
 import time
-from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import json
 
 
 class BasePage(object):

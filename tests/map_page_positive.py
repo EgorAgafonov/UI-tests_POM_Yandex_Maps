@@ -64,7 +64,9 @@ class TestMapPagePositive:
 
     @pytest.mark.map_3D_click
     def test_3D_map_btn_click(self, driver):
-        """Позитивный тест проверки работы кнопки  . Валидация теста выполнена успешно в случае, если."""
+        """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
+        после воздействия на контроллер изображение карты меняется с плоского вида "сверху" на режим "наклона" с
+        трехмерным отображением объектов (3D-режим)."""
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
@@ -77,9 +79,8 @@ class TestMapPagePositive:
     def test_build_route_by_car(self, driver):
         page = MainPage(driver)
         page.wait_page_loaded()
-        driver.find_element(By.XPATH, "//a[@class='button _view_search _size_medium _link']").click()
-        time.sleep(3)
-        # page.route_by_car_btn_click()
+        page.build_route_btn_click()
+        page.wait_page_loaded()
         # page.enter_departure_address(value="МО, г. Видное, улица Школьная, дом 77")
         # time.sleep(3)
 

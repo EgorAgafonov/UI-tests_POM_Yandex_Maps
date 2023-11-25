@@ -16,10 +16,9 @@ class BasePage(object):
 
     driver = None
 
-    def __init__(self, driver, url, timeout=10):
+    def __init__(self, driver, url):
         self.driver = driver
         self.url = url
-        self.driver.implicitly_wait(timeout)
 
     def get_relative_link(self):
         url = urlparse(self.driver.current_url)

@@ -2,10 +2,7 @@ import time
 import pytest
 from pages.main_page import MainPage
 from settings import *
-from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 
 class TestMapPagePositive:
@@ -17,8 +14,6 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded()
-        page.refresh_page()
         page.wait_page_loaded()
         page.clear_search_field()
         page.enter_searching_address("Поклонная гора, Москва")

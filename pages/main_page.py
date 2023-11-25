@@ -18,9 +18,9 @@ class MainPage(BasePage):
         self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
         self.switch_to_3D_map_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
-        self.build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
-        self.route_by_car_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CAR_BTN)
-        self.input_departure_address = driver.find_element(*MapPageLocators.MAP_ROUTE_FROM_WHERE_FIELD)
+        # self.build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
+        # self.route_by_car_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CAR_BTN)
+        # self.input_departure_address = driver.find_element(*MapPageLocators.MAP_ROUTE_FROM_WHERE_FIELD)
 
     def enter_searching_address(self, value):
         self.search_field.send_keys(value)
@@ -72,15 +72,15 @@ class MainPage(BasePage):
 
     def switch_to_3D_map_click(self):
         self.switch_to_3D_map_btn.click()
-
-    def build_route_btn_click(self):
-        self.build_route_btn.click()
-
-    def route_by_car_btn_click(self):
-        self.route_by_car_btn.click()
-
-    def enter_departure_address(self, value):
-        self.input_departure_address.send_keys(value)
+    #
+    # def build_route_btn_click(self):
+    #     self.build_route_btn.click()
+    #
+    # def route_by_car_btn_click(self):
+    #     self.route_by_car_btn.click()
+    #
+    # def enter_departure_address(self, value):
+    #     self.input_departure_address.send_keys(value)
 
 
 

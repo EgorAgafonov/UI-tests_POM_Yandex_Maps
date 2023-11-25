@@ -80,7 +80,8 @@ class TestMapPagePositive:
         page = MainPage(driver)
         page.wait_page_loaded()
         page.build_route_btn_click()
-        page.wait_page_loaded()
+        time.sleep(2)
+        page.wait_page_loaded(wait_for_element=page.build_route_btn)
         # page.enter_departure_address(value="МО, г. Видное, улица Школьная, дом 77")
         # time.sleep(3)
 

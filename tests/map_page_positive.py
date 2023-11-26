@@ -70,6 +70,7 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
+        page.wait_page_loaded()
         page.incrise_map_size(amount="high")
         page.wait_page_loaded()
         page.switch_to_3D_map_click()
@@ -82,6 +83,7 @@ class TestMapPagePositive:
         page.switch_to_3D_map_click()
         page.wait_page_loaded(check_page_changes=True)
         page.build_route_btn_click()
+        page.wait_page_loaded(check_page_changes=True)
         time.sleep(2)
 
 

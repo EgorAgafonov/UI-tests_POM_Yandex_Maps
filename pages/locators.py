@@ -10,7 +10,7 @@ class MapPageLocators:
     MAP_TOPONYM_DESCRIPTION = (By.XPATH, "//ul/li[1]/div/div/div/div[2]/div[1]/div[1]")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@title='Построить маршрут']")
-    # MAP_DEPARTURES_ADDRESS_FILED = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
-    # MAP_DESTINATION_ADDRESS_FILED = (By.CSS_SELECTOR, "input[placeholder='Куда']")
+    MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
+    MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
 
 

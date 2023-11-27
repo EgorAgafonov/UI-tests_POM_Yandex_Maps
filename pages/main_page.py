@@ -1,4 +1,5 @@
 from selenium.webdriver import ActionChains
+from selenium.webdriver import Keys
 from pages.base_page import BasePage
 from pages.locators import MapPageLocators
 import os
@@ -17,11 +18,6 @@ class MainPage(BasePage):
         self.current_geo_btn = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
         self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
-
-
-        # self.departures_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FILED)
-        # self.destination_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FILED)
-
 
     def enter_searching_address(self, value):
         self.search_field.send_keys(value)
@@ -72,18 +68,22 @@ class MainPage(BasePage):
         return parsed_toponym
 
     def switch_to_3D_map_click(self, driver):
-        switch_to_3D_map_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN).click()
-        return switch_to_3D_map_btn
+        map_3D_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
+        map_3D_btn.click()
 
     def build_route_btn_click(self, driver):
-        build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN).click()
-        return build_route_btn
+        build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
+        build_route_btn.click()
 
-    # def enter_departure_address(self, value):
-    #     self.departures_address.send_keys(value)
-    #
-    # def enter_destination_address(self, value):
-    #     self.destination_address.send_keys(value)
+    def enter_departure_address(self, driver, value):
+        departures_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
+        departures_address.send_keys(value)
+        departures_address.send_keys(Keys.ENTER)
+        # ActionChains(driver).send_keys_to_element(departures_address, Keys.ENTER).perform()
 
+    def enter_destination_address(self, driver, value):
+        destination_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
+        destination_address.send_keys(value)
+        destination_address.submit()
 
 

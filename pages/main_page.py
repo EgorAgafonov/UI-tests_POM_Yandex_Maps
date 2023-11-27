@@ -78,12 +78,20 @@ class MainPage(BasePage):
     def enter_departure_address(self, driver, value):
         departures_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
         departures_address.send_keys(value)
-        departures_address.send_keys(Keys.ENTER)
-        # ActionChains(driver).send_keys_to_element(departures_address, Keys.ENTER).perform()
+        ActionChains(driver).send_keys_to_element(departures_address, Keys.ENTER).perform()
 
     def enter_destination_address(self, driver, value):
         destination_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
         destination_address.send_keys(value)
-        destination_address.submit()
+        ActionChains(driver).send_keys_to_element(destination_address, Keys.ENTER).perform()
+
+    def check_all_variants_of_arrivals(self, driver):
+        all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL)
+        list_of_arrivals = []
+        for i in range(len(all_arrivals)):
+            arrival_time = all_arrivals[i].text
+            list_of_arrivals.append(arrival_time)
+        return list_of_arrivals
+
 
 

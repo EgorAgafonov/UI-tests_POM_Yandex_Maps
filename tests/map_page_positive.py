@@ -1,8 +1,9 @@
 import time
+import colorama
 import pytest
 from pages.main_page import MainPage
 from settings import *
-from selenium.webdriver.common.by import By
+from colorama import Fore, Style
 
 
 class TestMapPagePositive:
@@ -14,9 +15,10 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(wait_for_element=page.search_field)
-        page.clear_search_field()
-        page.enter_searching_address("Поклонная гора, Москва")
+        page.wait_page_loaded()
+        page.incrise_map_size(amount="low")
+        page.wait_page_loaded()
+        page.enter_searching_address("Москва, Поклонная гора")
         page.submit_search_btn_click()
         page.wait_page_loaded()
         page.incrise_map_size(amount="low")
@@ -86,11 +88,21 @@ class TestMapPagePositive:
         page.wait_page_loaded()
         page.build_route_btn_click(driver)
         page.wait_page_loaded()
-        page.enter_departure_address(driver, "Москва, ул. Ореховый бульвар, д. 14с3А")
+        page.enter_departure_address(driver, "Государственный историко-архитектурный художественный и ландшафтный "
+                                             "музей-заповедник Царицыно")
+        page.enter_destination_address(driver, "Музей-заповедник Коломенское")
+        page.decrease_map_size("medium")
         page.wait_page_loaded()
-        time.sleep(2)
-        # page.enter_destination_address(driver, "Москва, Каширское шоссе, д. 25")
-        # time.sleep(3)
+        result = page.check_all_variants_of_arrivals(driver)
+        if len(result) != 0:
+            page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+            colorama.init()
+            print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
+                                           f"построен.\nВремя в пути (все предложенные варианты): {result}")
+        else:
+            raise Exception(Style.DIM + Fore.RED +"\nОшибка! Маршрут не построен, список с вариантами маршрутов(а) по "
+                                                  "заданному пути отсутствует!\nОтразить ошибку в системе и создать "
+                                                  "баг-репорт!")
 
 
 

@@ -12,5 +12,6 @@ class MapPageLocators:
     MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@title='Построить маршрут']")
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
+    MAP_EXPECTED_TIME_OF_ARRIVAL = (By.CSS_SELECTOR, "div[class='auto-route-snippet-view__arrival']")
 
 

@@ -16,8 +16,6 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.wait_page_loaded()
-        page.incrise_map_size(amount="low")
-        page.wait_page_loaded()
         page.enter_searching_address("Москва, Поклонная гора")
         page.submit_search_btn_click()
         page.wait_page_loaded()
@@ -88,15 +86,14 @@ class TestMapPagePositive:
         page.wait_page_loaded()
         page.build_route_btn_click(driver)
         page.wait_page_loaded()
-        page.enter_departure_address(driver, "Государственный историко-архитектурный художественный и ландшафтный "
-                                             "музей-заповедник Царицыно")
+        page.enter_departure_address(driver, "Музей-заповедник Царицыно")
         page.enter_destination_address(driver, "Музей-заповедник Коломенское")
         page.decrease_map_size("medium")
         page.wait_page_loaded()
         result = page.check_all_variants_of_arrivals(driver)
+
         if len(result) != 0:
             page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
-            colorama.init()
             print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
                                            f"построен.\nВремя в пути (все предложенные варианты): {result}")
         else:

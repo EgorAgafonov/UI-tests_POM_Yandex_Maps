@@ -1,5 +1,4 @@
 import time
-import colorama
 import pytest
 from pages.main_page import MainPage
 from settings import *
@@ -15,12 +14,14 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_page_changes=True)
+        page.incrise_map_size(amount="medium")
+        page.wait_page_loaded(check_page_changes=True)
         page.enter_searching_address("Москва, Поклонная гора")
         page.submit_search_btn_click()
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_page_changes=True)
         page.incrise_map_size(amount="low")
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_page_changes=True)
         parsed_toponyms_name = page.get_toponym_descript(driver)
         page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
@@ -70,18 +71,20 @@ class TestMapPagePositive:
         трехмерным отображением объектов (3D-режим)."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
+        page.wait_page_loaded()
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(wait_for_element=page.incrise_view_size)
-        page.incrise_map_size(amount="high")
-        page.wait_page_loaded(check_page_changes=True)
+        page.wait_page_loaded()
+        page.decrease_map_size(amount="low")
+        page.wait_page_loaded()
         page.switch_to_3D_map_click(driver)
         page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
 
+    @pytest.mark.build_route
     def test_build_route_by_car(self, driver):
         page = MainPage(driver)
         page.wait_page_loaded()
+        page.incrise_map_size("low")
         page.switch_to_3D_map_click(driver)
         page.wait_page_loaded()
         page.build_route_btn_click(driver)

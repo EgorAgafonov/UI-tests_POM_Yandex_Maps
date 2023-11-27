@@ -14,7 +14,7 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(wait_for_element=page.search_field)
         page.clear_search_field()
         page.enter_searching_address("Поклонная гора, Москва")
         page.submit_search_btn_click()
@@ -34,10 +34,11 @@ class TestMapPagePositive:
         совпадает с местом, отображаемом на карте после нажатия на кнопку "Моё местоположение"."""
 
         page = MainPage(driver)
+        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
+        page.wait_page_loaded(wait_for_element=page.decrease_view_size)
         page.decrease_map_size(amount="medium")
-        page.wait_page_loaded()
+        page.wait_page_loaded(wait_for_element=page.incrise_view_size)
         page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
 
     @pytest.mark.map_size
@@ -69,23 +70,27 @@ class TestMapPagePositive:
         трехмерным отображением объектов (3D-режим)."""
 
         page = MainPage(driver)
+        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
+        page.wait_page_loaded(wait_for_element=page.incrise_view_size)
         page.incrise_map_size(amount="high")
-        page.wait_page_loaded()
-        page.switch_to_3D_map_click()
+        page.wait_page_loaded(check_page_changes=True)
+        page.switch_to_3D_map_click(driver)
         page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
 
     def test_build_route_by_car(self, driver):
         page = MainPage(driver)
         page.wait_page_loaded(check_page_changes=True)
-        page.switch_to_3D_map_click()
+        page.switch_to_3D_map_click(driver)
         page.wait_page_loaded(check_page_changes=True)
-        page.build_route_btn_click()
+        page.build_route_btn_click(driver)
         page.wait_page_loaded(check_page_changes=True)
         time.sleep(2)
-
+        # page.wait_page_loaded(wait_for_element=page.departures_address)
+        # page.enter_departure_address("Москва, ул. Ореховый бульвар, д. 14с3А")
+        # page.wait_page_loaded(wait_for_element=page.destination_address)
+        # page.enter_destination_address("Москва, Каширское шоссе, д. 25")
 
 
 

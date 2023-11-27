@@ -12,9 +12,10 @@ class BasePage(object):
     проектирования UI-тестов по паттерну PageObjectModel. Создан для наследования последующими классами веб-страниц,
     в свою очередь, содержащих методы управления элементами каждой конкретной страницы сайта https://www.mvideo.ru/."""
 
-    def __init__(self, driver, url):
+    def __init__(self, driver, url, timeout=10):
         self.driver = driver
         self.url = url
+        self.timeout = timeout
 
     def get_relative_link(self):
         url = urlparse(self.driver.current_url)
@@ -127,7 +128,7 @@ class BasePage(object):
             if page_loaded and wait_for_element:
                 try:
                     page_loaded = WebDriverWait(self.driver, 0.1).until(
-                        EC.element_to_be_clickable(wait_for_element._locator)
+                        EC.element_to_be_clickable(wait_for_element.locator)
                     )
                 except:
                     pass  # Ignore timeout errors
@@ -142,8 +143,8 @@ class BasePage(object):
         # Go up:
         self.driver.execute_script('window.scrollTo(document.body.scrollHeight, 0);')
 
-
-    # # Методы open page, wait_for_animation, wait_for_ajax_loading в рамках текущего проекта неактивны (не используются)
+    # # Методы open page, wait_for_animation, wait_for_ajax_loading в рамках текущего проекта неактивны (не
+    # используются)
     #
     # def open_page(self, driver, url):
     #     """ This is advanced function which also checks that all images completely loaded. """

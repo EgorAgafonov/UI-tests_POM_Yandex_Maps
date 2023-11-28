@@ -9,8 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class BasePage(object):
     """Базовый(родительский) класс веб-страницы. Определяет основные методы взаимодействия со страницами в рамках
-    проектирования UI-тестов по паттерну PageObjectModel. Создан для наследования последующими классами веб-страниц,
-    в свою очередь, содержащих методы управления элементами каждой конкретной страницы сайта https://www.mvideo.ru/."""
+    проектирования UI-тестов по паттерну PageObjectModel."""
 
     def __init__(self, driver, url, timeout=10):
         self.driver = driver
@@ -18,10 +17,13 @@ class BasePage(object):
         self.timeout = timeout
 
     def get_relative_link(self):
+        """Метод для получения из URL-адреса текущей страницы значения параметра path. Необходим для валидации
+        тестов при переходе на другие path-директории(эндпоинты) в тестируемом домене."""
         url = urlparse(self.driver.current_url)
         return url.path
 
     def refresh_page(self):
+        """Метод обновления(перезагрузки) страницы."""
         self.driver.refresh()
 
     def make_screenshot(self, file_path=screenshots_folder):
@@ -67,8 +69,8 @@ class BasePage(object):
     def wait_page_loaded(self, timeout=60, check_js_complete=True, check_page_changes=False, check_images=False,
                          wait_for_element=None, wait_for_xpath_to_disappear='', sleep_time=2):
 
-        """ Метод для реализации гибкой стратегии ожидания появления элементов тестируемой страницы. Возможно задать
-        следующее количество аргументов(маркеров) для определения полной загрузки:
+        """ Метод для реализации гибкой стратегии ожидания появления элементов страницы. Возможно задать следующее
+        количество аргументов(маркеров) для определения полной загрузки:
         1) Проверка JavaScript статуса страницы;
         2) Проверка изменений в исходном коде страницы;
         3) Проверка загрузки изображений на странице;

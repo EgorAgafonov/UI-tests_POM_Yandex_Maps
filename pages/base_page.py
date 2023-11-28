@@ -25,6 +25,7 @@ class BasePage(object):
         self.driver.refresh()
 
     def make_screenshot(self, file_path=screenshots_folder):
+        """Метод сохранения изображения на экране в момент выполнения теста."""
         self.driver.save_screenshot(file_path)
 
     def scroll_down(self, offset=0):
@@ -66,13 +67,13 @@ class BasePage(object):
     def wait_page_loaded(self, timeout=60, check_js_complete=True, check_page_changes=False, check_images=False,
                          wait_for_element=None, wait_for_xpath_to_disappear='', sleep_time=2):
 
-        """ This function waits until the page will be completely loaded. We use many ways to detect is page loaded or
-        not:
-        1) Check JS status
-        2) Check modification in source code of the page
-        3) Check that all images uploaded completely
-           (Note: this check is disabled by default)
-        4) Check that expected elements presented on the page."""
+        """ Метод для реализации гибкой стратегии ожидания появления элементов тестируемой страницы. Возможно задать
+        следующее количество аргументов(маркеров) для определения полной загрузки:
+        1) Проверка JavaScript статуса страницы;
+        2) Проверка изменений в исходном коде страницы;
+        3) Проверка загрузки изображений на странице;
+           (ВАЖНО: эта проверка отключена по умолчанию);
+        4) Проверка загрузки конкретного элемента страницы, ожидаемого пользователем."""
 
         page_loaded = False
         double_check = False

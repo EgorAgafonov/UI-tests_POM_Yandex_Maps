@@ -14,18 +14,14 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_page_changes=True)
-        page.incrise_map_size(amount="medium")
-        page.wait_page_loaded(check_page_changes=True)
-        page.enter_searching_address("Москва, Поклонная гора")
-        page.submit_search_btn_click()
-        page.wait_page_loaded(check_page_changes=True)
-        page.incrise_map_size(amount="low")
-        page.wait_page_loaded(check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
+        page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
+        page.switch_to_3D_map_click(driver)
+        page.wait_page_loaded(check_images=True)
         parsed_toponyms_name = page.get_toponym_descript(driver)
         page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
-        assert "Поклонная" in parsed_toponyms_name
+        assert "космонавтики" in parsed_toponyms_name
 
     @pytest.mark.geoloc
     def test_current_geoloc_btn_click(self, driver):
@@ -51,14 +47,14 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
         page.incrise_map_size(amount="high")
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
-        page.decrease_map_size()
+        page.wait_page_loaded(check_images=True)
         page.decrease_map_size(amount="high")
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
 
         if True:
@@ -71,28 +67,25 @@ class TestMapPagePositive:
         трехмерным отображением объектов (3D-режим)."""
 
         page = MainPage(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
         page.decrease_map_size(amount="low")
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
 
     @pytest.mark.build_route
     def test_build_route_by_car(self, driver):
         page = MainPage(driver)
-        page.wait_page_loaded()
-        page.incrise_map_size("low")
-        page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.build_route_btn_click(driver)
-        page.wait_page_loaded()
+        page.wait_page_loaded(check_images=True)
         page.enter_departure_address(driver, "Музей-заповедник Царицыно")
         page.enter_destination_address(driver, "Музей-заповедник Коломенское")
-        page.decrease_map_size("medium")
-        page.wait_page_loaded()
+        page.decrease_map_size("low")
+        page.switch_to_3D_map_click(driver)
+        page.wait_page_loaded(check_images=True)
         result = page.check_all_variants_of_arrivals(driver)
 
         if len(result) != 0:

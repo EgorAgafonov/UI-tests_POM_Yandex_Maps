@@ -13,20 +13,14 @@ class MainPage(BasePage):
     def __init__(self, driver, timeout=10):
         super().__init__(driver, timeout)
 
-        self.search_field = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
-        self.submit_search_btn = driver.find_element(*MapPageLocators.MAP_SUBMIT_SEARCH_BTN)
         self.current_geo_btn = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
         self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
 
-    def enter_searching_address(self, value):
-        self.search_field.send_keys(value)
-
-    def clear_search_field(self):
-        self.search_field.clear()
-
-    def submit_search_btn_click(self):
-        self.submit_search_btn.click()
+    def enter_searching_address(self, driver, value: str):
+        address = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
+        ActionChains(driver).send_keys_to_element(address, value).pause(2).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
+            .perform()
 
     def my_current_geoloc_btn_click(self):
         self.current_geo_btn.click()
@@ -76,14 +70,14 @@ class MainPage(BasePage):
         build_route_btn.click()
 
     def enter_departure_address(self, driver, value):
-        departures_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
-        departures_address.send_keys(value)
-        ActionChains(driver).send_keys_to_element(departures_address, Keys.ENTER).perform()
+        dep_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
+        ActionChains(driver).send_keys_to_element(dep_address, value).pause(2).send_keys(Keys.DOWN).send_keys\
+            (Keys.ENTER).perform()
 
     def enter_destination_address(self, driver, value):
-        destination_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
-        destination_address.send_keys(value)
-        ActionChains(driver).send_keys_to_element(destination_address, Keys.ENTER).perform()
+        dest_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
+        ActionChains(driver).send_keys_to_element(dest_address, value).pause(2).send_keys(Keys.DOWN).send_keys\
+            (Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals(self, driver):
         all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL)
@@ -92,6 +86,3 @@ class MainPage(BasePage):
             arrival_time = all_arrivals[i].text
             list_of_arrivals.append(arrival_time)
         return list_of_arrivals
-
-
-

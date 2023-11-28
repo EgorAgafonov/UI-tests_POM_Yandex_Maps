@@ -77,6 +77,12 @@ class TestMapPagePositive:
 
     @pytest.mark.build_route
     def test_build_route_by_car(self, driver):
+        """Позитивный тест проверки создания на карте маршрута для поездки на автомобиле. Указываются адреса места
+        отправления и назначения, после чего система строит оптимальный/один из оптимальных маршрутов и отображает его
+        на карте. Валидация теста выполнена успешно, если построенный маршрут отображается на карте, стек карточек с
+        вариантами маршрутов (в зависимости от времени в пути до конечной точки) не пустой и содержит информацию о
+        времени прибытия по указанному адресу. """
+
         page = MainPage(driver)
         page.wait_page_loaded(check_images=True)
         page.build_route_btn_click(driver)
@@ -91,7 +97,7 @@ class TestMapPagePositive:
         if len(result) != 0:
             page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
             print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
-                                           f"построен.\nВремя в пути (все предложенные варианты): {result}")
+                                           f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
         else:
             raise Exception(Style.DIM + Fore.RED +"\nОшибка! Маршрут не построен, список с вариантами маршрутов(а) по "
                                                   "заданному пути отсутствует!\nОтразить ошибку в системе и создать "

@@ -12,5 +12,6 @@ class MapPageLocators:
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
     MAP_EXPECTED_TIME_OF_ARRIVAL = (By.CSS_SELECTOR, "div[class='auto-route-snippet-view__arrival']")
+    MAP_TRAFFIC_BTN = (By.CSS_SELECTOR, "a[aria-label='Пробки в Москве']")
 
 

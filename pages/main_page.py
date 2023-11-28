@@ -16,6 +16,7 @@ class MainPage(BasePage):
         self.current_geo_btn = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
         self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+        self.traffic_btn = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
 
     def enter_searching_address(self, driver, value: str):
         address = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
@@ -86,3 +87,6 @@ class MainPage(BasePage):
             arrival_time = all_arrivals[i].text
             list_of_arrivals.append(arrival_time)
         return list_of_arrivals
+
+    def traffic_btn_click(self):
+        self.traffic_btn.click()

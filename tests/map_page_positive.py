@@ -92,7 +92,6 @@ class TestMapPagePositive:
         page.wait_page_loaded(check_images=True)
         page.enter_departure_address(driver, "Музей-заповедник Царицыно")
         page.enter_destination_address(driver, "Музей-заповедник Коломенское")
-        page.decrease_map_size("low")
         page.switch_to_3D_map_click(driver)
         page.wait_page_loaded(check_images=True)
         result = page.check_all_variants_of_arrivals(driver)
@@ -102,17 +101,29 @@ class TestMapPagePositive:
             print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
                                            f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
         else:
-            raise Exception(Style.DIM + Fore.RED +"\nОшибка! Маршрут не построен, список с вариантами маршрутов(а) по "
-                                                  "заданному пути отсутствует!\nОтразить ошибку в системе и создать "
-                                                  "баг-репорт!")
+            raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а) по "
+                                                   "заданному пути отсутствует!\nОтразить ошибку в системе и создать "
+                                                   "баг-репорт!")
 
     @pytest.mark.traffic
     def test_traffic_btn_click(self, driver):
         """Позитивный тест проверки нажатия кнопки "Дорожная ситуация", отображающей на карте текущую ситуацию на
         дорогах города. Валидация теста выполнена успешно в случае, если после воздействия на контроллер на
         дорогах города отображается текущая плотность трафика с обозначением "зеленых", "красных", "оранжевых" зон
-        (степень загруженности участка дороги)."""
+        (степень загруженности участка дороги), контроллер кнопки отображает индекс загруженности по шкале 1/10."""
 
-        
+        page = MainPage(driver)
+        page.wait_page_loaded(check_images=True)
+        page.enter_searching_address(driver, "Москва, Садовое кольцо")
+        page.wait_page_loaded(check_images=True)
+        page.switch_to_3D_map_click(driver)
+        result = page.traffic_btn_click(driver)
+        page.wait_page_loaded(check_images=True)
 
-
+        if result:
+            page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
+            print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!")
+        else:
+            raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Трафик на карте не отображается, контроллер кнопки "
+                                                   f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку в "
+                                                   f"системе и создать баг-репорт!")

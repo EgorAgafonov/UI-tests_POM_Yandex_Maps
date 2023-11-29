@@ -1,4 +1,3 @@
-import time
 import pytest
 from pages.main_page import MainPage
 from settings import *
@@ -6,7 +5,7 @@ from colorama import Fore, Style
 
 
 class TestMapPagePositive:
-    """Класс с коллекцией позитивных UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
+    """Класс с коллекцией UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
 
     @pytest.mark.search_address
     def test_search_address_positive(self, driver):
@@ -140,7 +139,7 @@ class TestMapPagePositive:
 
         page = MainPage(driver)
         page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.enter_searching_address(driver, "Москва, см. метро Домодедовская")
+        page.enter_searching_address(driver, "Москва, ст. метро Домодедовская")
         page.wait_page_loaded(check_images=True)
         page.switch_to_3D_map_click(driver)
         result = page.city_transprt_btn_click(driver)

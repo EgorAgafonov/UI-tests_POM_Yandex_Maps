@@ -18,14 +18,20 @@ class MainPage(BasePage):
         self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
 
     def enter_searching_address(self, driver, value: str):
+        """Поиск топонима на веб-платформе Яндекс.Карты. Передает в поле поиска название(адрес) искомого объекта и
+        подтверждает действие."""
+
         address = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
         ActionChains(driver).send_keys_to_element(address, value).pause(2).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
             .perform()
 
     def my_current_geoloc_btn_click(self):
+        """Осуществляет нажатие кнопки 'Моё местоположение' на веб-карте."""
         self.current_geo_btn.click()
 
     def incrise_map_size(self, amount="low"):
+        """Осуществляет нажатие кнопки 'Приблизить' на карте. Для выбора кратности увеличения масштаба карты можно
+        задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
         if amount == "low":
             self.incrise_view_size.click()
         elif amount == "medium":
@@ -42,6 +48,9 @@ class MainPage(BasePage):
                 f"\n'low', 'medium' или 'high'")
 
     def decrease_map_size(self, amount="low"):
+        """Осуществляет нажатие кнопки 'Отдалить' на карте. Для выбора кратности увеличения масштаба карты можно
+                задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
+
         if amount == "low":
             self.decrease_view_size.click()
         elif amount == "medium":

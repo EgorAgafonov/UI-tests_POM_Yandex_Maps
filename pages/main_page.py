@@ -48,8 +48,8 @@ class MainPage(BasePage):
                 f"\n'low', 'medium' или 'high'")
 
     def decrease_map_size(self, amount="low"):
-        """Осуществляет нажатие кнопки 'Отдалить' на карте. Для выбора кратности увеличения масштаба карты можно
-                задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
+        """Осуществляет нажатие кнопки 'Отдалить' на карте. Для выбора кратности уменьшения масштаба карты можно задать
+        значение аргумента amount равным: 'low', 'medium' или 'high'."""
 
         if amount == "low":
             self.decrease_view_size.click()
@@ -67,28 +67,44 @@ class MainPage(BasePage):
                 f"\n'low', 'medium' или 'high'")
 
     def get_toponym_descript(self, driver):
+        """Метод для получения(парсинга) названия топонима, отображаемого системой после его поиска на карте. Необходим
+        для валидации теста."""
+
         parsed_toponym = driver.find_element(*MapPageLocators.MAP_TOPONYM_DESCRIPTION).text
         return parsed_toponym
 
     def switch_to_3D_map_click(self, driver):
+        """Осуществляет нажатие кнопки 'Наклонить карту' для перехода в режим изометрического(3D) отображения карты."""
+
         map_3D_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
         map_3D_btn.click()
 
     def build_route_btn_click(self, driver):
+        """Осуществляет нажатие кнопки 'Маршруты' для создания пользовательского маршрута на карте."""
+
         build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
         build_route_btn.click()
 
     def enter_departure_address(self, driver, value):
+        """Создание начальной точки маршрута. Через аргумент value передает в поле ввода на карте название(адрес) точки
+        отправления и подтверждает действие."""
+
         dep_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
         ActionChains(driver).send_keys_to_element(dep_address, value).pause(1).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def enter_destination_address(self, driver, value):
+        """Создание конечной точки маршрута. Через аргумент value передает в поле ввода на карте название(адрес)
+        места назначения и подтверждает действие."""
+
         dest_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
         ActionChains(driver).send_keys_to_element(dest_address, value).pause(1).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals(self, driver):
+        """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
+        Формирует список расчетного времени по всем вариантам маршрутов. Необходим для валидации теста."""
+
         all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL)
         list_of_arrivals = []
         for i in range(len(all_arrivals)):

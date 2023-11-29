@@ -16,8 +16,9 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(check_page_changes=True)
         page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
+        page.wait_page_loaded(check_images=True)
         page.switch_to_3D_map_click(driver)
         page.wait_page_loaded(check_images=True)
         parsed_toponyms_name = page.get_toponym_descript(driver)
@@ -87,13 +88,15 @@ class TestMapPagePositive:
         времени прибытия по указанному адресу. """
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(wait_for_element=page.current_geo_btn, check_images=True)
         page.build_route_btn_click(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(check_page_changes=True)
         page.enter_departure_address(driver, "Музей-заповедник Царицыно")
+        page.wait_page_loaded(check_page_changes=True)
         page.enter_destination_address(driver, "Музей-заповедник Коломенское")
+        page.wait_page_loaded(check_page_changes=True)
         page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(check_page_changes=True)
         result = page.check_all_variants_of_arrivals(driver)
 
         if len(result) != 0:

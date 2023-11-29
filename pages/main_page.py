@@ -71,12 +71,12 @@ class MainPage(BasePage):
 
     def enter_departure_address(self, driver, value):
         dep_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
-        ActionChains(driver).send_keys_to_element(dep_address, value).pause(1).send_keys(Keys.DOWN).send_keys\
+        ActionChains(driver).send_keys_to_element(dep_address, value).pause(1).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def enter_destination_address(self, driver, value):
         dest_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
-        ActionChains(driver).send_keys_to_element(dest_address, value).pause(1).send_keys(Keys.DOWN).send_keys\
+        ActionChains(driver).send_keys_to_element(dest_address, value).pause(1).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals(self, driver):
@@ -87,7 +87,8 @@ class MainPage(BasePage):
             list_of_arrivals.append(arrival_time)
         return list_of_arrivals
 
-    def traffic_btn_click(self, driver):
+    @staticmethod
+    def traffic_btn_click(driver):
         traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
         return traffic

@@ -10,7 +10,7 @@ class MapPageLocators:
     MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
     MAP_TOPONYM_DESCRIPTION = (By.CSS_SELECTOR, "a[class='card-title-view__title-link']")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
-    MAP_BUILD_ROUTE_BTN = (By.XPATH, "//a[@title='Построить маршрут']")
+    MAP_BUILD_ROUTE_BTN = (By.CSS_SELECTOR, "a[aria-label='Построить маршрут']")
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
     MAP_EXPECTED_TIME_OF_ARRIVAL = (By.CSS_SELECTOR, "div[class='auto-route-snippet-view__arrival']")

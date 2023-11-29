@@ -130,3 +130,26 @@ class TestMapPagePositive:
             raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Трафик на карте не отображается, контроллер кнопки "
                                                    f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку в "
                                                    f"системе и создать баг-репорт!")
+
+    @pytest.mark.city_trans
+    def test_city_trans_btn_click(self, driver):
+        """Позитивный тест проверки нажатия кнопки "Движущийся транспорт", отображающей на карте местоположение
+        городского общественного транспорта с номером маршрута. Валидация теста выполнена успешно в случае, если
+        после воздействия на контроллер кнопки, на карте отображаются иконки движущегося в реальном времени
+        общественного транспорта с указанием маршрута."""
+
+        page = MainPage(driver)
+        page.wait_page_loaded(check_images=True, check_page_changes=True)
+        page.enter_searching_address(driver, "Москва, см. метро Домодедовская")
+        page.wait_page_loaded(check_images=True)
+        page.switch_to_3D_map_click(driver)
+        result = page.city_transprt_btn_click(driver)
+        page.wait_page_loaded(check_images=True)
+
+        if result:
+            page.make_screenshot(file_path=screenshots_folder + "\\test_city_trans_btn_click.png")
+            print(Style.DIM + Fore.GREEN + f"\n Тест test_city_transprt_btn_click выполнен успешно!")
+        else:
+            raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не отображаются,"
+                                                   f" контроллер кнопки 'Движущийся транспорт' не активен/не работает."
+                                                   f"\nОтразить ошибку в системе и создать баг-репорт!")

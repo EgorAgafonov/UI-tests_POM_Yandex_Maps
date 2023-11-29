@@ -87,8 +87,12 @@ class MainPage(BasePage):
             list_of_arrivals.append(arrival_time)
         return list_of_arrivals
 
-    @staticmethod
-    def traffic_btn_click(driver):
+    def traffic_btn_click(self, driver):
         traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
         return traffic
+
+    def city_transprt_btn_click(self, driver):
+        transport = driver.find_element(*MapPageLocators.MAP_CITY_TRANSPORT)
+        transport.click()
+        return transport

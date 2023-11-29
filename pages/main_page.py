@@ -113,11 +113,17 @@ class MainPage(BasePage):
         return list_of_arrivals
 
     def traffic_btn_click(self, driver):
+        """Осуществляет нажатие кнопки 'Дорожная ситуация' для отображения на карте уровня загруженности дорог(пробок) и
+        дорожной обстановки."""
+
         traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
         return traffic
 
     def city_transprt_btn_click(self, driver):
+        """Осуществляет нажатие кнопки 'Движущийся транспорт' для отображения на карте движущихся единиц общественного
+        транспорта с указанными маршрутными номерами."""
+
         transport = driver.find_element(*MapPageLocators.MAP_CITY_TRANSPORT)
         transport.click()
         return transport

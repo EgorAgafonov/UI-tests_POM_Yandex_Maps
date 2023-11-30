@@ -17,7 +17,7 @@ def duration_of_test(request):
                                                     f"{end_time - start_time} сек.")
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture()
 def driver():
     """Pytest-фикстура(декоратор) для выполнения UI-тестов, спроектированных с помощью паттерна PageObjectModel и
     фреймворка Selenium в рамках тестирования платформы "Yandex Карты". Определяет setup-настройки перед началом

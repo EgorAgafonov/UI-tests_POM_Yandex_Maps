@@ -15,7 +15,7 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_page_changes=True)
+        page.wait_page_loaded(check_images=True)
         page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
         page.wait_page_loaded(check_images=True)
         page.switch_to_3D_map_click(driver)
@@ -119,6 +119,7 @@ class TestMapPagePositive:
         page.enter_searching_address(driver, "Москва, Садовое кольцо")
         page.wait_page_loaded(check_images=True)
         page.switch_to_3D_map_click(driver)
+        page.wait_page_loaded(check_images=True)
         result = page.traffic_btn_click(driver)
         page.wait_page_loaded(check_images=True)
 

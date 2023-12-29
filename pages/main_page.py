@@ -66,7 +66,8 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-    def get_toponym_descript(self, driver):
+    @staticmethod
+    def get_toponym_descript(driver):
         """Метод для получения(парсинга) названия топонима, отображаемого системой после его поиска на карте. Необходим
         для валидации теста."""
 

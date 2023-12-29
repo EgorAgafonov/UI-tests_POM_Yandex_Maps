@@ -15,12 +15,13 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(check_page_changes=True, check_images=True)
         page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded(check_page_changes=True, check_images=True)
         page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded(check_images=True)
-        parsed_toponyms_name = page.get_toponym_descript(driver)
+        page.incrise_map_size()
+        page.wait_page_loaded(check_page_changes=True, check_images=True)
+        parsed_toponyms_name = MainPage.get_toponym_descript(driver)
         page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
         assert "космонавтики" in parsed_toponyms_name

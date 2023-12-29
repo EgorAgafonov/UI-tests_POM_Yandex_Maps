@@ -8,7 +8,7 @@ class MapPageLocators:
     MAP_MY_GEOLOC_BTN = (By.XPATH, "//button[@aria-label='Моё местоположение']")
     MAP_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
     MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
-    MAP_TOPONYM_DESCRIPTION = (By.CSS_SELECTOR, "a[class='card-title-view__title-link']")
+    MAP_TOPONYM_DESCRIPTION = (By.LINK_TEXT, "Музей космонавтики")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_BUILD_ROUTE_BTN = (By.CSS_SELECTOR, "a[aria-label='Построить маршрут']")
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")

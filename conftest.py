@@ -30,4 +30,4 @@ def driver():
     url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
     driver.get(url)
     yield driver
-    driver.quit()
+    # driver.quit()

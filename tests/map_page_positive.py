@@ -10,7 +10,7 @@ class TestMapPagePositive:
     """Класс с коллекцией UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
 
     @pytest.mark.search_address
-    @allure.title("Поиск адреса(топонима) на карте.")
+    @allure.title("Поиск адреса(топонима) на карте")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
@@ -33,7 +33,7 @@ class TestMapPagePositive:
             page.enter_searching_address(driver, toponyms_name)
             page.wait_page_loaded()
             page.switch_to_3D_map_click(driver)
-            page.incrise_map_size()
+            page.increase_map_size()
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_toponyms_name = page.get_toponym_descript(driver)
@@ -51,7 +51,7 @@ class TestMapPagePositive:
                 page.clear_searching_field(driver)
 
     @pytest.mark.geoloc
-    @allure.title("Определение геолокации пользователя на карте.")
+    @allure.title("Определение геолокации пользователя на карте")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-GLC-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
@@ -91,7 +91,7 @@ class TestMapPagePositive:
                               attachment_type=allure.attachment_type.PNG)
 
     @pytest.mark.map_size
-    @allure.title("Увеличение/уменьшение размера изображения карты.")
+    @allure.title("Увеличение/уменьшение размера изображения карты")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
@@ -129,16 +129,22 @@ class TestMapPagePositive:
             if True:
                 print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
             else:
-                print("\nОшибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить' и/или методов, "
-                      "определенных для указанных элементы.")
-
-
+                raise Exception('\nОшибка! Проверьте корректность локаторов элементов "Приблизить", "Отдалить".')
 
     @pytest.mark.map_3D_click
+    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-3DMD-01")
+    @allure.severity(allure.severity_level.NORMAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Проверка работы элемента 'Наклонить карту' (3D-режим карты)")
     def test_3D_map_btn_click(self, driver):
         """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
-        после воздействия на контроллер изображение карты меняется с плоского вида "сверху" на режим "наклона" с
-        трехмерным отображением объектов (3D-режим)."""
+        после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
+        "наклона" с трехмерным отображением объектов (3D-режим)."""
 
         page = MainPage(driver)
         page.wait_page_loaded(wait_for_element=page.current_geo_btn)

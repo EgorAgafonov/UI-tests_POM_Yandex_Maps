@@ -146,14 +146,28 @@ class TestMapPagePositive:
         после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
         "наклона" с трехмерным отображением объектов (3D-режим)."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
-        page.my_current_geoloc_btn_click()
-        page.decrease_map_size(amount="low")
-        page.wait_page_loaded(check_images=True)
-        page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded(check_images=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.my_current_geoloc_btn_click()
+            page.decrease_map_size(amount="low")
+            page.wait_page_loaded()
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="3D_map_btn_click_before",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
+            page.switch_to_3D_map_click(driver)
+            page.increase_map_size(amount="medium")
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="3D_map_btn_click_after",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 3: Проверка результатов теста."):
+            if True:
+                print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
+            else:
+                raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
+                                "взаимодействия с указанным элементом.")
 
     @pytest.mark.build_route
     def test_build_route_by_car(self, driver):

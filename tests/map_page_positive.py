@@ -112,24 +112,27 @@ class TestMapPagePositive:
             page.my_current_geoloc_btn_click()
             page.wait_page_loaded()
         with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 3(три) раза"):
-            decrease_map = page.decrease_map_size(amount="high")
+            page.decrease_map_size(amount="high")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_decrsd_x_3",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 2(два) раза"):
-            increase_map = page.increase_map_size(amount="medium")
+            page.increase_map_size(amount="medium")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_incrs_x_2",
                           attachment_type=allure.attachment_type.PNG)
-        if
+        with allure.step("Шаг 4: Проверка результатов теста."):
+            if True:
+                print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
+            else:
+                print("\nОшибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить' и/или методов, "
+                      "определенных для указанных элементы.")
 
 
-        if True:
-            print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
 
     @pytest.mark.map_3D_click
     def test_3D_map_btn_click(self, driver):

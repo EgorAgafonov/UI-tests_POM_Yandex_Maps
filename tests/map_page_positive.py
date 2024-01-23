@@ -10,7 +10,16 @@ class TestMapPagePositive:
     """Класс с коллекцией UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
 
     @pytest.mark.search_address
-    def test_search_address_positive(self, driver, toponyms_name="Москва, просп. Мира, 111, Музей космонавтики"):
+    @allure.title("Поиск адреса(топонима) на карте.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Поиск объекта(топонима) на карте по названию")
+    def test_search_address_positive(self, driver, toponyms_name="Москва, Музей космонавтики"):
         """Позитивный тест проверки поиска объекта(топонима) на карте по его названию. Валидация теста выполнена успешно
         в случае, если после ввода названия объекта в поле поиска и подтверждения действия, система определяет
         местоположение топонима на карте и фокусирует экран пользователя на искомом объекте. Искомый топоним
@@ -28,7 +37,7 @@ class TestMapPagePositive:
             page.incrise_map_size()
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
-            parsed_toponyms_name = MainPage.get_toponym_descript(driver)
+            parsed_toponyms_name = page.get_toponym_descript(driver)
             if "космонавтики" not in parsed_toponyms_name:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="search_address_FAILED",

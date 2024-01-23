@@ -15,16 +15,23 @@ class TestMapPagePositive:
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_page_changes=True, check_images=True)
+        page.wait_page_loaded()
         page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
-        page.wait_page_loaded(check_page_changes=True, check_images=True)
+        page.wait_page_loaded()
         page.switch_to_3D_map_click(driver)
         page.incrise_map_size()
-        page.wait_page_loaded(check_page_changes=True, check_images=True)
+        page.wait_page_loaded()
         parsed_toponyms_name = MainPage.get_toponym_descript(driver)
-        page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
 
-        assert "космонавтики" in parsed_toponyms_name
+        if "космонавтики" not in parsed_toponyms_name:
+            raise Exception("Названия(части названия) искомого топонима нет в результатах поиска системы!")
+        else:
+            page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
+            page.clear_searching_field(driver)
+            page.wait_page_loaded()
+            assert "космонавтики" in parsed_toponyms_name
+
+
 
     @pytest.mark.geoloc
     def test_current_geoloc_btn_click(self, driver):
@@ -34,11 +41,11 @@ class TestMapPagePositive:
         местом, отображаемом на карте после нажатия на кнопку "Моё местоположение"."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(wait_for_element=page.current_geo_btn)
+        page.wait_page_loaded()
         page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(wait_for_element=page.decrease_view_size)
+        page.wait_page_loaded()
         page.decrease_map_size(amount="medium")
-        page.wait_page_loaded(wait_for_element=page.incrise_view_size)
+        page.wait_page_loaded()
         page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
 
     @pytest.mark.map_size

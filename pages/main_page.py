@@ -25,6 +25,14 @@ class MainPage(BasePage):
         ActionChains(driver).send_keys_to_element(address, value).pause(2).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
             .perform()
 
+    def clear_searching_field(self, driver):
+        """Метод очищает поле поиска от текста после ввода названия искомого топонима посредством воздействия на элемент
+         'Закрыть' (крестик)."""
+
+        clear_search_field = driver.find_element(*MapPageLocators.MAP_CLEAR_FIELD_BTN)
+        clear_search_field.click()
+
+
     def my_current_geoloc_btn_click(self):
         """Осуществляет нажатие кнопки 'Моё местоположение' на веб-карте."""
         self.current_geo_btn.click()

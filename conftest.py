@@ -17,7 +17,7 @@ def duration_of_test(request):
                                                     f"{end_time - start_time} сек.")
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope='class')
 def driver():
     """Pytest-фикстура(декоратор) для выполнения UI-тестов, спроектированных с помощью паттерна PageObjectModel и
     фреймворка Selenium в рамках тестирования платформы "Yandex Карты". Определяет setup-настройки перед началом
@@ -30,4 +30,4 @@ def driver():
     url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
     driver.get(url)
     yield driver
-    # driver.quit()
+    driver.quit()

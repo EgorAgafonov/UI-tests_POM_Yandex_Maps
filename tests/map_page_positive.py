@@ -19,13 +19,13 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Поиск объекта(топонима) на карте по названию")
-    def test_search_address_positive(self, driver, toponyms_name="Москва, Музей космонавтики"):
+    def test_search_address_positive(self, driver, toponyms_name="Музей космонавтики"):
         """Позитивный тест проверки поиска объекта(топонима) на карте по его названию. Валидация теста выполнена успешно
         в случае, если после ввода названия объекта в поле поиска и подтверждения действия, система определяет
         местоположение топонима на карте и фокусирует экран пользователя на искомом объекте. Искомый топоним
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
-        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/.. и дождаться полной загрузки всех "
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех "
                          "элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
@@ -38,7 +38,7 @@ class TestMapPagePositive:
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_toponyms_name = page.get_toponym_descript(driver)
-            if "космонавтики" not in parsed_toponyms_name:
+            if toponyms_name not in parsed_toponyms_name:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="search_address_FAILED",
                               attachment_type=allure.attachment_type.PNG)
@@ -52,6 +52,15 @@ class TestMapPagePositive:
                 page.clear_searching_field(driver)
 
     @pytest.mark.geoloc
+    @allure.title("Определение геолокации пользователя на карте.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-GLC-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Определение текущей геолокации пользователя на карте")
     def test_current_geoloc_btn_click(self, driver, current_geoloc='Видное'):
         """Позитивный тест проверки работы кнопки "Моё местоположение", определяющую текущую геолокацию пользователя.
         Тестирование выполняется без предварительной авторизации пользователя в системе. Аргумент current_geoloc должен
@@ -59,8 +68,7 @@ class TestMapPagePositive:
         в момент теста. Валидация теста выполнена успешно в случае, если место фактического местонахождения пользователя
         совпадает с местом, отображаемом на карте."""
 
-        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/.. и дождаться полной загрузки всех "
-                         "элементов."):
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Нажать на элемент 'Моё местоположение'(стрелка геолокации)."):

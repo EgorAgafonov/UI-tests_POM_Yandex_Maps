@@ -45,7 +45,7 @@ class MainPage(BasePage):
         geoloc_name = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_NAME).text
         return geoloc_name
 
-    def incrise_map_size(self, amount="low"):
+    def increase_map_size(self, amount="low"):
         """Осуществляет нажатие кнопки 'Приблизить' на карте. Для выбора кратности увеличения масштаба карты можно
         задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
         if amount == "low":

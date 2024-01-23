@@ -25,8 +25,7 @@ class TestMapPagePositive:
         местоположение топонима на карте и фокусирует экран пользователя на искомом объекте. Искомый топоним
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
-        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех "
-                         "элементов."):
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step(f"Шаг 2: Ввести в поле поиска, выбрать из выпадающего списка название искомого топонима:\n"
@@ -92,6 +91,15 @@ class TestMapPagePositive:
                               attachment_type=allure.attachment_type.PNG)
 
     @pytest.mark.map_size
+    @allure.title("Увеличение/уменьшение размера изображения карты.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Проверка работы элементов увеличения/уменьшения размера карты")
     def test_change_map_size_btn_click(self, driver):
         """Позитивный тест проверки работы кнопок "Приблизить" "Отдалить", отвечающих за увеличение/уменьшение размера
         карты. Валидация теста выполнена успешно если после каждого воздействия на указанные контроллеры,
@@ -99,17 +107,26 @@ class TestMapPagePositive:
         Контроль теста определяется по скриншотам, сделанным в начальный момент, в момент увеличения и в момент
         уменьшения размера карты."""
 
-        page = MainPage(driver)
-        page.my_current_geoloc_btn_click()
-        page.wait_page_loaded(check_images=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_initial.png")
-        page.incrise_map_size(amount="high")
-        page.wait_page_loaded(check_images=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
-        page.wait_page_loaded(check_images=True)
-        page.decrease_map_size(amount="high")
-        page.wait_page_loaded(check_images=True)
-        page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.my_current_geoloc_btn_click()
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 3(три) раза"):
+            decrease_map = page.decrease_map_size(amount="high")
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="change_map_size_btn_decrsd_x_3",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 2(два) раза"):
+            increase_map = page.increase_map_size(amount="medium")
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="change_map_size_btn_incrs_x_2",
+                          attachment_type=allure.attachment_type.PNG)
+        if
+
 
         if True:
             print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")

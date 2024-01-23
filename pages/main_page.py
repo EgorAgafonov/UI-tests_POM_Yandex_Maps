@@ -37,6 +37,14 @@ class MainPage(BasePage):
         """Осуществляет нажатие кнопки 'Моё местоположение' на веб-карте."""
         self.current_geo_btn.click()
 
+    @staticmethod
+    def get_current_geoloc_name(driver):
+        """Метод для получения(парсинга) названия места текущей геолокации пользователя. Необходим для валидации
+        теста."""
+
+        geoloc_name = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_NAME).text
+        return geoloc_name
+
     def incrise_map_size(self, amount="low"):
         """Осуществляет нажатие кнопки 'Приблизить' на карте. Для выбора кратности увеличения масштаба карты можно
         задать значение аргумента amount равным: 'low', 'medium' или 'high'."""

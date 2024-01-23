@@ -2,51 +2,77 @@ import pytest
 from pages.main_page import MainPage
 from settings import *
 from colorama import Fore, Style
+import allure
+from allure_commons.types import LabelType
 
 
 class TestMapPagePositive:
     """Класс с коллекцией UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
 
     @pytest.mark.search_address
-    def test_search_address_positive(self, driver):
+    def test_search_address_positive(self, driver, toponyms_name="Москва, просп. Мира, 111, Музей космонавтики"):
         """Позитивный тест проверки поиска объекта(топонима) на карте по его названию. Валидация теста выполнена успешно
         в случае, если после ввода названия объекта в поле поиска и подтверждения действия, система определяет
         местоположение топонима на карте и фокусирует экран пользователя на искомом объекте. Искомый топоним
         (ожидаемый пользователем) совпадает с топонимом (результатом поиска), отображаемом на карте."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded()
-        page.enter_searching_address(driver, "Москва, просп. Мира, 111, Музей космонавтики")
-        page.wait_page_loaded()
-        page.switch_to_3D_map_click(driver)
-        page.incrise_map_size()
-        page.wait_page_loaded()
-        parsed_toponyms_name = MainPage.get_toponym_descript(driver)
-
-        if "космонавтики" not in parsed_toponyms_name:
-            raise Exception("Названия(части названия) искомого топонима нет в результатах поиска системы!")
-        else:
-            page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
-            page.clear_searching_field(driver)
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/.. и дождаться полной загрузки всех "
+                         "элементов."):
+            page = MainPage(driver)
             page.wait_page_loaded()
-            assert "космонавтики" in parsed_toponyms_name
-
-
+        with allure.step(f"Шаг 2: Ввести в поле поиска, выбрать из выпадающего списка название искомого топонима:\n"
+                         f"{toponyms_name}."):
+            page.enter_searching_address(driver, toponyms_name)
+            page.wait_page_loaded()
+            page.switch_to_3D_map_click(driver)
+            page.incrise_map_size()
+            page.wait_page_loaded()
+        with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
+            parsed_toponyms_name = MainPage.get_toponym_descript(driver)
+            if "космонавтики" not in parsed_toponyms_name:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="search_address_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                raise Exception("Названия(части названия) искомого топонима нет в результатах поиска системы!")
+            else:
+                assert "космонавтики" in parsed_toponyms_name
+                page.make_screenshot(file_path=screenshots_folder + "\\test_search_address_positive.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="search_address_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
 
     @pytest.mark.geoloc
-    def test_current_geoloc_btn_click(self, driver):
+    def test_current_geoloc_btn_click(self, driver, current_geoloc='Видное'):
         """Позитивный тест проверки работы кнопки "Моё местоположение", определяющую текущую геолокацию пользователя.
-        Тестирование выполняется без предварительной авторизации пользователя в системе. Валидация теста выполнена
-        успешно в случае, если фактическое местонахождение пользователя в момент теста (МО, г. Видное) совпадает с
-        местом, отображаемом на карте после нажатия на кнопку "Моё местоположение"."""
+        Тестирование выполняется без предварительной авторизации пользователя в системе. Аргумент current_geoloc должен
+        содержать строчное наименование города(населенного пункта) с заглавной буквы, в котором пользователь находится
+        в момент теста. Валидация теста выполнена успешно в случае, если место фактического местонахождения пользователя
+        совпадает с местом, отображаемом на карте."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded()
-        page.my_current_geoloc_btn_click()
-        page.wait_page_loaded()
-        page.decrease_map_size(amount="medium")
-        page.wait_page_loaded()
-        page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/.. и дождаться полной загрузки всех "
+                         "элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Нажать на элемент 'Моё местоположение'(стрелка геолокации)."):
+            page.my_current_geoloc_btn_click()
+            page.wait_page_loaded()
+            page.decrease_map_size(amount="high")
+            page.wait_page_loaded()
+            parsed_geoloc = page.get_current_geoloc_name(driver)
+        with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
+            if parsed_geoloc not in current_geoloc:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="current_geoloc_btn_click_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                raise Exception(f"ОШИБКА! Определенное системой место геолокации пользователя: '{parsed_geoloc}', не "
+                                f"совпадает с фактическим: '{current_geoloc}'.")
+            else:
+                assert parsed_geoloc in current_geoloc
+                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="current_geoloc_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
 
     @pytest.mark.map_size
     def test_change_map_size_btn_click(self, driver):

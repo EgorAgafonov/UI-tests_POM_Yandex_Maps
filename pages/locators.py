@@ -6,6 +6,7 @@ class MapPageLocators:
 
     MAP_SEARCH_FIELD = (By.XPATH, "//input[@placeholder='Поиск мест и адресов']")
     MAP_MY_GEOLOC_BTN = (By.XPATH, "//button[@aria-label='Моё местоположение']")
+    MAP_MY_GEOLOC_NAME = (By.CSS_SELECTOR, "h1[class='home-panel-content-view__header-text']")
     MAP_CLEAR_FIELD_BTN = (By.CSS_SELECTOR, "button[aria-label='Закрыть']")
     MAP_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
     MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")

@@ -30,6 +30,13 @@ class BasePage(object):
         """Метод сохранения изображения на экране в момент выполнения теста."""
         self.driver.save_screenshot(file_path)
 
+    def get_page_screenshot_PNG(self) -> bytes:
+        """Метод создает бинарный объект - скриншот текущей страницы в формате PNG, после чего возвращает его при
+        соответствующем вызове."""
+
+        screenshot_png = self.driver.get_screenshot_as_png()
+        return screenshot_png
+
     def scroll_down(self, offset=0):
         """Метод прокрутки страницы вниз."""
 

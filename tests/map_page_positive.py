@@ -129,12 +129,13 @@ class TestMapPagePositive:
             if True:
                 print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
             else:
-                raise Exception('\nОшибка! Проверьте корректность локаторов элементов "Приблизить", "Отдалить".')
+                raise Exception("\nОшибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
+                                "отразить ошибку в системе и создать баг-репорт.")
 
     @pytest.mark.map_3D_click
     @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-3DMD-01")
-    @allure.severity(allure.severity_level.NORMAL)
+    @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
     @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
     @allure.label("Агафонов Е.А.", "владелец")
@@ -162,41 +163,64 @@ class TestMapPagePositive:
             allure.attach(page.get_page_screenshot_PNG(),
                           name="3D_map_btn_click_after",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 3: Проверка результатов теста."):
+        with allure.step("Шаг 3: Выполнить проверку результатов теста."):
             if True:
                 print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
             else:
                 raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
-                                "взаимодействия с указанным элементом.")
+                                "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
+                                "баг-репорт")
 
     @pytest.mark.build_route
-    def test_build_route_by_car(self, driver):
+    @allure.title("Создание маршрута на карте ('Автомобиль')")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Построение маршрута  на карте для частного ТС по начальной и конечной точке.")
+    def test_build_route_by_car(self, driver, depart_point="Музей-заповедник Царицыно",
+                                destin_point="Музей-заповедник Коломенское"):
         """Позитивный тест проверки создания на карте маршрута для поездки на автомобиле. Указываются адреса места
-        отправления и назначения, после чего система строит оптимальный/один из оптимальных маршрутов и отображает его
-        на карте. Валидация теста выполнена успешно, если построенный маршрут отображается на карте, стек карточек с
-        вариантами маршрутов (в зависимости от времени в пути до конечной точки) не пустой и содержит информацию о
-        времени прибытия по указанному адресу."""
+        отправления и назначения (аргументы depart_point и destin_point), после чего система строит оптимальный/один из
+        оптимальных маршрутов и отображает его на карте. Валидация теста выполнена успешно, если построенный маршрут
+        отображается на карте, стек карточек с вариантами маршрутов (в зависимости от времени в пути до конечной точки)
+        не пустой и содержит информацию о времени прибытия по указанному адресу."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded(wait_for_element=page.current_geo_btn, check_images=True)
-        page.build_route_btn_click(driver)
-        page.wait_page_loaded(check_page_changes=True)
-        page.enter_departure_address(driver, "Музей-заповедник Царицыно")
-        page.wait_page_loaded(check_page_changes=True)
-        page.enter_destination_address(driver, "Музей-заповедник Коломенское")
-        page.wait_page_loaded(check_page_changes=True)
-        page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded(check_page_changes=True)
-        result = page.check_all_variants_of_arrivals(driver)
-
-        if len(result) != 0:
-            page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
-            print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
-                                           f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
-        else:
-            raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а) по "
-                                                   "заданному пути отсутствует!\nОтразить ошибку в системе и создать "
-                                                   "баг-репорт!")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Нажать на элемент 'Маршруты'."):
+            page.build_route_btn_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 3: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+                         "маршрута."):
+            page.enter_departure_address(driver, depart_point)
+            page.wait_page_loaded()
+        with allure.step("Шаг 4: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
+                         "маршрута."):
+            page.enter_destination_address(driver, destin_point)
+            page.wait_page_loaded()
+        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
+            page.switch_to_3D_map_click(driver)
+            page.wait_page_loaded()
+            result = page.check_all_variants_of_arrivals(driver)
+            if len(result) != 0:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="build_route_by_car_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
+                                               f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="build_route_by_car_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
+                                                       " по заданному пути отсутствует!\nОтразить ошибку в системе и "
+                                                       "создать баг-репорт!")
 
     @pytest.mark.traffic
     def test_traffic_btn_click(self, driver):
@@ -241,6 +265,7 @@ class TestMapPagePositive:
             page.make_screenshot(file_path=screenshots_folder + "\\test_city_trans_btn_click.png")
             print(Style.DIM + Fore.GREEN + f"\n Тест test_city_transprt_btn_click выполнен успешно!")
         else:
-            raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не отображаются,"
-                                                   f" контроллер кнопки 'Движущийся транспорт' не активен/не работает."
-                                                   f"\nОтразить ошибку в системе и создать баг-репорт!")
+            raise Exception(
+                Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не отображаются,"
+                                       f" контроллер кнопки 'Движущийся транспорт' не активен/не работает."
+                                       f"\nОтразить ошибку в системе и создать баг-репорт!")

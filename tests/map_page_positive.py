@@ -1,5 +1,4 @@
 import time
-
 import pytest
 from pages.main_page import MainPage
 from settings import *
@@ -255,7 +254,7 @@ class TestMapPagePositive:
         with allure.step("Шаг 3: Нажать на элемент 'Дорожная ситуация'."):
             result = page.traffic_btn_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 4: Выполнить проверку результатов теста."):
+        with allure.step("Шаг 4: Выполнить проверку результата теста."):
             if result:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
                 allure.attach(page.get_page_screenshot_PNG(),
@@ -271,29 +270,51 @@ class TestMapPagePositive:
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
                 raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Трафик на карте не отображается, контроллер кнопки "
-                                                       f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку в "
-                                                       f"системе и создать баг-репорт!")
+                                                       f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку "
+                                                       f"в системе и создать баг-репорт!")
 
     @pytest.mark.city_trans
-    def test_city_trans_btn_click(self, driver):
+    @allure.title("Отображение маршрутного транспорта на карте.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Отображение на дорогах города движущегося маршрутного транспорта.")
+    def test_city_trans_btn_click(self, driver, address="Москва, ст. метро Домодедовская"):
         """Позитивный тест проверки нажатия кнопки "Движущийся транспорт", отображающей на карте местоположение
-        городского общественного транспорта с номером маршрута. Валидация теста выполнена успешно в случае, если
+        городского общественного транспорта (ОТ) с номером маршрута. Валидация теста выполнена успешно в случае, если
         после воздействия на контроллер кнопки, на карте отображаются иконки движущегося в реальном времени
         общественного транспорта с указанием маршрута."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded(check_images=True, check_page_changes=True)
-        page.enter_searching_address(driver, "Москва, ст. метро Домодедовская")
-        page.wait_page_loaded(check_images=True)
-        page.switch_to_3D_map_click(driver)
-        result = page.city_transprt_btn_click(driver)
-        page.wait_page_loaded(check_images=True)
-
-        if result:
-            page.make_screenshot(file_path=screenshots_folder + "\\test_city_trans_btn_click.png")
-            print(Style.DIM + Fore.GREEN + f"\n Тест test_city_transprt_btn_click выполнен успешно!")
-        else:
-            raise Exception(
-                Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не отображаются,"
-                                       f" контроллер кнопки 'Движущийся транспорт' не активен/не работает."
-                                       f"\nОтразить ошибку в системе и создать баг-репорт!")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: В поле 'Поиск мест и адресов' указать адрес места с интересующим трафиком ОС."):
+            page.enter_searching_address(driver, address)
+            page.wait_page_loaded()
+        with allure.step("Шаг 3: Нажать на элемент 'Движущийся транспорт'."):
+            result = page.city_transprt_btn_click(driver)
+            page.switch_to_3D_map_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 4: Выполнить проверку результата теста."):
+            if result:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_city_trans_btn_click.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="city_trans_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                print(Style.DIM + Fore.GREEN + f"\n Тест test_city_transprt_btn_click выполнен успешно!")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="city_trans_btn_click_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не "
+                                                       f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
+                                                       f"активен/не работает.\nОтразить ошибку в системе и создать "
+                                                       f"баг-репорт!")

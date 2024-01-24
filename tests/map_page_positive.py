@@ -287,7 +287,7 @@ class TestMapPagePositive:
 
     @pytest.mark.city_trans
     @allure.title("Отображение маршрутного транспорта на карте.")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-CITYTRNS-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
     @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
@@ -295,7 +295,7 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Отображение на дорогах города движущегося маршрутного транспорта.")
-    def test_city_trans_btn_click(self, driver, address="Москва, ст. метро Домодедовская"):
+    def test_city_trans_btn_click(self, driver, random_address="Москва, ст. метро Домодедовская"):
         """Позитивный тест проверки нажатия кнопки "Движущийся транспорт", отображающей на карте местоположение
         городского общественного транспорта (ОТ) с номером маршрута. Валидация теста выполнена успешно в случае, если
         после воздействия на контроллер кнопки, на карте отображаются иконки движущегося в реальном времени
@@ -305,7 +305,7 @@ class TestMapPagePositive:
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: В поле 'Поиск мест и адресов' указать адрес места с интересующим трафиком ОС."):
-            page.enter_searching_address(driver, address)
+            page.enter_searching_address(driver, random_address)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на элемент 'Движущийся транспорт'."):
             result = page.city_transprt_btn_click(driver)

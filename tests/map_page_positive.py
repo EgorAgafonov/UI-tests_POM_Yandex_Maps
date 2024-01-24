@@ -223,6 +223,15 @@ class TestMapPagePositive:
                                                        "создать баг-репорт!")
 
     @pytest.mark.traffic
+    @allure.title("Отображение дорожной ситуации(пробки) на карте.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Отображение на карте текущей ситуации на дорогах города.")
     def test_traffic_btn_click(self, driver):
         """Позитивный тест проверки нажатия кнопки "Дорожная ситуация", отображающей на карте текущую ситуацию на
         дорогах города. Валидация теста выполнена успешно в случае, если после воздействия на контроллер на
@@ -230,13 +239,13 @@ class TestMapPagePositive:
         (степень загруженности участка дороги), контроллер кнопки отображает индекс загруженности по шкале 1/10."""
 
         page = MainPage(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.enter_searching_address(driver, "Москва, Садовое кольцо")
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
         result = page.traffic_btn_click(driver)
-        page.wait_page_loaded(check_images=True)
+        page.wait_page_loaded()
 
         if result:
             page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")

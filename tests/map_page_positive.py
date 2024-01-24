@@ -33,7 +33,6 @@ class TestMapPagePositive:
                          f"{toponyms_name}."):
             page.enter_searching_address(driver, toponyms_name)
             page.wait_page_loaded()
-            page.switch_to_3D_map_click(driver)
             page.increase_map_size(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
@@ -43,7 +42,6 @@ class TestMapPagePositive:
                               name="search_address_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
-                page.switch_off_3D_map_mode(driver)
                 raise Exception("Названия(части названия) искомого топонима нет в результатах поиска системы!")
             else:
                 assert "космонавтики" in parsed_toponyms_name
@@ -52,7 +50,6 @@ class TestMapPagePositive:
                               name="search_address_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
-                page.switch_off_3D_map_mode(driver)
                 print("\nВалидация теста test_search_address_positive выполнена успешно!")
 
     @pytest.mark.geoloc
@@ -82,15 +79,19 @@ class TestMapPagePositive:
             page.wait_page_loaded()
             page.decrease_map_size(driver, amount="high")
             page.wait_page_loaded()
-            parsed_geoloc = page.get_current_geoloc_name(driver)
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="current_geoloc_btn_click_actual",
+                          attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
+            parsed_geoloc = page.get_current_geoloc_name(driver)
             if parsed_geoloc == current_geoloc:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
+                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_PASSED.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="current_geoloc_btn_click_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 print("\nВалидация теста test_current_geoloc_btn_click выполнена успешно!")
             else:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_FAILED.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="current_geoloc_btn_click_FAILED",
                               attachment_type=allure.attachment_type.PNG)
@@ -107,7 +108,7 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка работы элементов увеличения/уменьшения размера карты")
-    def test_change_map_size_btn_click(self, driver):
+    def test_change_map_size_btn_click(self, driver, random_place="Москва, ст. метро Чистые пруды"):
         """Позитивный тест проверки работы кнопок "Приблизить" "Отдалить", отвечающих за увеличение/уменьшение размера
         карты. Валидация теста выполнена успешно если после каждого воздействия на указанные контроллеры,
         изображение карты пропорционально увеличивается и/или уменьшается в соответствии с действиями пользователя.
@@ -118,7 +119,7 @@ class TestMapPagePositive:
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 2(два) раза"):
-            page.enter_searching_address(driver, "Москва, ст. метро Чистые пруды")
+            page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
             page.decrease_map_size(driver, amount="medium")
             page.wait_page_loaded()
@@ -129,14 +130,11 @@ class TestMapPagePositive:
         with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 3(три) раза"):
             page.increase_map_size(driver, amount="medium")
             page.wait_page_loaded()
-            page.switch_to_3D_map_click(driver)
-            page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_incrs_x_3",
                           attachment_type=allure.attachment_type.PNG)
             page.clear_searching_field(driver)
-            page.switch_off_3D_map_mode(driver)
         with allure.step("Шаг 4: Проверка результатов теста."):
             if True:
                 print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
@@ -154,7 +152,7 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка работы элемента 'Наклонить карту' (3D-режим карты)")
-    def test_3D_map_btn_click(self, driver):
+    def test_3D_map_btn_click(self, driver, random_place="Москва, Музей советских игровых автоматов"):
         """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
         после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
         "наклона" с трехмерным отображением объектов (3D-режим)."""
@@ -162,20 +160,22 @@ class TestMapPagePositive:
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-            page.decrease_map_size(driver, amount='medium')
+            page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
             allure.attach(page.get_page_screenshot_PNG(),
                           name="3D_map_btn_click_before",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
-            page.switch_to_3D_map_click(driver)
-            page.wait_page_loaded()
             page.increase_map_size(driver)
+            page.wait_page_loaded()
+            page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="3D_map_btn_click_after",
                           attachment_type=allure.attachment_type.PNG)
+            page.switch_off_3D_map_mode(driver)
+            page.clear_searching_field(driver)
         with allure.step("Шаг 3: Выполнить проверку результатов теста."):
             if True:
                 print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")

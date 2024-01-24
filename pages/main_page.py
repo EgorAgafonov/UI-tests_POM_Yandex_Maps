@@ -96,6 +96,12 @@ class MainPage(BasePage):
         map_3D_btn = driver.find_element(*MapPageLocators.MAP_SWITCH_TO_3D_MAP_BTN)
         map_3D_btn.click()
 
+    def switch_off_3D_map_mode(self, driver):
+        """Осуществляет возврат из режима изометрического отображения карты(3D) обратно в 2D("вид сверху")."""
+
+        map_3D_btn_off = driver.find_element(*MapPageLocators.MAP_SWITCH_OFF_3D_MAP_BTN)
+        map_3D_btn_off.click()
+
     def build_route_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Маршруты' для создания пользовательского маршрута на карте."""
 

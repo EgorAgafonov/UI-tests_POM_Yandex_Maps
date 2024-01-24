@@ -204,26 +204,25 @@ class TestMapPagePositive:
         with allure.step("Шаг 4: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
                          "маршрута."):
             page.enter_destination_address(driver, destin_point)
-            page.wait_page_loaded()
-        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals(driver)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_PASSED",
                               attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
                 print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
                                                f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
-                page.clear_searching_field(driver)
-                page.switch_to_3D_map_click(driver)
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
-                page.switch_to_3D_map_click(driver)
+                page.switch_off_3D_map_mode(driver)
                 raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
                                                        " по заданному пути отсутствует!\nОтразить ошибку в системе и "
                                                        "создать баг-репорт!")
@@ -247,22 +246,33 @@ class TestMapPagePositive:
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 2: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
-                         "маршрута."):
+        with allure.step("Шаг 2: В поле 'Поиск мест и адресов' ввести название места с интересующей дорожной "
+                         "обстановкой"):
             page.enter_searching_address(driver, traffic_point)
             page.wait_page_loaded()
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 3: Нажать на элемент 'Дорожная ситуация'."):
             result = page.traffic_btn_click(driver)
             page.wait_page_loaded()
-
-        if result:
-            page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
-            print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!")
-        else:
-            raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Трафик на карте не отображается, контроллер кнопки "
-                                                   f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку в "
-                                                   f"системе и создать баг-репорт!")
+        with allure.step("Шаг 4: Выполнить проверку результатов теста."):
+            if result:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="traffic_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="traffic_btn_click_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Трафик на карте не отображается, контроллер кнопки "
+                                                       f"'Дорожная ситуация' не активен/не работает.\nОтразить ошибку в "
+                                                       f"системе и создать баг-репорт!")
 
     @pytest.mark.city_trans
     def test_city_trans_btn_click(self, driver):

@@ -76,9 +76,9 @@ class TestMapPagePositive:
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Нажать на элемент 'Моё местоположение'(стрелка геолокации)."):
-            page.refresh_page()
-            page.wait_page_loaded()
             page.my_current_geoloc_btn_click(driver)
+            page.wait_page_loaded()
+            page.refresh_page()
             page.wait_page_loaded()
             page.decrease_map_size(driver, amount="high")
             page.wait_page_loaded()
@@ -116,22 +116,27 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.my_current_geoloc_btn_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 3(три) раза"):
-            page.decrease_map_size(driver, amount="high")
+        with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 2(два) раза"):
+            page.enter_searching_address(driver, "Москва, ст. метро Чистые пруды")
+            page.wait_page_loaded()
+            page.decrease_map_size(driver, amount="medium")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),
-                          name="change_map_size_btn_decrsd_x_3",
+                          name="change_map_size_btn_decrsd_x_2",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 2(два) раза"):
+        with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 3(три) раза"):
             page.increase_map_size(driver, amount="medium")
+            page.wait_page_loaded()
+            page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
             allure.attach(page.get_page_screenshot_PNG(),
-                          name="change_map_size_btn_incrs_x_2",
+                          name="change_map_size_btn_incrs_x_3",
                           attachment_type=allure.attachment_type.PNG)
+            page.clear_searching_field(driver)
+            page.switch_off_3D_map_mode(driver)
         with allure.step("Шаг 4: Проверка результатов теста."):
             if True:
                 print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
@@ -156,15 +161,16 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.my_current_geoloc_btn_click(driver)
-            page.decrease_map_size(driver, amount="low")
+            page.wait_page_loaded()
+            page.decrease_map_size(driver, amount='medium')
             page.wait_page_loaded()
             allure.attach(page.get_page_screenshot_PNG(),
                           name="3D_map_btn_click_before",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
             page.switch_to_3D_map_click(driver)
-            page.increase_map_size(driver, amount="medium")
+            page.wait_page_loaded()
+            page.increase_map_size(driver)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
             allure.attach(page.get_page_screenshot_PNG(),

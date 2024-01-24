@@ -1,3 +1,5 @@
+import time
+
 import pytest
 from pages.main_page import MainPage
 from settings import *
@@ -214,13 +216,16 @@ class TestMapPagePositive:
                               attachment_type=allure.attachment_type.PNG)
                 print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
                                                f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
+                page.clear_searching_field(driver)
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_FAILED",
                               attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
                 raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
                                                        " по заданному пути отсутствует!\nОтразить ошибку в системе и "
                                                        "создать баг-репорт!")
+
 
     @pytest.mark.traffic
     @allure.title("Отображение дорожной ситуации(пробки) на карте.")
@@ -232,15 +237,16 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Отображение на карте текущей ситуации на дорогах города.")
-    def test_traffic_btn_click(self, driver):
+    def test_traffic_btn_click(self, driver, traffic_point="Москва, Садовое кольцо"):
         """Позитивный тест проверки нажатия кнопки "Дорожная ситуация", отображающей на карте текущую ситуацию на
         дорогах города. Валидация теста выполнена успешно в случае, если после воздействия на контроллер на
         дорогах города отображается текущая плотность трафика с обозначением "зеленых", "красных", "оранжевых" зон
         (степень загруженности участка дороги), контроллер кнопки отображает индекс загруженности по шкале 1/10."""
 
-        page = MainPage(driver)
-        page.wait_page_loaded()
-        page.enter_searching_address(driver, "Москва, Садовое кольцо")
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        page.enter_searching_address(driver, )
         page.wait_page_loaded()
         page.switch_to_3D_map_click(driver)
         page.wait_page_loaded()

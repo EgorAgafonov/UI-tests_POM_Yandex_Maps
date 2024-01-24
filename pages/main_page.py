@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver import ActionChains
 from selenium.webdriver import Keys
 from pages.base_page import BasePage
@@ -12,10 +14,6 @@ class MainPage(BasePage):
 
     def __init__(self, driver, timeout=10):
         super().__init__(driver, timeout)
-
-        self.current_geo_btn = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
-        self.incrise_view_size = driver.find_element(*MapPageLocators.MAP_INCRISE_VIEW_SIZE)
-        self.decrease_view_size = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
 
     def enter_searching_address(self, driver, value: str):
         """Поиск топонима на веб-платформе Яндекс.Карты. Передает в поле поиска название(адрес) искомого объекта и
@@ -32,10 +30,11 @@ class MainPage(BasePage):
         clear_search_field = driver.find_element(*MapPageLocators.MAP_CLEAR_FIELD_BTN)
         clear_search_field.click()
 
-
-    def my_current_geoloc_btn_click(self):
+    def my_current_geoloc_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Моё местоположение' на веб-карте."""
-        self.current_geo_btn.click()
+
+        curent_geoloc = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_BTN)
+        curent_geoloc.click()
 
     @staticmethod
     def get_current_geoloc_name(driver):
@@ -45,37 +44,56 @@ class MainPage(BasePage):
         geoloc_name = driver.find_element(*MapPageLocators.MAP_MY_GEOLOC_NAME).text
         return geoloc_name
 
-    def increase_map_size(self, amount="low"):
+    def increase_map_size(self, driver, amount="low"):
         """Осуществляет нажатие кнопки 'Приблизить' на карте. Для выбора кратности увеличения масштаба карты можно
         задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
+
         if amount == "low":
-            self.incrise_view_size.click()
+            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
+            increase.click()
+            time.sleep(1)
         elif amount == "medium":
-            self.incrise_view_size.click()
-            self.incrise_view_size.click()
+            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
+            increase.click()
+            time.sleep(1)
+            increase.click()
+            time.sleep(1)
         elif amount == "high":
-            self.incrise_view_size.click()
-            self.incrise_view_size.click()
-            self.incrise_view_size.click()
+            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
+            increase.click()
+            time.sleep(1)
+            increase.click()
+            time.sleep(1)
+            increase.click()
+            time.sleep(1)
         else:
             raise Exception(
                 f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\n"
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-    def decrease_map_size(self, amount="low"):
+    def decrease_map_size(self, driver, amount="low"):
         """Осуществляет нажатие кнопки 'Отдалить' на карте. Для выбора кратности уменьшения масштаба карты можно задать
         значение аргумента amount равным: 'low', 'medium' или 'high'."""
 
         if amount == "low":
-            self.decrease_view_size.click()
+            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+            decrease.click()
+            time.sleep(1)
         elif amount == "medium":
-            self.decrease_view_size.click()
-            self.decrease_view_size.click()
+            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+            decrease.click()
+            time.sleep(1)
+            decrease.click()
+            time.sleep(1)
         elif amount == "high":
-            self.decrease_view_size.click()
-            self.decrease_view_size.click()
-            self.decrease_view_size.click()
+            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+            decrease.click()
+            time.sleep(1)
+            decrease.click()
+            time.sleep(1)
+            decrease.click()
+            time.sleep(1)
         else:
             raise Exception(
                 f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"

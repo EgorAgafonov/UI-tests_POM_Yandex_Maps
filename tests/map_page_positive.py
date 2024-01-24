@@ -34,7 +34,7 @@ class TestMapPagePositive:
             page.enter_searching_address(driver, toponyms_name)
             page.wait_page_loaded()
             page.switch_to_3D_map_click(driver)
-            page.increase_map_size()
+            page.increase_map_size(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_toponyms_name = page.get_toponym_descript(driver)
@@ -42,6 +42,8 @@ class TestMapPagePositive:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="search_address_FAILED",
                               attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
                 raise Exception("Названия(части названия) искомого топонима нет в результатах поиска системы!")
             else:
                 assert "космонавтики" in parsed_toponyms_name
@@ -50,6 +52,8 @@ class TestMapPagePositive:
                               name="search_address_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                print("\nВалидация теста test_search_address_positive выполнена успешно!")
 
     @pytest.mark.geoloc
     @allure.title("Определение геолокации пользователя на карте")
@@ -72,24 +76,26 @@ class TestMapPagePositive:
             page = MainPage(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Нажать на элемент 'Моё местоположение'(стрелка геолокации)."):
-            page.my_current_geoloc_btn_click()
+            page.refresh_page()
             page.wait_page_loaded()
-            page.decrease_map_size(amount="high")
+            page.my_current_geoloc_btn_click(driver)
+            page.wait_page_loaded()
+            page.decrease_map_size(driver, amount="high")
             page.wait_page_loaded()
             parsed_geoloc = page.get_current_geoloc_name(driver)
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
-            if parsed_geoloc not in current_geoloc:
+            if parsed_geoloc == current_geoloc:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="current_geoloc_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                print("\nВалидация теста test_current_geoloc_btn_click выполнена успешно!")
+            else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="current_geoloc_btn_click_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 raise Exception(f"ОШИБКА! Определенное системой место геолокации пользователя: '{parsed_geoloc}', не "
                                 f"совпадает с фактическим: '{current_geoloc}'.")
-            else:
-                assert parsed_geoloc in current_geoloc
-                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_click.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="current_geoloc_btn_click_PASSED",
-                              attachment_type=allure.attachment_type.PNG)
 
     @pytest.mark.map_size
     @allure.title("Увеличение/уменьшение размера изображения карты")
@@ -110,17 +116,17 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.my_current_geoloc_btn_click()
+            page.my_current_geoloc_btn_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 3(три) раза"):
-            page.decrease_map_size(amount="high")
+            page.decrease_map_size(driver, amount="high")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_decrsd_x_3",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 2(два) раза"):
-            page.increase_map_size(amount="medium")
+            page.increase_map_size(driver, amount="medium")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
             allure.attach(page.get_page_screenshot_PNG(),
@@ -150,15 +156,15 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.my_current_geoloc_btn_click()
-            page.decrease_map_size(amount="low")
+            page.my_current_geoloc_btn_click(driver)
+            page.decrease_map_size(driver, amount="low")
             page.wait_page_loaded()
             allure.attach(page.get_page_screenshot_PNG(),
                           name="3D_map_btn_click_before",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
             page.switch_to_3D_map_click(driver)
-            page.increase_map_size(amount="medium")
+            page.increase_map_size(driver, amount="medium")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
             allure.attach(page.get_page_screenshot_PNG(),

@@ -4,12 +4,12 @@ from selenium.webdriver.common.by import By
 class MapPageLocators:
     """Класс с методами определения локаторов элементов на странице "https://yandex.ru/maps"""
 
-    MAP_SEARCH_FIELD = (By.XPATH, "//input[@placeholder='Поиск мест и адресов']")
-    MAP_MY_GEOLOC_BTN = (By.XPATH, "//button[@aria-label='Моё местоположение']")
+    MAP_SEARCH_FIELD = (By.CSS_SELECTOR, "input[placeholder='Поиск мест и адресов']")
+    MAP_MY_GEOLOC_BTN = (By.CSS_SELECTOR, "button[aria-label='Моё местоположение']")
     MAP_MY_GEOLOC_NAME = (By.CSS_SELECTOR, "h1[class='home-panel-content-view__header-text']")
     MAP_CLEAR_FIELD_BTN = (By.CSS_SELECTOR, "button[aria-label='Закрыть']")
-    MAP_INCRISE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Приблизить']")
-    MAP_DECREASE_VIEW_SIZE = (By.XPATH, "//button[@aria-label='Отдалить']")
+    MAP_INCREASE_VIEW_SIZE = (By.CSS_SELECTOR, "button[aria-label='Приблизить']")
+    MAP_DECREASE_VIEW_SIZE = (By.CSS_SELECTOR, "button[aria-label='Отдалить']")
     MAP_TOPONYM_DESCRIPTION = (By.LINK_TEXT, "Музей космонавтики")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_SWITCH_OFF_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt-wrapper']")

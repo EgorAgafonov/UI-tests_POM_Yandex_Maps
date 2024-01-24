@@ -217,15 +217,16 @@ class TestMapPagePositive:
                 print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
                                                f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
                 page.clear_searching_field(driver)
+                page.switch_to_3D_map_click(driver)
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
+                page.switch_to_3D_map_click(driver)
                 raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
                                                        " по заданному пути отсутствует!\nОтразить ошибку в системе и "
                                                        "создать баг-репорт!")
-
 
     @pytest.mark.traffic
     @allure.title("Отображение дорожной ситуации(пробки) на карте.")
@@ -246,12 +247,14 @@ class TestMapPagePositive:
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-        page.enter_searching_address(driver, )
-        page.wait_page_loaded()
-        page.switch_to_3D_map_click(driver)
-        page.wait_page_loaded()
-        result = page.traffic_btn_click(driver)
-        page.wait_page_loaded()
+        with allure.step("Шаг 2: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+                         "маршрута."):
+            page.enter_searching_address(driver, traffic_point)
+            page.wait_page_loaded()
+            page.switch_to_3D_map_click(driver)
+            page.wait_page_loaded()
+            result = page.traffic_btn_click(driver)
+            page.wait_page_loaded()
 
         if result:
             page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")

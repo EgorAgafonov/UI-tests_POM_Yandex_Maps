@@ -78,24 +78,32 @@ class TestMapPagePositive:
             page.decrease_map_size(driver, amount="high")
             page.decrease_map_size(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
+            parsed_geoloc = page.get_current_geoloc_name(driver)
+            page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="current_geoloc_btn_click_actual",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
-            parsed_geoloc = page.get_current_geoloc_name(driver)
-            if parsed_geoloc == current_geoloc:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_PASSED.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="current_geoloc_btn_click_PASSED",
-                              attachment_type=allure.attachment_type.PNG)
-                print("\nВалидация теста test_current_geoloc_btn_click выполнена успешно!")
-            else:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_FAILED.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="current_geoloc_btn_click_FAILED",
-                              attachment_type=allure.attachment_type.PNG)
-                raise Exception(f"ОШИБКА! Определенное системой место геолокации пользователя: '{parsed_geoloc}', не "
-                                f"совпадает с фактическим: '{current_geoloc}'.")
+            assert parsed_geoloc == current_geoloc, (f"ОШИБКА! Город геолокации пользователя на сайте:'{parsed_geoloc}'"
+                                                     f" не совпадает с городом в момент тестирования (фактическим): "
+                                                     f"'{current_geoloc}'.")
+
+
+            # if True:
+            #     parsed_geoloc = page.get_current_geoloc_name(driver)
+            #     assert parsed_geoloc == current_geoloc
+            #     page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_PASSED.png")
+            #     allure.attach(page.get_page_screenshot_PNG(),
+            #                   name="current_geoloc_btn_click_PASSED",
+            #                   attachment_type=allure.attachment_type.PNG)
+            #     print("\nВалидация теста test_current_geoloc_btn_click выполнена успешно!")
+            # else:
+            #     page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_FAILED.png")
+            #     allure.attach(page.get_page_screenshot_PNG(),
+            #                   name="current_geoloc_btn_click_FAILED",
+            #                   attachment_type=allure.attachment_type.PNG)
+            #     raise Exception(f"ОШИБКА! Определенное системой место геолокации пользователя: '{parsed_geoloc}', не "
+            #                     f"совпадает с фактическим: '{current_geoloc}'.")
 
     @pytest.mark.map_size
     @allure.title("Увеличение/уменьшение размера изображения карты")

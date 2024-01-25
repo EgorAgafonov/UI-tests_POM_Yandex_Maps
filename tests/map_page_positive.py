@@ -121,7 +121,7 @@ class TestMapPagePositive:
             page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
             page.decrease_map_size(driver, amount="medium")
-            page.wait_page_loaded()
+            page.wait_page_loaded(check_page_changes=True)
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_decrsd_x_2",

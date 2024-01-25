@@ -6,7 +6,7 @@ from colorama import Fore, Style, Back
 import os
 
 
-@pytest.fixture(scope='function', autouse=True)
+@pytest.fixture(scope='function')
 def duration_of_test(request):
     start_time = datetime.now()
     print(f'\n1/3) Начало выполнения тестовой функции: {start_time} сек.')

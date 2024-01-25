@@ -33,8 +33,6 @@ class TestMapPagePositive:
                          f"{toponyms_name}."):
             page.enter_searching_address(driver, toponyms_name)
             page.wait_page_loaded()
-            page.increase_map_size(driver)
-            page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_toponyms_name = page.get_toponym_descript(driver)
             if toponyms_name not in parsed_toponyms_name:
@@ -78,6 +76,7 @@ class TestMapPagePositive:
             page.refresh_page()
             page.wait_page_loaded()
             page.decrease_map_size(driver, amount="high")
+            page.decrease_map_size(driver)
             page.wait_page_loaded()
             allure.attach(page.get_page_screenshot_PNG(),
                           name="current_geoloc_btn_click_actual",
@@ -304,7 +303,7 @@ class TestMapPagePositive:
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 2: В поле 'Поиск мест и адресов' указать адрес места с интересующим трафиком ОС."):
+        with allure.step("Шаг 2: В поле 'Поиск мест и адресов' указать адрес места с интересующим трафиком ОТ."):
             page.enter_searching_address(driver, random_address)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на элемент 'Движущийся транспорт'."):

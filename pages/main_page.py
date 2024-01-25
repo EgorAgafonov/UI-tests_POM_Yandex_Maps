@@ -20,7 +20,7 @@ class MainPage(BasePage):
         подтверждает действие."""
 
         address = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
-        ActionChains(driver).send_keys_to_element(address, value).pause(2).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
+        ActionChains(driver).send_keys_to_element(address, value).pause(3).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
             .perform()
 
     def clear_searching_field(self, driver):
@@ -131,7 +131,7 @@ class MainPage(BasePage):
         отправления и подтверждает действие."""
 
         dep_address = driver.find_element(*MapPageLocators.MAP_DEPARTURES_ADDRESS_FIELD)
-        ActionChains(driver).send_keys_to_element(dep_address, value).pause(2).send_keys(Keys.DOWN).send_keys \
+        ActionChains(driver).send_keys_to_element(dep_address, value).pause(3).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def enter_destination_address(self, driver, value):
@@ -139,7 +139,7 @@ class MainPage(BasePage):
         места назначения и подтверждает действие."""
 
         dest_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
-        ActionChains(driver).send_keys_to_element(dest_address, value).pause(2).send_keys(Keys.DOWN).send_keys \
+        ActionChains(driver).send_keys_to_element(dest_address, value).pause(3).send_keys(Keys.DOWN).send_keys \
             (Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals(self, driver):

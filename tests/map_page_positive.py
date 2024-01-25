@@ -88,23 +88,6 @@ class TestMapPagePositive:
                                                      f" не совпадает с городом в момент тестирования (фактическим): "
                                                      f"'{current_geoloc}'.")
 
-
-            # if True:
-            #     parsed_geoloc = page.get_current_geoloc_name(driver)
-            #     assert parsed_geoloc == current_geoloc
-            #     page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_PASSED.png")
-            #     allure.attach(page.get_page_screenshot_PNG(),
-            #                   name="current_geoloc_btn_click_PASSED",
-            #                   attachment_type=allure.attachment_type.PNG)
-            #     print("\nВалидация теста test_current_geoloc_btn_click выполнена успешно!")
-            # else:
-            #     page.make_screenshot(file_path=screenshots_folder + "\\test_current_geoloc_btn_FAILED.png")
-            #     allure.attach(page.get_page_screenshot_PNG(),
-            #                   name="current_geoloc_btn_click_FAILED",
-            #                   attachment_type=allure.attachment_type.PNG)
-            #     raise Exception(f"ОШИБКА! Определенное системой место геолокации пользователя: '{parsed_geoloc}', не "
-            #                     f"совпадает с фактическим: '{current_geoloc}'.")
-
     @pytest.mark.map_size
     @allure.title("Увеличение/уменьшение размера изображения карты")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")

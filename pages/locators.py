@@ -13,7 +13,6 @@ class MapPageLocators:
     MAP_TOPONYM_DESCRIPTION = (By.LINK_TEXT, "Музей космонавтики")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_SWITCH_OFF_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt-wrapper']")
-    MAP_CLICK_TO_ROTATE_RING_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__ring']")
     MAP_BUILD_ROUTE_BTN = (By.CSS_SELECTOR, "a[aria-label='Построить маршрут']")
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")

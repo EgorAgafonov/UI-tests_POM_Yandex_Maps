@@ -320,3 +320,17 @@ class TestMapPagePositive:
                                                        f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
                                                        f"активен/не работает.\nОтразить ошибку в системе и создать "
                                                        f"баг-репорт!")
+
+    def test_rotate_map_btn_click(self, driver, random_place="Москва, Музей советских игровых автоматов"):
+
+        page = MainPage(driver)
+        page.wait_page_loaded()
+        page.enter_searching_address(driver, random_place)
+        page.wait_page_loaded()
+        page.increase_map_size(driver)
+        page.wait_page_loaded()
+        page.switch_to_3D_map_click(driver)
+        page.wait_page_loaded()
+
+        page.switch_off_3D_map_mode(driver)
+        page.clear_searching_field(driver)

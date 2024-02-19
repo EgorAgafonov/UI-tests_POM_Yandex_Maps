@@ -4,7 +4,6 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver import Keys
 from pages.base_page import BasePage
 from pages.locators import MapPageLocators
-import os
 
 
 class MainPage(BasePage):
@@ -51,21 +50,21 @@ class MainPage(BasePage):
         if amount == "low":
             increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
         elif amount == "medium":
             increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
         elif amount == "high":
             increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
             increase.click()
-            time.sleep(1)
+            time.sleep(0.5)
         else:
             raise Exception(
                 f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\n"
@@ -79,21 +78,21 @@ class MainPage(BasePage):
         if amount == "low":
             decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
         elif amount == "medium":
             decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
         elif amount == "high":
             decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
             decrease.click()
-            time.sleep(1)
+            time.sleep(0.5)
         else:
             raise Exception(
                 f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"

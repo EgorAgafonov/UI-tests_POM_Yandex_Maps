@@ -266,9 +266,9 @@ class TestMapPagePositive:
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_city(driver)
             if len(result) != 0:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_city_trnsprt.png")
                 allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_PASSED",
+                              name="test_build_route_by_city_trnsprt_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
@@ -276,7 +276,7 @@ class TestMapPagePositive:
                                                f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_FAILED",
+                              name="test_build_route_by_city_trnsprt_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
@@ -318,19 +318,19 @@ class TestMapPagePositive:
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
-            result = page.
+            result = page.check_all_variants_time_by_foot(driver)
             if len(result) != 0:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_foot.png")
                 allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_PASSED",
+                              name="test_build_route_by_foot_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
-                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_city_trnsprt выполнен успешно, маршрут "
+                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_foot выполнен успешно, маршрут "
                                                f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_FAILED",
+                              name="test_build_route_by_foot_FAILED",
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)

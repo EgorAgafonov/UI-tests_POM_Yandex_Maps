@@ -241,7 +241,7 @@ class TestMapPagePositive:
     @allure.feature("Построение маршрута  на карте для поездки на общественном транспорте по начальной и конечной "
                     "точкам.")
     def test_build_route_by_city_trnsprt(self, driver, depart_point="Московский зоопарк",
-                                destin_point="Московский дом книги, ул. Новый Арбат"):
+                                         destin_point="Московский дом книги, ул. Новый Арбат"):
         """Позитивный тест проверки создания на карте маршрута для планирования поездки на общественном транспорте.
         По содержанию, условиям валидации тест-кейс аналогичен тесту test_build_route_by_car."""
 
@@ -252,17 +252,18 @@ class TestMapPagePositive:
             page.build_route_btn_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на иконку элемента 'На общественном транспорте'"):
-            page.route_by_car_btn_click(driver)
-        with allure.step("Шаг 3: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+            page.route_by_trnsprt_btn_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
                          "маршрута."):
             page.enter_departure_address(driver, depart_point)
             page.wait_page_loaded()
-        with allure.step("Шаг 4: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
+        with allure.step("Шаг 5: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
                          "маршрута."):
             page.enter_destination_address(driver, destin_point)
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
+        with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals(driver)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")

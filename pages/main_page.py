@@ -154,8 +154,8 @@ class MainPage(BasePage):
             (Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals_car(self, driver):
-        """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
-        Формирует список расчетного времени по всем вариантам маршрутов. Необходим для валидации теста."""
+        """Метод для получения(парсинга) информации о продолжительности маршрута(ов) на автомобиле, сформированного(ых)
+        системой. Формирует список расчетного времени по всем вариантам маршрутов. Необходим для валидации теста."""
 
         all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL_CAR)
         list_of_arrivals = []
@@ -165,8 +165,9 @@ class MainPage(BasePage):
         return list_of_arrivals
 
     def check_all_variants_of_arrivals_city(self, driver) -> list:
-        """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
-        Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для валидации теста."""
+        """Метод для получения(парсинга) информации о продолжительности маршрута(ов) на общественном транспорте,
+        сформированного(ых) системой. Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для
+        валидации теста."""
 
         all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL_CITY_TRNSPRT)
         list_of_arrivals = []
@@ -176,15 +177,16 @@ class MainPage(BasePage):
         return list_of_arrivals
 
     def check_all_variants_time_by_foot(self, driver) -> list:
-        """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
-        Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для валидации теста."""
+        """Метод для получения(парсинга) информации о продолжительности маршрута(ов) для пешей прогулки,
+        сформированного(ых) системой. Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для
+        валидации теста."""
 
-        all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL_CITY_TRNSPRT)
-        list_of_arrivals = []
-        for i in range(len(all_arrivals)):
-            arrival_time = all_arrivals[i].text
-            list_of_arrivals.append(arrival_time)
-        return list_of_arrivals
+        all_variants = driver.find_elements(*MapPageLocators.MAP_TRAVEL_TIME_BY_FOOT)
+        list_of_variants = []
+        for i in range(len(all_variants)):
+            variant = all_variants[i].text
+            list_of_variants.append(variant)
+        return list_of_variants
 
     def traffic_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Дорожная ситуация' для отображения на карте уровня загруженности дорог(пробок) и

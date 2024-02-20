@@ -218,7 +218,7 @@ class TestMapPagePositive:
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
                 print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
-                                               f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
+                                               f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_FAILED",
@@ -264,7 +264,7 @@ class TestMapPagePositive:
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
-            result = page.check_all_variants_of_arrivals_car(driver)
+            result = page.check_all_variants_of_arrivals_city(driver)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
                 allure.attach(page.get_page_screenshot_PNG(),
@@ -272,8 +272,8 @@ class TestMapPagePositive:
                               attachment_type=allure.attachment_type.PNG)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
-                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
-                                               f"построен.\nВремя в пути (все предложенные варианты):\n {result}")
+                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_city_trnsprt выполнен успешно, маршрут "
+                                               f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="build_route_by_car_FAILED",

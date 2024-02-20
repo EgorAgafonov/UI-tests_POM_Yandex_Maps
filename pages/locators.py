@@ -14,6 +14,11 @@ class MapPageLocators:
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_SWITCH_OFF_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt-wrapper']")
     MAP_BUILD_ROUTE_BTN = (By.CSS_SELECTOR, "a[aria-label='Построить маршрут']")
+    #
+    MAP_ROUTE_BY_CAR_BTN = (By.CSS_SELECTOR, "div[aria-label='На автомобиле']")
+    MAP_ROUTE_BY_CITY_TRANSPORT_BTN = (By.CSS_SELECTOR, "div[aria-label='На общественном транспорте']")
+    MAP_ROUTE_BY_WALKING_BTN = (By.CSS_SELECTOR, "div[aria-label='Пешком']")
+    #
     MAP_DEPARTURES_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_ADDRESS_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
     MAP_EXPECTED_TIME_OF_ARRIVAL = (By.CSS_SELECTOR, "div[class='auto-route-snippet-view__arrival']")

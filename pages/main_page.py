@@ -133,7 +133,7 @@ class MainPage(BasePage):
         city_trnsprt_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CITY_TRANSPORT_BTN)
         city_trnsprt_btn.click()
 
-    def route_by_walking_btn_click(self, driver):
+    def route_by_foot_btn_click(self, driver):
         walking_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_WALKING_BTN)
         walking_btn.click()
 
@@ -165,6 +165,17 @@ class MainPage(BasePage):
         return list_of_arrivals
 
     def check_all_variants_of_arrivals_city(self, driver) -> list:
+        """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
+        Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для валидации теста."""
+
+        all_arrivals = driver.find_elements(*MapPageLocators.MAP_EXPECTED_TIME_OF_ARRIVAL_CITY_TRNSPRT)
+        list_of_arrivals = []
+        for i in range(len(all_arrivals)):
+            arrival_time = all_arrivals[i].text
+            list_of_arrivals.append(arrival_time)
+        return list_of_arrivals
+
+    def check_all_variants_time_by_foot(self, driver) -> list:
         """Метод для получения(парсинга) информации о продолжительности маршрута(ов), сформированного(ых) системой.
         Формирует список расчетного времени по 3 вариантам маршрутов. Необходим для валидации теста."""
 

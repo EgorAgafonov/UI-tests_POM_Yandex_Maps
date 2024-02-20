@@ -128,7 +128,7 @@ class TestMapPagePositive:
             if True:
                 print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
             else:
-                raise Exception("\nОшибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
+                raise Exception("Ошибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
                                 "отразить ошибку в системе и создать баг-репорт.")
 
     @pytest.mark.map_3D_click
@@ -265,6 +265,60 @@ class TestMapPagePositive:
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_city(driver)
+            if len(result) != 0:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="build_route_by_car_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_city_trnsprt выполнен успешно, маршрут "
+                                               f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="build_route_by_car_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                raise Exception(Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
+                                                       " по заданному пути отсутствует!\nОтразить ошибку в системе и "
+                                                       "создать баг-репорт!")
+
+    @pytest.mark.build_route
+    @allure.title("Создание маршрута на карте ('Городской транспорт')")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-03")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Построение маршрута на карте для планирования пешей прогулки от начальной до конечной "
+                    "точки.")
+    def test_build_route_by_foot(self, driver, depart_point="м. Тверская", destin_point="Патриаршие пруды"):
+        """Позитивный тест проверки создания на карте маршрута для планирования пешей прогулки. По содержанию, условиям
+        валидации тест-кейс аналогичен тестам test_build_route_by_car, test_build_route_by_city_trnsprt."""
+
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Нажать на элемент 'Маршруты'."):
+            page.build_route_btn_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 3: Нажать на иконку элемента 'Пешком'"):
+            page.route_by_foot_btn_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+                         "маршрута."):
+            page.enter_departure_address(driver, depart_point)
+            page.wait_page_loaded()
+        with allure.step("Шаг 5: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
+                         "маршрута."):
+            page.enter_destination_address(driver, destin_point)
+            page.switch_to_3D_map_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 6: Выполнить проверку результатов теста."):
+            result = page.
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
                 allure.attach(page.get_page_screenshot_PNG(),

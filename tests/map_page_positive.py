@@ -194,19 +194,21 @@ class TestMapPagePositive:
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 2: Нажать на элемент 'Маршруты'."):
+        with allure.step("Шаг 2: Нажать на элемент 'Маршруты'"):
             page.build_route_btn_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 3: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+        with allure.step("Шаг 3: Нажать на иконку элемента 'На автомобиле'."):
+            page.route_by_car_btn_click(driver)
+        with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
                          "маршрута."):
             page.enter_departure_address(driver, depart_point)
             page.wait_page_loaded()
-        with allure.step("Шаг 4: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
+        with allure.step("Шаг 5: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
                          "маршрута."):
             page.enter_destination_address(driver, destin_point)
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
+        with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals(driver)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
@@ -249,6 +251,8 @@ class TestMapPagePositive:
         with allure.step("Шаг 2: Нажать на элемент 'Маршруты'."):
             page.build_route_btn_click(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 3: Нажать на иконку элемента 'На общественном транспорте'"):
+            page.route_by_car_btn_click(driver)
         with allure.step("Шаг 3: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
                          "маршрута."):
             page.enter_departure_address(driver, depart_point)

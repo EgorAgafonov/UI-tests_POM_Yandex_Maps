@@ -125,6 +125,18 @@ class MainPage(BasePage):
         build_route_btn = driver.find_element(*MapPageLocators.MAP_BUILD_ROUTE_BTN)
         build_route_btn.click()
 
+    def route_by_car_btn_click(self, driver):
+        car_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CAR_BTN)
+        car_btn.click()
+
+    def route_by_trnsprt_btn_click(self, driver):
+        city_trnsprt_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CITY_TRANSPORT_BTN)
+        city_trnsprt_btn.click()
+
+    def route_by_walking_btn_click(self, driver):
+        walking_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_WALKING_BTN)
+        walking_btn.click()
+
     def enter_departure_address(self, driver, value):
         """Создание начальной точки маршрута. Через аргумент value передает в поле ввода на карте название(адрес) точки
         отправления и подтверждает действие."""

@@ -174,7 +174,7 @@ class TestMapPagePositive:
                                 "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
                                 "баг-репорт")
 
-    @pytest.mark.map_3D_click
+    @pytest.mark.map_display_mode
     @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-MPSTPS-01")
     @allure.severity(allure.severity_level.CRITICAL)
@@ -203,36 +203,28 @@ class TestMapPagePositive:
                           attachment_type=allure.attachment_type.PNG)
             page.choose_map_layers_btn_click(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 3: Кликнуть элемент 'Спутник' в выпадающем списке"):
+        with allure.step("Шаг 3: В выпадающем списке кликнуть элемент 'Спутник'"):
             page.choose_sputnik_mode_btn_click(driver)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_SPUTNIK.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="map_display_mode_SPUTNIK",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 4: Кликнуть элемент 'Спутник' в выпадающем списке"):
-            page.choose_sputnik_mode_btn_click(driver)
+        with allure.step("Шаг 4: В выпадающем списке кликнуть элемент 'Гибрид'"):
+            page.choose_hybrid_mode_btn_click(driver)
             page.wait_page_loaded()
-            page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_SPUTNIK.png")
+            page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_HYBRID.png")
             allure.attach(page.get_page_screenshot_PNG(),
-                          name="map_display_mode_SPUTNIK",
+                          name="map_display_mode_HYBRID",
                           attachment_type=allure.attachment_type.PNG)
-
-        # with allure.step("Шаг 4: Кликнуть элемент 'Гибрид' в выпадающем списке"):
-        #
-        #     page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
-        #     allure.attach(page.get_page_screenshot_PNG(),
-        #                   name="3D_map_btn_click_after",
-        #                   attachment_type=allure.attachment_type.PNG)
-        #     page.switch_off_3D_map_mode(driver)
-        #     page.clear_searching_field(driver)
-        # with allure.step("Шаг 3: Выполнить проверку результатов теста."):
-        #     if True:
-        #         print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
-        #     else:
-        #         raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
-        #                         "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
-        #                         "баг-репорт")
+            page.clear_searching_field(driver)
+        with allure.step("Шаг 5: Выполнить проверку результатов теста."):
+            if True:
+                print("\nВалидация теста test_checking_map_display_modes выполнена успешно!")
+            else:
+                raise Exception("\nОшибка! Проверьте корректность локаторов элементов 'Гибрид', 'Спутник' и/или методов "
+                                "для взаимодействия с указанными элементами. Иначе отразить ошибку в системе и создать "
+                                "баг-репорт")
 
     @pytest.mark.build_route
     @allure.title("Создание маршрута на карте ('Автомобиль')")

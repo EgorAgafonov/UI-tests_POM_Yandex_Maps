@@ -109,6 +109,11 @@ class MainPage(BasePage):
         sputnik_mode = driver.find_element(*MapPageLocators.MAP_CHOOSE_SPUTNIK_VIEW)
         sputnik_mode.click()
 
+    @staticmethod
+    def choose_hybrid_mode_btn_click(driver):
+        hybrid_mode = driver.find_element(*MapPageLocators.MAP_CHOOSE_HYBRID_VIEW)
+        hybrid_mode.click()
+
 
 
     @staticmethod

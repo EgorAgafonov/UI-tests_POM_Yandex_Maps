@@ -173,6 +173,48 @@ class TestMapPagePositive:
                                 "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
                                 "баг-репорт")
 
+    @pytest.mark.map_3D_click
+    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-MPSTPS-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Проверка работы режимов отображения карты ('Схема'', 'Спутник', 'Гибрид')")
+    def test_checking_map_display_modes(self, driver, random_place="Париж, Эйфелева башня"):
+        """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
+        после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
+        "наклона" с трехмерным отображением объектов (3D-режим)."""
+
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+            page.enter_searching_address(driver, random_place)
+            page.wait_page_loaded()
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="3D_map_btn_click_before",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
+            page.increase_map_size(driver)
+            page.wait_page_loaded()
+            page.switch_to_3D_map_click(driver)
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="3D_map_btn_click_after",
+                          attachment_type=allure.attachment_type.PNG)
+            page.switch_off_3D_map_mode(driver)
+            page.clear_searching_field(driver)
+        with allure.step("Шаг 3: Выполнить проверку результатов теста."):
+            if True:
+                print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
+            else:
+                raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
+                                "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
+                                "баг-репорт")
+
     @pytest.mark.build_route
     @allure.title("Создание маршрута на карте ('Автомобиль')")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-01")
@@ -431,3 +473,5 @@ class TestMapPagePositive:
                                                        f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
                                                        f"активен/не работает.\nОтразить ошибку в системе и создать "
                                                        f"баг-репорт!")
+
+

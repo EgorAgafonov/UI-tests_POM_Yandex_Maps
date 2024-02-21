@@ -10,6 +10,12 @@ class MapPageLocators:
     MAP_CLEAR_FIELD_BTN = (By.CSS_SELECTOR, "button[aria-label='Закрыть']")
     MAP_INCREASE_VIEW_SIZE = (By.CSS_SELECTOR, "button[aria-label='Приблизить']")
     MAP_DECREASE_VIEW_SIZE = (By.CSS_SELECTOR, "button[aria-label='Отдалить']")
+
+    MAP_CHOOSE_MODE_VIEW = (By.CSS_SELECTOR, "button[aria-label='Слои']")
+    MAP_CHOOSE_SPUTNIK_VIEW = (By.CSS_SELECTOR, "div[aria-label='Спутник']")
+    MAP_CHOOSE_HYBRID_VIEW = (By.CSS_SELECTOR, "div[aria-label='Гибрид']")
+
+
     MAP_TOPONYM_DESCRIPTION = (By.LINK_TEXT, "Музей космонавтики")
     MAP_SWITCH_TO_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt']")
     MAP_SWITCH_OFF_3D_MAP_BTN = (By.CSS_SELECTOR, "div[class='map-tilt-rotate-control__tilt-wrapper']")

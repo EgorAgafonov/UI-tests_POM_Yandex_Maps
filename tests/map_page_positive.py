@@ -4,6 +4,7 @@ from settings import *
 from colorama import Fore, Style
 import allure
 from allure_commons.types import LabelType
+import time
 
 
 class TestMapPagePositive:
@@ -184,36 +185,54 @@ class TestMapPagePositive:
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка работы режимов отображения карты ('Схема'', 'Спутник', 'Гибрид')")
     def test_checking_map_display_modes(self, driver, random_place="Париж, Эйфелева башня"):
-        """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
-        после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
-        "наклона" с трехмерным отображением объектов (3D-режим)."""
+        """Позитивный тест проверки работы режимов отображения карты. Валидация теста выполнена успешно в случае, если
+        после воздействия на элементы "Схема", "Спутник", "Гибрид" в меню выбора, изображение карты принимает вид,
+        соответствующий заданному параметру)."""
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
             page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
-            allure.attach(page.get_page_screenshot_PNG(),
-                          name="3D_map_btn_click_before",
-                          attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
-            page.increase_map_size(driver)
-            page.wait_page_loaded()
+        with allure.step("Шаг 2: Кликнуть элемент 'Слои' в правом верхнем углу карты"):
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
-            page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+            page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_SCHEME.png")
             allure.attach(page.get_page_screenshot_PNG(),
-                          name="3D_map_btn_click_after",
+                          name="map_display_mode_SCHEME",
                           attachment_type=allure.attachment_type.PNG)
-            page.switch_off_3D_map_mode(driver)
-            page.clear_searching_field(driver)
-        with allure.step("Шаг 3: Выполнить проверку результатов теста."):
-            if True:
-                print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
-            else:
-                raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
-                                "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
-                                "баг-репорт")
+            page.choose_map_layers_btn_click(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 3: Кликнуть элемент 'Спутник' в выпадающем списке"):
+            page.choose_sputnik_mode_btn_click(driver)
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_SPUTNIK.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="map_display_mode_SPUTNIK",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 4: Кликнуть элемент 'Спутник' в выпадающем списке"):
+            page.choose_sputnik_mode_btn_click(driver)
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_map_display_modes_SPUTNIK.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="map_display_mode_SPUTNIK",
+                          attachment_type=allure.attachment_type.PNG)
+
+        # with allure.step("Шаг 4: Кликнуть элемент 'Гибрид' в выпадающем списке"):
+        #
+        #     page.make_screenshot(file_path=screenshots_folder + "\\test_3D_map_btn_click.png")
+        #     allure.attach(page.get_page_screenshot_PNG(),
+        #                   name="3D_map_btn_click_after",
+        #                   attachment_type=allure.attachment_type.PNG)
+        #     page.switch_off_3D_map_mode(driver)
+        #     page.clear_searching_field(driver)
+        # with allure.step("Шаг 3: Выполнить проверку результатов теста."):
+        #     if True:
+        #         print("\nВалидация теста test_3D_map_btn_click выполнена успешно!")
+        #     else:
+        #         raise Exception("\nОшибка! Проверьте корректность локатора элемента 'Наклонить карту' и/или метода для "
+        #                         "взаимодействия с указанным элементом. Иначе отразить ошибку в системе и создать "
+        #                         "баг-репорт")
 
     @pytest.mark.build_route
     @allure.title("Создание маршрута на карте ('Автомобиль')")

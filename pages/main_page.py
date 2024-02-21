@@ -100,6 +100,18 @@ class MainPage(BasePage):
                 f"\n'low', 'medium' или 'high'")
 
     @staticmethod
+    def choose_map_layers_btn_click(driver):
+        map_layers = driver.find_element(*MapPageLocators.MAP_CHOOSE_MODE_VIEW)
+        map_layers.click()
+
+    @staticmethod
+    def choose_sputnik_mode_btn_click(driver):
+        sputnik_mode = driver.find_element(*MapPageLocators.MAP_CHOOSE_SPUTNIK_VIEW)
+        sputnik_mode.click()
+
+
+
+    @staticmethod
     def get_toponym_descript(driver):
         """Метод для получения(парсинга) названия топонима, отображаемого системой после его поиска на карте. Необходим
         для валидации теста."""

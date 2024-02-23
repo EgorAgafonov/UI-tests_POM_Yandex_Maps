@@ -107,6 +107,7 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
+            current_scale = page.check_current_scale_line_value(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 2(два) раза"):
             page.enter_searching_address(driver, random_place)
@@ -117,6 +118,7 @@ class TestMapPagePositive:
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_decrsd_x_2",
                           attachment_type=allure.attachment_type.PNG)
+            decrease_scale = page.check_current_scale_line_value(driver)
         with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 3(три) раза"):
             page.increase_map_size(driver, amount="medium")
             page.wait_page_loaded()
@@ -124,13 +126,17 @@ class TestMapPagePositive:
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_incrs_x_3",
                           attachment_type=allure.attachment_type.PNG)
+            increase_scale = page.check_current_scale_line_value(driver)
             page.clear_searching_field(driver)
-        with allure.step("Шаг 4: Проверка результатов теста."):
-            if True:
-                print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
-            else:
-                raise Exception("Ошибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
-                                "отразить ошибку в системе и создать баг-репорт.")
+
+            print(f"{current_scale}, {decrease_scale}, {increase_scale}")
+
+        # with allure.step("Шаг 4: Проверка результатов теста."):
+            # if True:
+            #     print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
+            # else:
+            #     raise Exception("Ошибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
+            #                     "отразить ошибку в системе и создать баг-репорт.")
 
     @pytest.mark.map_3D_click
     @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")

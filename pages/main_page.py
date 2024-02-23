@@ -99,6 +99,7 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
+
     @staticmethod
     def choose_map_layers_btn_click(driver):
         map_layers = driver.find_element(*MapPageLocators.MAP_CHOOSE_MODE_VIEW)
@@ -205,13 +206,21 @@ class MainPage(BasePage):
             list_of_variants.append(variant)
         return list_of_variants
 
+    def check_current_scale_line_value(self, driver):
+        """Метод для получения(парсинга) информации о текущем масштабе отображения карты. Необходим для валидации
+        теста."""
+
+        scale_line = driver.find_elements(*MapPageLocators.MAP_SCALE_LINE)
+        result = scale_line.text
+        return result
+
     def traffic_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Дорожная ситуация' для отображения на карте уровня загруженности дорог(пробок) и
         дорожной обстановки."""
 
         traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
-        return traffic
+
 
     def city_transprt_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Движущийся транспорт' для отображения на карте движущихся единиц общественного
@@ -219,4 +228,3 @@ class MainPage(BasePage):
 
         transport = driver.find_element(*MapPageLocators.MAP_CITY_TRANSPORT)
         transport.click()
-        return transport

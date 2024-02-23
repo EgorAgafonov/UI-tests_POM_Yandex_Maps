@@ -107,12 +107,12 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            current_scale = page.check_current_scale_line_value(driver)
             page.wait_page_loaded()
+            current_scale = page.check_current_scale_line_value(driver)
         with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 2(два) раза"):
             page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
-            page.decrease_map_size(driver, amount="medium")
+            page.decrease_map_size(driver, amount="high")
             page.wait_page_loaded(check_page_changes=True)
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),

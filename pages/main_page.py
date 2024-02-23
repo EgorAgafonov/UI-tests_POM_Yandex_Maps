@@ -210,7 +210,7 @@ class MainPage(BasePage):
         """Метод для получения(парсинга) информации о текущем масштабе отображения карты. Необходим для валидации
         теста."""
 
-        scale_line = driver.find_elements(*MapPageLocators.MAP_SCALE_LINE)
+        scale_line = driver.find_element(*MapPageLocators.MAP_SCALE_LINE)
         result = scale_line.text
         return result
 

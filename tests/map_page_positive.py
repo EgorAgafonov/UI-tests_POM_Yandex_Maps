@@ -75,8 +75,8 @@ class TestMapPagePositive:
             page.wait_page_loaded()
             page.refresh_page()
             page.wait_page_loaded()
-            page.decrease_map_size(driver, amount="high")
-            page.decrease_map_size(driver)
+            page.zoom_out_map(driver, amount="high")
+            page.zoom_out_map(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_geoloc = page.get_current_geoloc_name(driver)
@@ -102,41 +102,44 @@ class TestMapPagePositive:
         """Позитивный тест проверки работы кнопок "Приблизить" "Отдалить", отвечающих за увеличение/уменьшение размера
         карты. Валидация теста выполнена успешно если после каждого воздействия на указанные контроллеры,
         изображение карты пропорционально увеличивается и/или уменьшается в соответствии с действиями пользователя.
-        Контроль теста определяется по скриншотам, сделанным в начальный момент, в момент увеличения и в момент
-        уменьшения размера карты."""
+        Контроль теста определяется по сравнению значений масштаба карты в начальный момент теста, после уменьшения и
+        после увеличения размера карты."""
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
             current_scale = page.check_current_scale_line_value(driver)
-        with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 2(два) раза"):
+        with allure.step("Шаг 2: Кликнуть элемент 'Отдалить' 3(три) раза"):
             page.enter_searching_address(driver, random_place)
             page.wait_page_loaded()
-            page.decrease_map_size(driver, amount="high")
+            page.zoom_out_map(driver, amount="high")
             page.wait_page_loaded(check_page_changes=True)
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_decreased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_decrsd_x_2",
                           attachment_type=allure.attachment_type.PNG)
             decrease_scale = page.check_current_scale_line_value(driver)
-        with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 3(три) раза"):
-            page.increase_map_size(driver, amount="medium")
+
+        with allure.step("Шаг 3: Кликнуть элемент 'Приблизить' 2(два) раза"):
+            page.zoom_in_map(driver, amount="medium")
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_change_map_size_increased.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="change_map_size_btn_incrs_x_3",
                           attachment_type=allure.attachment_type.PNG)
-            increase_scale = page.check_current_scale_line_value(driver)
             page.clear_searching_field(driver)
+            increase_scale = page.check_current_scale_line_value(driver)
 
-            print(f"{current_scale}, {decrease_scale}, {increase_scale}")
-
-        # with allure.step("Шаг 4: Проверка результатов теста."):
-            # if True:
-            #     print("\nВалидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
-            # else:
-            #     raise Exception("Ошибка! Проверьте корректность локаторов элементов 'Приблизить', 'Отдалить'. Иначе "
-            #                     "отразить ошибку в системе и создать баг-репорт.")
+        with allure.step("Шаг 4: Проверка результатов теста."):
+            if current_scale != decrease_scale:
+                assert decrease_scale != increase_scale
+                print(f"\nМасштаб начальный: {current_scale}\n"
+                      f"Масштаб увеличенный: {decrease_scale}\n"
+                      f"Масштаб уменьшенный: {increase_scale}\n"
+                      f"Валидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
+            else:
+                raise Exception("Ошибка! Проверьте корректность работы элементов 'Приблизить', 'Отдалить'"
+                                " и/или указаный путь локаторов элементов . Иначе отразить ошибку в системе и создать баг-репорт.")
 
     @pytest.mark.map_3D_click
     @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
@@ -162,7 +165,7 @@ class TestMapPagePositive:
                           name="3D_map_btn_click_before",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 2: Кликнуть элемент 'Наклонить карту'"):
-            page.increase_map_size(driver)
+            page.zoom_in_map(driver)
             page.wait_page_loaded()
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
@@ -228,9 +231,10 @@ class TestMapPagePositive:
             if True:
                 print("\nВалидация теста test_checking_map_display_modes выполнена успешно!")
             else:
-                raise Exception("\nОшибка! Проверьте корректность локаторов элементов 'Гибрид', 'Спутник' и/или методов "
-                                "для взаимодействия с указанными элементами. Иначе отразить ошибку в системе и создать "
-                                "баг-репорт")
+                raise Exception(
+                    "\nОшибка! Проверьте корректность локаторов элементов 'Гибрид', 'Спутник' и/или методов "
+                    "для взаимодействия с указанными элементами. Иначе отразить ошибку в системе и создать "
+                    "баг-репорт")
 
     @pytest.mark.build_route
     @allure.title("Создание маршрута на карте ('Автомобиль')")
@@ -321,7 +325,7 @@ class TestMapPagePositive:
                          "маршрута."):
             page.enter_destination_address(driver, destin_point)
             page.switch_to_3D_map_click(driver)
-            page.decrease_map_size(driver)
+            page.zoom_out_map(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_city(driver)
@@ -490,5 +494,3 @@ class TestMapPagePositive:
                                                        f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
                                                        f"активен/не работает.\nОтразить ошибку в системе и создать "
                                                        f"баг-репорт!")
-
-

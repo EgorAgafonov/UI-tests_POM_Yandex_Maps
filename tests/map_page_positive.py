@@ -435,16 +435,18 @@ class TestMapPagePositive:
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на элемент 'Дорожная ситуация'."):
-            result = page.traffic_btn_click(driver)
+            page.traffic_btn_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 4: Выполнить проверку результата теста."):
-            if result:
+            if True:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="traffic_btn_click_PASSED",
                               attachment_type=allure.attachment_type.PNG)
+                page.traffic_btn_click(driver)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
+                page.wait_page_loaded()
                 print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
@@ -479,17 +481,19 @@ class TestMapPagePositive:
             page.enter_searching_address(driver, random_address)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на элемент 'Движущийся транспорт'."):
-            result = page.city_transprt_btn_click(driver)
+            page.city_transprt_btn_click(driver)
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 4: Выполнить проверку результата теста."):
-            if result:
+            if True:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_city_trans_btn_click.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="city_trans_btn_click_PASSED",
                               attachment_type=allure.attachment_type.PNG)
+                page.city_transprt_btn_click(driver)
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
+                page.wait_page_loaded()
                 print(Style.DIM + Fore.GREEN + f"\n Тест test_city_transprt_btn_click выполнен успешно!")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),

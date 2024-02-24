@@ -13,6 +13,7 @@ class MapPageLocators:
     MAP_SCALE_LINE = (By.CSS_SELECTOR, "div[class='map-scale-line__label']")
     #
     MAP_CHOOSE_MODE_VIEW = (By.CSS_SELECTOR, "button[aria-label='Слои']")
+    MAP_CHOOSE_SCHEME_VIEW = (By.CSS_SELECTOR, "div[aria-label='Схема']")
     MAP_CHOOSE_SPUTNIK_VIEW = (By.CSS_SELECTOR, "div[aria-label='Спутник']")
     MAP_CHOOSE_HYBRID_VIEW = (By.CSS_SELECTOR, "div[aria-label='Гибрид']")
     MAP_STREET_PANORAMA_VIEW = (By.CSS_SELECTOR, "a[aria-label='Панорамы улиц и фотографии']")

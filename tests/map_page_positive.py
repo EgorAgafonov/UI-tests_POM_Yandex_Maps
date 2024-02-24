@@ -226,8 +226,12 @@ class TestMapPagePositive:
             allure.attach(page.get_page_screenshot_PNG(),
                           name="map_display_mode_HYBRID",
                           attachment_type=allure.attachment_type.PNG)
-            page.clear_searching_field(driver)
         with allure.step("Шаг 5: Выполнить проверку результатов теста."):
+            page.clear_searching_field(driver)
+            page.choose_map_layers_btn_click(driver)
+            page.choose_scheme_mode_btn_click(driver)
+            page.my_current_geoloc_btn_click(driver)
+            page.wait_page_loaded(check_page_changes=True)
             if True:
                 print("\nВалидация теста test_checking_map_display_modes выполнена успешно!")
             else:
@@ -273,6 +277,7 @@ class TestMapPagePositive:
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_car(driver)
+            page.wait_page_loaded(check_page_changes=True)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
                 allure.attach(page.get_page_screenshot_PNG(),
@@ -329,6 +334,7 @@ class TestMapPagePositive:
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_city(driver)
+            page.wait_page_loaded(check_page_changes=True)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_city_trnsprt.png")
                 allure.attach(page.get_page_screenshot_PNG(),
@@ -383,6 +389,7 @@ class TestMapPagePositive:
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_time_by_foot(driver)
+            page.wait_page_loaded(check_page_changes=True)
             if len(result) != 0:
                 page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_foot.png")
                 allure.attach(page.get_page_screenshot_PNG(),

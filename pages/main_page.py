@@ -99,11 +99,15 @@ class MainPage(BasePage):
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")
 
-
     @staticmethod
     def choose_map_layers_btn_click(driver):
         map_layers = driver.find_element(*MapPageLocators.MAP_CHOOSE_MODE_VIEW)
         map_layers.click()
+
+    @staticmethod
+    def choose_scheme_mode_btn_click(driver):
+        scheme_mode = driver.find_element(*MapPageLocators.MAP_CHOOSE_SCHEME_VIEW)
+        scheme_mode.click()
 
     @staticmethod
     def choose_sputnik_mode_btn_click(driver):

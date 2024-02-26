@@ -526,3 +526,6 @@ class TestMapPagePositive:
             page.panorama_streets_btn_click(driver)
             page.wait_page_loaded(check_page_changes=True)
             time.sleep(2)
+            page.check_panoramas_views_on_map(driver)
+            time.sleep(2)
+            page.wait_page_loaded(check_page_changes=True)

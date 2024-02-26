@@ -239,4 +239,12 @@ class MainPage(BasePage):
         panorama_btn = driver.find_element(*MapPageLocators.MAP_STREET_PANORAMA_VIEW)
         panorama_btn.click()
 
+    @staticmethod
+    def check_panoramas_views_on_map(driver):
+        """"""
+
+        ActionChains(driver)\
+            .move_by_offset(-1000, 1000)\
+            .context_click()\
+            .perform()
 

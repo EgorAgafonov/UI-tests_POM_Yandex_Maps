@@ -1,6 +1,7 @@
 import time
 
 from selenium.webdriver import ActionChains
+from selenium.webdriver.common.action_chains import ActionBuilder
 from selenium.webdriver import Keys
 from pages.base_page import BasePage
 from pages.locators import MapPageLocators
@@ -223,7 +224,6 @@ class MainPage(BasePage):
         traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
 
-
     def city_transprt_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Движущийся транспорт' для отображения на карте движущихся единиц общественного
         транспорта с указанными маршрутными номерами."""
@@ -242,9 +242,8 @@ class MainPage(BasePage):
     @staticmethod
     def check_panoramas_views_on_map(driver):
         """"""
-
-        ActionChains(driver)\
-            .move_by_offset(-1000, 1000)\
-            .context_click()\
-            .perform()
-
+        x = 1215
+        y = 655
+        action = ActionBuilder(driver)
+        action.pointer_action.move_to_location(x, y).click(None).pause(2).click_and_hold(button=0).move_by(-900, 0)
+        action.perform()

@@ -119,8 +119,6 @@ class MainPage(BasePage):
         hybrid_mode = driver.find_element(*MapPageLocators.MAP_CHOOSE_HYBRID_VIEW)
         hybrid_mode.click()
 
-
-
     @staticmethod
     def get_toponym_descript(driver):
         """Метод для получения(парсинга) названия топонима, отображаемого системой после его поиска на карте. Необходим
@@ -232,3 +230,13 @@ class MainPage(BasePage):
 
         transport = driver.find_element(*MapPageLocators.MAP_CITY_TRANSPORT)
         transport.click()
+
+    @staticmethod
+    def panorama_streets_btn_click(driver):
+        """Осуществляет нажатие кнопки 'Панорама улиц и фотографии' для отображения на карте доступных для просмотра
+        панорам улиц и фотографий."""
+
+        panorama_btn = driver.find_element(*MapPageLocators.MAP_STREET_PANORAMA_VIEW)
+        panorama_btn.click()
+
+

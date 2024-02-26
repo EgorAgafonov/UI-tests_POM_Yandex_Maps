@@ -505,3 +505,24 @@ class TestMapPagePositive:
                                                        f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
                                                        f"активен/не работает.\nОтразить ошибку в системе и создать "
                                                        f"баг-репорт!")
+
+    @pytest.mark.traffic
+    @allure.title("Просмотр панорам улиц.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAM-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
+    def test_street_panorama_view_click(self, driver, toponyms_name="Москва, Красная площадь"):
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Кликнуть элемент 'Панорамы улиц и фотографии' в правом верхнем углу карты"):
+            page.enter_searching_address(driver, toponyms_name)
+            page.wait_page_loaded()
+            page.panorama_streets_btn_click(driver)
+            page.wait_page_loaded(check_page_changes=True)
+            time.sleep(2)

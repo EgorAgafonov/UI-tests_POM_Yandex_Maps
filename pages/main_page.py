@@ -254,3 +254,10 @@ class MainPage(BasePage):
             .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0).pause(1)\
             .move_by(-600, 0).release(button=0)
         action.perform()
+
+    @staticmethod
+    def panorama_view_close(driver):
+        """Осуществляет нажатие кнопки 'Закрыть' на экране текущей панорамы улицы."""
+
+        panorama_close_btn = driver.find_element(*MapPageLocators.MAP_CLOSE_PANORAMA_VIEW)
+        panorama_close_btn.click()

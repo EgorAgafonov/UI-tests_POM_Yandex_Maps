@@ -508,7 +508,7 @@ class TestMapPagePositive:
 
     @pytest.mark.traffic
     @allure.title("Просмотр панорам улиц.")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAM-01")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAMA-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.label(LabelType.LANGUAGE, "Python")
     @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
@@ -528,8 +528,36 @@ class TestMapPagePositive:
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_TOP_VIEW.png")
             allure.attach(page.get_page_screenshot_PNG(),
-                          name="test_street_panorama_btn_TOP_VIEW",
+                          name="street_panorama_btn_TOP_VIEW",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 3: Кликнуть элемент 'Панорамы улиц и фотографии' в правом верхнем углу карты"):
+        with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
+            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="street_panorama_btn_BEFORE_ROTATE",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
+                         "часовой стрелке до исходной точки вращения."):
             page.check_panoramas_views_on_map(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 5: Выполнить проверку результата теста."):
+            if True:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_AFTER_ROTATE.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="street_panorama_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.panorama_view_close(driver)
+                page.panorama_streets_btn_click(driver)
+                page.clear_searching_field(driver)
+                page.wait_page_loaded()
+                print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="city_trans_btn_click_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.clear_searching_field(driver)
+                page.switch_off_3D_map_mode(driver)
+                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не "
+                                                       f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
+                                                       f"активен/не работает.\nОтразить ошибку в системе и создать "
+                                                       f"баг-репорт!")
+

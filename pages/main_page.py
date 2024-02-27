@@ -241,30 +241,16 @@ class MainPage(BasePage):
 
     @staticmethod
     def check_panoramas_views_on_map(driver):
-        """"""
+        """Метод для проверки работы функции отображения панорамы улицы по выбраной на карте точке. Вращает статическое
+        изображение уличной панорамы вокруг наблюдателя на 360 град. Метод необходим для валидации тест-кейса
+        test_street_panorama_btn_click."""
+
         x = 1215
         y = 500
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y)\
-            .click(None)\
-            .pause(3)\
-            .click_and_hold(button=0) \
-            .pause(1)\
-            .move_by(-600, 0)\
-            .release(button=0)\
-            .move_to_location(x, y)\
-            .click_and_hold(button=0) \
-            .pause(1) \
-            .move_by(-600, 0) \
-            .release(button=0) \
-            .move_to_location(x, y) \
-            .click_and_hold(button=0) \
-            .pause(1) \
-            .move_by(-600, 0) \
-            .release(button=0) \
-            .move_to_location(x, y) \
-            .click_and_hold(button=0) \
-            .pause(1) \
-            .move_by(-600, 0) \
-            .release(button=0)
+        action.pointer_action.move_to_location(x, y).click(None).pause(3).click_and_hold(button=0).pause(1)\
+            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0) .pause(1)\
+            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0).pause(1)\
+            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0).pause(1)\
+            .move_by(-600, 0).release(button=0)
         action.perform()

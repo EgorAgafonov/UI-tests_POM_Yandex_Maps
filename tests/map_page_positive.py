@@ -537,7 +537,7 @@ class TestMapPagePositive:
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
                          "часовой стрелке до исходной точки вращения."):
-            page.check_panoramas_views_on_map(driver)
+            page.rotate_street_panorama_view(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 5: Выполнить проверку результата теста."):
             if True:
@@ -552,12 +552,13 @@ class TestMapPagePositive:
                 print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
-                              name="city_trans_btn_click_FAILED",
+                              name="street_panorama_btn_click_FAILED",
                               attachment_type=allure.attachment_type.PNG)
+                page.panorama_view_close(driver)
+                page.panorama_streets_btn_click(driver)
                 page.clear_searching_field(driver)
-                page.switch_off_3D_map_mode(driver)
-                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Иконки общественного транспорта на карте не "
-                                                       f"отображаются, контроллер кнопки 'Движущийся транспорт' не "
-                                                       f"активен/не работает.\nОтразить ошибку в системе и создать "
-                                                       f"баг-репорт!")
+                page.wait_page_loaded()
+                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Панорама улицы не отображается, элемент (кнопка) "
+                                                       f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
+                                                       f"ошибку в системе и создать баг-репорт!")
 

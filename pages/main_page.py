@@ -243,7 +243,28 @@ class MainPage(BasePage):
     def check_panoramas_views_on_map(driver):
         """"""
         x = 1215
-        y = 655
+        y = 500
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y).click(None).pause(2).click_and_hold(button=0).move_by(-900, 0)
+        action.pointer_action.move_to_location(x, y)\
+            .click(None)\
+            .pause(3)\
+            .click_and_hold(button=0) \
+            .pause(1)\
+            .move_by(-600, 0)\
+            .release(button=0)\
+            .move_to_location(x, y)\
+            .click_and_hold(button=0) \
+            .pause(1) \
+            .move_by(-600, 0) \
+            .release(button=0) \
+            .move_to_location(x, y) \
+            .click_and_hold(button=0) \
+            .pause(1) \
+            .move_by(-600, 0) \
+            .release(button=0) \
+            .move_to_location(x, y) \
+            .click_and_hold(button=0) \
+            .pause(1) \
+            .move_by(-600, 0) \
+            .release(button=0)
         action.perform()

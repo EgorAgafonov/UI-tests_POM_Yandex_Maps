@@ -245,8 +245,11 @@ class MainPage(BasePage):
         режим отображения статической панорамы улицы. ВАЖНО: Данный метод необходимо использовать только в
         активированном режиме 'Панорамы улиц и фотографии'."""
 
-
-
+        x = 1215
+        y = 500
+        action = ActionBuilder(driver)
+        action.pointer_action.move_to_location(x, y).click(button=0)
+        action.perform()
 
     @staticmethod
     def rotate_street_panorama_view(driver):
@@ -257,11 +260,10 @@ class MainPage(BasePage):
         x = 1215
         y = 500
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y).click(None).pause(3).click_and_hold(button=0).pause(1)\
-            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0) .pause(1)\
-            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0).pause(1)\
-            .move_by(-600, 0).release(button=0).move_to_location(x, y).click_and_hold(button=0).pause(1)\
-            .move_by(-600, 0).release(button=0)
+        action.pointer_action.move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release()\
+            .move_to_location(x, y).click_and_hold(button=0) .pause(1).move_by(-600, 0).release(button=0)\
+            .move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release(button=0)\
+            .move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release(button=0)
         action.perform()
 
     @staticmethod

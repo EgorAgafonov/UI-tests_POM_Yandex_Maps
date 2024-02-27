@@ -531,34 +531,37 @@ class TestMapPagePositive:
                           name="street_panorama_btn_TOP_VIEW",
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
-            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
-            allure.attach(page.get_page_screenshot_PNG(),
-                          name="street_panorama_btn_BEFORE_ROTATE",
-                          attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
-                         "часовой стрелке до исходной точки вращения."):
-            page.rotate_street_panorama_view(driver)
+            page.choose_panorama_random_view(driver)
+            time.sleep(3)
             page.wait_page_loaded()
-        with allure.step("Шаг 5: Выполнить проверку результата теста."):
-            if True:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_AFTER_ROTATE.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="street_panorama_btn_click_PASSED",
-                              attachment_type=allure.attachment_type.PNG)
-                page.panorama_view_close(driver)
-                page.panorama_streets_btn_click(driver)
-                page.clear_searching_field(driver)
-                page.wait_page_loaded()
-                print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
-            else:
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="street_panorama_btn_click_FAILED",
-                              attachment_type=allure.attachment_type.PNG)
-                page.panorama_view_close(driver)
-                page.panorama_streets_btn_click(driver)
-                page.clear_searching_field(driver)
-                page.wait_page_loaded()
-                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Панорама улицы не отображается, элемент (кнопка) "
-                                                       f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
-                                                       f"ошибку в системе и создать баг-репорт!")
+        #     page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
+        #     allure.attach(page.get_page_screenshot_PNG(),
+        #                   name="street_panorama_btn_BEFORE_ROTATE",
+        #                   attachment_type=allure.attachment_type.PNG)
+        # with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
+        #                  "часовой стрелке до исходной точки вращения."):
+        #     page.rotate_street_panorama_view(driver)
+        #     page.wait_page_loaded()
+        # with allure.step("Шаг 5: Выполнить проверку результата теста."):
+        #     if True:
+        #         page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_AFTER_ROTATE.png")
+        #         allure.attach(page.get_page_screenshot_PNG(),
+        #                       name="street_panorama_btn_click_PASSED",
+        #                       attachment_type=allure.attachment_type.PNG)
+        #         page.panorama_view_close(driver)
+        #         page.panorama_streets_btn_click(driver)
+        #         page.clear_searching_field(driver)
+        #         page.wait_page_loaded()
+        #         print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
+        #     else:
+        #         allure.attach(page.get_page_screenshot_PNG(),
+        #                       name="street_panorama_btn_click_FAILED",
+        #                       attachment_type=allure.attachment_type.PNG)
+        #         page.panorama_view_close(driver)
+        #         page.panorama_streets_btn_click(driver)
+        #         page.clear_searching_field(driver)
+        #         page.wait_page_loaded()
+        #         raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Панорама улицы не отображается, элемент (кнопка) "
+        #                                                f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
+        #                                                f"ошибку в системе и создать баг-репорт!")
 

@@ -1,2 +1,0 @@
-
-Валидация теста test_incrise_decrise_map_size_btn выполнена успешно!

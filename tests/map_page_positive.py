@@ -134,8 +134,8 @@ class TestMapPagePositive:
             if current_scale != decrease_scale:
                 assert decrease_scale != increase_scale
                 print(f"\nМасштаб начальный: {current_scale}\n"
-                      f"Масштаб увеличенный: {decrease_scale}\n"
-                      f"Масштаб уменьшенный: {increase_scale}\n"
+                      f"Масштаб уменьшенный: {decrease_scale}\n"
+                      f"Масштаб увеличенный: {increase_scale}\n"
                       f"Валидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
             else:
                 raise Exception("Ошибка! Проверьте корректность работы элементов 'Приблизить', 'Отдалить'"
@@ -532,7 +532,6 @@ class TestMapPagePositive:
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
             page.choose_panorama_random_view(driver)
-            time.sleep(3)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
             allure.attach(page.get_page_screenshot_PNG(),

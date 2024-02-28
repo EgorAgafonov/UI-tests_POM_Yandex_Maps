@@ -506,7 +506,7 @@ class TestMapPagePositive:
                                                        f"активен/не работает.\nОтразить ошибку в системе и создать "
                                                        f"баг-репорт!")
 
-    @pytest.mark.traffic
+    @pytest.mark.panorama
     @allure.title("Просмотр панорам улиц.")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAMA-01")
     @allure.severity(allure.severity_level.CRITICAL)

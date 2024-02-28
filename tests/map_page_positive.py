@@ -139,7 +139,8 @@ class TestMapPagePositive:
                       f"Валидация теста test_incrise_decrise_map_size_btn выполнена успешно!")
             else:
                 raise Exception("Ошибка! Проверьте корректность работы элементов 'Приблизить', 'Отдалить'"
-                                " и/или указаный путь локаторов элементов . Иначе отразить ошибку в системе и создать баг-репорт.")
+                                "и/или указаный путь локаторов элементов . Иначе отразить ошибку в системе и создать "
+                                "баг-репорт.")
 
     @pytest.mark.map_3D_click
     @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
@@ -532,7 +533,7 @@ class TestMapPagePositive:
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
             page.choose_panorama_random_view(driver)
-            page.wait_page_loaded()
+            page.wait_page_loaded(check_page_changes=True)
             page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="street_panorama_btn_BEFORE_ROTATE",

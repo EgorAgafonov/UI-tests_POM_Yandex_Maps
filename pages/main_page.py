@@ -171,8 +171,8 @@ class MainPage(BasePage):
         места назначения и подтверждает действие."""
 
         dest_address = driver.find_element(*MapPageLocators.MAP_DESTINATION_ADDRESS_FIELD)
-        ActionChains(driver).send_keys_to_element(dest_address, value).pause(3).send_keys(Keys.DOWN).send_keys \
-            (Keys.ENTER).perform()
+        ActionChains(driver).send_keys_to_element(dest_address, value).pause(3).send_keys(Keys.DOWN)\
+            .send_keys(Keys.ENTER).perform()
 
     def check_all_variants_of_arrivals_car(self, driver):
         """Метод для получения(парсинга) информации о продолжительности маршрута(ов) на автомобиле, сформированного(ых)

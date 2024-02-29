@@ -5,6 +5,7 @@ from selenium.webdriver.common.action_chains import ActionBuilder
 from selenium.webdriver import Keys
 from pages.base_page import BasePage
 from pages.locators import MapPageLocators
+from tkinter import *
 
 
 class MainPage(BasePage):
@@ -245,10 +246,10 @@ class MainPage(BasePage):
         режим отображения статической панорамы улицы. ВАЖНО: Данный метод необходимо использовать только в
         активированном режиме 'Панорамы улиц и фотографии'."""
 
-        x = 1215
-        y = 500
+        x = (Tk().winfo_screenwidth() // 2) + 100
+        y = Tk().winfo_screenheight() // 2
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y).click(button=0)
+        action.pointer_action.move_to_location(x, y).click()
         action.perform()
 
     @staticmethod
@@ -257,13 +258,17 @@ class MainPage(BasePage):
         изображение уличной панорамы вокруг наблюдателя на 360 град. Метод необходим для валидации тест-кейса
         test_street_panorama_btn_click."""
 
-        x = 1215
-        y = 500
+        x = (Tk().winfo_screenwidth() // 2) + 100
+        y = Tk().winfo_screenheight() // 2
+        x_step = -(x // 2)
+        y_step = 0
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release()\
-            .move_to_location(x, y).click_and_hold(button=0) .pause(1).move_by(-600, 0).release(button=0)\
-            .move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release(button=0)\
-            .move_to_location(x, y).click_and_hold(button=0).pause(1).move_by(-600, 0).release(button=0)
+        action.pointer_action.move_to_location(x, y).click_and_hold().pause(1).move_by(-(x // 2), 0).release()\
+            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(1).move_by(x_step, y_step).release() \
+            .move_to_location(x, y).click_and_hold().pause(1).move_by(x_step, y_step).release()
         action.perform()
 
     @staticmethod

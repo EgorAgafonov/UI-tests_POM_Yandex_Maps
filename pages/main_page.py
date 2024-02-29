@@ -244,7 +244,7 @@ class MainPage(BasePage):
     def choose_panorama_random_view(driver):
         """Перемещает курсор мыши в центральную область экрана и осуществляет нажатие левой кнопкой мыши для перехода в
         режим отображения статической панорамы улицы. ВАЖНО: Данный метод необходимо использовать только в
-        активированном режиме 'Панорамы улиц и фотографии'."""
+        активированном режиме 'Панорамы улиц и фотографии'. """
 
         x = (Tk().winfo_screenwidth() // 2) + 100
         y = Tk().winfo_screenheight() // 2
@@ -263,12 +263,13 @@ class MainPage(BasePage):
         x_step = -(x // 2)
         y_step = 0
         action = ActionBuilder(driver)
-        action.pointer_action.move_to_location(x, y).click_and_hold().pause(1).move_by(-(x // 2), 0).release()\
-            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
-            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
-            .move_to_location(x, y).click_and_hold() .pause(1).move_by(x_step, y_step).release()\
-            .move_to_location(x, y).click_and_hold().pause(1).move_by(x_step, y_step).release() \
-            .move_to_location(x, y).click_and_hold().pause(1).move_by(x_step, y_step).release()
+        action.pointer_action.move_to_location(x, y).click_and_hold().pause(1).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()\
+            .move_to_location(x, y).click_and_hold().pause(0.5).move_by(x_step, y_step).release()
         action.perform()
 
     @staticmethod

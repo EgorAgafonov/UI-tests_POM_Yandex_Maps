@@ -259,7 +259,7 @@ class MainPage(BasePage):
         """Метод для вращения статического изображения уличной панорамы вокруг наблюдателя. Необходим для валидации
         тест-кейса test_street_panorama_btn_click."""
 
-        x = (Tk().winfo_screenwidth() // 2) + 100
+        x = (Tk().winfo_screenwidth() // 2)
         y = Tk().winfo_screenheight() // 2
         x_step = -(x // 2)
         y_step = 0

@@ -525,6 +525,7 @@ class TestMapPagePositive:
             page.enter_searching_address(driver, toponyms_name)
             page.wait_page_loaded()
             page.panorama_streets_btn_click(driver)
+            page.wait_page_loaded()
             page.zoom_out_map(driver)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_TOP_VIEW.png")
@@ -533,7 +534,7 @@ class TestMapPagePositive:
                           attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
             page.choose_panorama_random_view(driver)
-            page.wait_page_loaded(check_page_changes=True)
+            page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
             allure.attach(page.get_page_screenshot_PNG(),
                           name="street_panorama_btn_BEFORE_ROTATE",

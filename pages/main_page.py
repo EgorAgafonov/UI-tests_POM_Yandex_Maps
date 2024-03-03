@@ -279,3 +279,11 @@ class MainPage(BasePage):
 
         panorama_close_btn = driver.find_element(*MapPageLocators.MAP_CLOSE_PANORAMA_VIEW)
         panorama_close_btn.click()
+
+    @staticmethod
+    def details_btn_click(driver):
+        """Осуществляет нажатие кнопки 'Закрыть' на экране текущей панорамы улицы."""
+
+        details_btn = driver.find_element(*MapPageLocators.MAP_DETAILS_MENU)
+        details_btn.click()
+

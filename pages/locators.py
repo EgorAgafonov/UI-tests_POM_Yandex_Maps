@@ -37,3 +37,5 @@ class MapPageLocators:
     MAP_TRAFFIC_BTN = (By.CSS_SELECTOR, "a[aria-label='Пробки в Москве']")
     MAP_CITY_TRANSPORT = (By.CSS_SELECTOR, "a[aria-label='Движущийся транспорт']")
 
+    MAP_DETAILS_MENU = (By.CSS_SELECTOR, "button[aria-label='Детали']")
+

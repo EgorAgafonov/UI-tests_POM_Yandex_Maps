@@ -517,7 +517,67 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
-    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, Красная площадь"):
+    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, гостиница Космос"):
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+            page = MainPage(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 2: Кликнуть элемент 'Панорамы улиц и фотографии' в правом верхнем углу карты"):
+            page.enter_searching_address(driver, toponyms_name)
+            page.wait_page_loaded()
+            page.panorama_streets_btn_click(driver)
+            page.wait_page_loaded()
+            page.zoom_out_map(driver)
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_TOP_VIEW.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="street_panorama_btn_TOP_VIEW",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
+            page.choose_panorama_random_view(driver)
+            page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
+            allure.attach(page.get_page_screenshot_PNG(),
+                          name="street_panorama_btn_BEFORE_ROTATE",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
+                         "часовой стрелке до исходной точки вращения."):
+            page.rotate_street_panorama_view(driver)
+            page.wait_page_loaded()
+        with allure.step("Шаг 5: Выполнить проверку результата теста."):
+            if True:
+                page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_AFTER_ROTATE.png")
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="street_panorama_btn_click_PASSED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.panorama_view_close(driver)
+                page.panorama_streets_btn_click(driver)
+                page.clear_searching_field(driver)
+                page.wait_page_loaded()
+                print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
+            else:
+                allure.attach(page.get_page_screenshot_PNG(),
+                              name="street_panorama_btn_click_FAILED",
+                              attachment_type=allure.attachment_type.PNG)
+                page.panorama_view_close(driver)
+                page.panorama_streets_btn_click(driver)
+                page.clear_searching_field(driver)
+                page.wait_page_loaded()
+                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Панорама улицы не отображается, элемент (кнопка) "
+                                                       f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
+                                                       f"ошибку в системе и создать баг-репорт!")
+
+
+    @pytest.mark.metro
+    @allure.title("Маршрут между станциями метро (ГУП Московский метрополитен).")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-METRO-01")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @allure.label(LabelType.LANGUAGE, "Python")
+    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
+    @allure.label("Агафонов Е.А.", "владелец")
+    @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")
+    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.feature("Проверка создания маршрута между двумя станциями метро")
+    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, гостиница Космос"):
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()

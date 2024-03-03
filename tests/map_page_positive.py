@@ -592,10 +592,13 @@ class TestMapPagePositive:
         with allure.step("Шаг 2: Нажать на элемент 'Детали' в правом верхнем углу (линия из трех квадратов)"):
             page.details_btn_click(driver)
             page.wait_page_loaded()
+            original_window = driver.current_window_handle
         with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
             page.metro_scheme_btn_click(driver)
-            page.wait_page_loaded()
-            new_window = driver.switch_to.new_window('tab')
+            for window_handle in driver.window_handles:
+                if window_handle != original_window:
+                    driver.switch_to.window(window_handle)
+                    break
             page.wait_page_loaded()
             time.sleep(2)
             currnt_link = page.get_relative_link()

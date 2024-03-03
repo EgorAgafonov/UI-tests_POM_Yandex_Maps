@@ -4,6 +4,7 @@ from settings import *
 from colorama import Fore, Style
 import allure
 from allure_commons.types import LabelType
+from urllib.parse import urlparse
 import time
 
 
@@ -566,7 +567,6 @@ class TestMapPagePositive:
                                                        f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
                                                        f"ошибку в системе и создать баг-репорт!")
 
-
     @pytest.mark.metro
     @allure.title("Маршрут между станциями метро (ГУП Московский метрополитен).")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-METRO-01")
@@ -577,52 +577,57 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка создания маршрута между двумя станциями метро")
-    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, гостиница Космос"):
-        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
+    def test_build_route_in_metro(self, driver, depart_station="Домодедовская", destin_station="Парк Победы"):
+        """Позитивный тест проверки создания оптимального маршрута между двумя станциями на схеме метро.
+        Указываются станции отправления и назначения (аргументы depart_station и destin_station), после чего
+        система планирует оптимальный/один из оптимальных маршрутов и отображает его на карте. Валидация теста
+        выполнена успешно, если построенный маршрут отображается на схеме, стек карточек с вариантами маршрутов
+        (в зависимости от времени в пути до конечной точки) не пустой и содержит информацию о времени прибытия по
+        указанному адресу."""
+
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех "
+                         "элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-        with allure.step("Шаг 2: Кликнуть элемент 'Панорамы улиц и фотографии' в правом верхнем углу карты"):
-            page.enter_searching_address(driver, toponyms_name)
+        with allure.step("Шаг 2: Нажать на элемент 'Детали' в правом верхнем углу (линия из трех квадратов)"):
+            page.details_btn_click(driver)
             page.wait_page_loaded()
-            page.panorama_streets_btn_click(driver)
+        with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
+            page.metro_scheme_btn_click(driver)
             page.wait_page_loaded()
-            page.zoom_out_map(driver)
+            new_window = driver.switch_to.new_window('tab')
             page.wait_page_loaded()
-            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_TOP_VIEW.png")
-            allure.attach(page.get_page_screenshot_PNG(),
-                          name="street_panorama_btn_TOP_VIEW",
-                          attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 3: Кликнуть на карте в произвольную точку фиолетового цвета"):
-            page.choose_panorama_random_view(driver)
-            page.wait_page_loaded()
-            page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_BEFORE_ROTATE.png")
-            allure.attach(page.get_page_screenshot_PNG(),
-                          name="street_panorama_btn_BEFORE_ROTATE",
-                          attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 4: На открывшейся панораме улицы зажать левую кнопку мыши и выполнить вращение по "
-                         "часовой стрелке до исходной точки вращения."):
-            page.rotate_street_panorama_view(driver)
-            page.wait_page_loaded()
-        with allure.step("Шаг 5: Выполнить проверку результата теста."):
-            if True:
-                page.make_screenshot(file_path=screenshots_folder + "\\test_street_panorama_btn_AFTER_ROTATE.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="street_panorama_btn_click_PASSED",
-                              attachment_type=allure.attachment_type.PNG)
-                page.panorama_view_close(driver)
-                page.panorama_streets_btn_click(driver)
-                page.clear_searching_field(driver)
-                page.wait_page_loaded()
-                print(Style.DIM + Fore.GREEN + f"\n Тест test_street_panorama_btn_click выполнен успешно!")
-            else:
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="street_panorama_btn_click_FAILED",
-                              attachment_type=allure.attachment_type.PNG)
-                page.panorama_view_close(driver)
-                page.panorama_streets_btn_click(driver)
-                page.clear_searching_field(driver)
-                page.wait_page_loaded()
-                raise Exception(Style.DIM + Fore.RED + f"\nОшибка! Панорама улицы не отображается, элемент (кнопка) "
-                                                       f"'Панорамы улиц и фотографии' не активен/не работает.\nОтразить "
-                                                       f"ошибку в системе и создать баг-репорт!")
-
+            time.sleep(2)
+            currnt_link = page.get_relative_link()
+            print(f"\n{currnt_link}")
+        # with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
+        #                  "маршрута."):
+        #     page.enter_departure_station(driver, value=depart_station)
+        #     page.wait_page_loaded()
+        # with allure.step("Шаг 5: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
+        #                  "маршрута."):
+        #     page.enter_destination_address(driver, destin_point)
+        #     page.switch_to_3D_map_click(driver)
+        #     page.wait_page_loaded()
+        # with allure.step("Шаг 6: Выполнить проверку результатов теста."):
+        #     result = page.check_all_variants_of_arrivals_car(driver)
+        #     page.wait_page_loaded(check_page_changes=True)
+        #     if len(result) != 0:
+        #         page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
+        #         allure.attach(page.get_page_screenshot_PNG(),
+        #                       name="build_route_by_car_PASSED",
+        #                       attachment_type=allure.attachment_type.PNG)
+        #         page.clear_searching_field(driver)
+        #         page.switch_off_3D_map_mode(driver)
+        #         print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
+        #                                        f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
+        #     else:
+        #         allure.attach(page.get_page_screenshot_PNG(),
+        #                       name="build_route_by_car_FAILED",
+        #                       attachment_type=allure.attachment_type.PNG)
+        #         page.clear_searching_field(driver)
+        #         page.switch_off_3D_map_mode(driver)
+        #         raise Exception(
+        #             Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
+        #                                    " по заданному пути отсутствует!\nОтразить ошибку в системе и "
+        #                                    "создать баг-репорт!")

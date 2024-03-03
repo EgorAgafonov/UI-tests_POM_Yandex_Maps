@@ -38,4 +38,7 @@ class MapPageLocators:
     MAP_CITY_TRANSPORT = (By.CSS_SELECTOR, "a[aria-label='Движущийся транспорт']")
 
     MAP_DETAILS_MENU = (By.CSS_SELECTOR, "button[aria-label='Детали']")
+    MAP_METRO_SCHEME = (By.LINK_TEXT, "Схема метро")
+    MAP_DEPARTURE_METRO_STATION_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
+    MAP_DESTINATION_METRO_STATION_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
 

@@ -287,3 +287,16 @@ class MainPage(BasePage):
         details_btn = driver.find_element(*MapPageLocators.MAP_DETAILS_MENU)
         details_btn.click()
 
+    @staticmethod
+    def metro_scheme_btn_click(driver):
+        """Осуществляет нажатие элемента 'Схема метро' в выпадающем меню 'Детали'."""
+
+        metro_scheme = driver.find_element(*MapPageLocators.MAP_METRO_SCHEME)
+        metro_scheme.click()
+
+    def enter_departure_station(self, driver, value: str):
+        """"""
+        departure_station = driver.find_element(*MapPageLocators.MAP_DEPARTURE_METRO_STATION_FIELD)
+        ActionChains(driver).send_keys_to_element(departure_station, value).pause(3).send_keys(Keys.DOWN)\
+            .send_keys(Keys.ENTER).perform()
+

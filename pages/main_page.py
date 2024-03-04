@@ -294,17 +294,21 @@ class MainPage(BasePage):
         metro_scheme = driver.find_element(*MapPageLocators.MAP_METRO_SCHEME)
         metro_scheme.click()
 
-    def enter_departure_metro_station(self, driver, value: str):
+    @staticmethod
+    def enter_departure_metro_station(driver, value: str):
         """Метод для определения станции отправления на схеме метро. Параметр value указывает строчное наименование
         станции метро и передает его в соответствующее поле ввода на веб-странице."""
+
         departure_station = driver.find_element(*MapPageLocators.MAP_DEPARTURE_METRO_STATION_FIELD)
         ActionChains(driver).send_keys_to_element(departure_station, value).pause(2).send_keys(Keys.DOWN)\
             .send_keys(Keys.ENTER).perform()
 
-    def enter_destination_metro_station(self, driver, value: str):
+    @staticmethod
+    def enter_destination_metro_station(driver, value: str):
         """Метод для определения станции назначения на схеме метро. Аналогичен работе метода enter_departure_metro_
         station, но передает в поле для ввода наименование станции назначения."""
-        departure_station = driver.find_element(*MapPageLocators.MAP_DEPARTURE_METRO_STATION_FIELD)
+
+        departure_station = driver.find_element(*MapPageLocators.MAP_DESTINATION_METRO_STATION_FIELD)
         ActionChains(driver).send_keys_to_element(departure_station, value).pause(2).send_keys(Keys.DOWN)\
             .send_keys(Keys.ENTER).perform()
 

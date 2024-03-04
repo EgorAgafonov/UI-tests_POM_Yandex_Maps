@@ -23,6 +23,7 @@ class BasePage(object):
         return url.path
 
     def switch_to_new_browser_tab(self):
+        """Метод для перехода в открывшуюся по ссылке вкладку браузера или новое окно."""
         original_window = self.driver.current_window_handle
         for window_handle in self.driver.window_handles:
             if window_handle != original_window:

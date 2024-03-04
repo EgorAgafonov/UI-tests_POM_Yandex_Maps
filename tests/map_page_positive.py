@@ -577,7 +577,7 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка создания маршрута между двумя станциями метро")
-    def test_build_route_in_metro(self, driver, depart_station="Домодедовская", destin_station="Парк Победы"):
+    def test_build_route_in_metro(self, driver, departure_station="Домодедовская", destination_station="Парк Победы"):
         """Позитивный тест проверки создания оптимального маршрута между двумя станциями на схеме метро.
         Указываются станции отправления и назначения (аргументы depart_station и destin_station), после чего
         система планирует оптимальный/один из оптимальных маршрутов и отображает его на карте. Валидация теста
@@ -593,25 +593,19 @@ class TestMapPagePositive:
             page.details_btn_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
+            map_scheme_tab = page.get_relative_link()
             page.metro_scheme_btn_click(driver)
             page.wait_page_loaded()
+        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование "
+                         "станции отправления."):
             page.switch_to_new_browser_tab()
-
-            main_tab = page.get_relative_link()
-            print(f"\n{main_tab}")
-            page.enter_departure_address(driver, depart_station)
-            time.sleep(1)
-            page.enter_destination_address(driver, destin_station)
-            time.sleep(1)
-        # with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
-        #                  "маршрута."):
-        #     page.enter_departure_station(driver, value=depart_station)
-        #     page.wait_page_loaded()
-        # with allure.step("Шаг 5: В поле 'Куда' ввести/выбрать из выпадающего списка название конечной точки "
-        #                  "маршрута."):
-        #     page.enter_destination_address(driver, destin_point)
-        #     page.switch_to_3D_map_click(driver)
-        #     page.wait_page_loaded()
+            metro_scheme_tab = page.get_relative_link()
+            page.enter_departure_metro_station(driver, departure_station)
+            page.wait_page_loaded()
+        with allure.step("Шаг 5: В поле 'Куда' указать наименование станции назначения."):
+            page.enter_destination_metro_station(driver, destination_station)
+            page.wait_page_loaded()
+            time.sleep(2)
         # with allure.step("Шаг 6: Выполнить проверку результатов теста."):
         #     result = page.check_all_variants_of_arrivals_car(driver)
         #     page.wait_page_loaded(check_page_changes=True)

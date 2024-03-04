@@ -282,7 +282,7 @@ class MainPage(BasePage):
 
     @staticmethod
     def details_btn_click(driver):
-        """Осуществляет нажатие кнопки 'Закрыть' на экране текущей панорамы улицы."""
+        """Осуществляет вызов выпадающего меню 'Детали' на экране карты для доступа к опциональным функциям сервиса."""
 
         details_btn = driver.find_element(*MapPageLocators.MAP_DETAILS_MENU)
         details_btn.click()
@@ -300,7 +300,7 @@ class MainPage(BasePage):
         станции метро и передает его в соответствующее поле ввода на веб-странице."""
 
         departure_station = driver.find_element(*MapPageLocators.MAP_DEPARTURE_METRO_STATION_FIELD)
-        ActionChains(driver).send_keys_to_element(departure_station, value).pause(2).send_keys(Keys.DOWN)\
+        ActionChains(driver).send_keys_to_element(departure_station, value).pause(1).send_keys(Keys.DOWN)\
             .send_keys(Keys.ENTER).perform()
 
     @staticmethod
@@ -309,10 +309,11 @@ class MainPage(BasePage):
         station, но передает в поле для ввода наименование станции назначения."""
 
         departure_station = driver.find_element(*MapPageLocators.MAP_DESTINATION_METRO_STATION_FIELD)
-        ActionChains(driver).send_keys_to_element(departure_station, value).pause(2).send_keys(Keys.DOWN)\
+        ActionChains(driver).send_keys_to_element(departure_station, value).pause(1).send_keys(Keys.DOWN)\
             .send_keys(Keys.ENTER).perform()
 
-    def check_all_variants_of_metro_rides(self, driver):
+    @staticmethod
+    def check_all_variants_of_metro_rides(driver):
         """Метод для получения(парсинга) информации о всех(либо одном) возможных вариантах поездки между указанными
         станциям метро, сформированных системой. Возвращает список с указанной длительностью поездки по каждому(либо
         одному)предложенному варианту. Необходим для валидации теста."""

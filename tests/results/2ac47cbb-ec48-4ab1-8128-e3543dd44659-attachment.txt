@@ -1,2 +1,0 @@
-
-Валидация теста test_checking_map_display_modes выполнена успешно!

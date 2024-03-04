@@ -1,2 +1,0 @@
-[2m[32m
- Тест test_street_panorama_btn_click выполнен успешно!

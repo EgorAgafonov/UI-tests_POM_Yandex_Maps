@@ -518,7 +518,7 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
-    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, гостиница Космос"):
+    def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, Красная площадь"):
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()

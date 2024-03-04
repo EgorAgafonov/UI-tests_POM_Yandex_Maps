@@ -22,6 +22,13 @@ class BasePage(object):
         url = urlparse(self.driver.current_url)
         return url.path
 
+    def switch_to_new_browser_tab(self):
+        original_window = self.driver.current_window_handle
+        for window_handle in self.driver.window_handles:
+            if window_handle != original_window:
+                self.driver.switch_to.window(window_handle)
+                break
+
     def refresh_page(self):
         """Метод обновления(перезагрузки) страницы."""
         self.driver.refresh()
@@ -151,6 +158,9 @@ class BasePage(object):
 
         # Go up:
         self.driver.execute_script('window.scrollTo(document.body.scrollHeight, 0);')
+
+
+
 
     # # Методы open page, wait_for_animation, wait_for_ajax_loading в рамках текущего проекта неактивны (не
     # используются)

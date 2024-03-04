@@ -592,17 +592,17 @@ class TestMapPagePositive:
         with allure.step("Шаг 2: Нажать на элемент 'Детали' в правом верхнем углу (линия из трех квадратов)"):
             page.details_btn_click(driver)
             page.wait_page_loaded()
-            original_window = driver.current_window_handle
         with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
             page.metro_scheme_btn_click(driver)
-            for window_handle in driver.window_handles:
-                if window_handle != original_window:
-                    driver.switch_to.window(window_handle)
-                    break
             page.wait_page_loaded()
-            time.sleep(2)
-            currnt_link = page.get_relative_link()
-            print(f"\n{currnt_link}")
+            page.switch_to_new_browser_tab()
+
+            main_tab = page.get_relative_link()
+            print(f"\n{main_tab}")
+            page.enter_departure_address(driver, depart_station)
+            time.sleep(1)
+            page.enter_destination_address(driver, destin_station)
+            time.sleep(1)
         # with allure.step("Шаг 4: В поле 'Откуда' ввести/выбрать из выпадающего списка название начальной точки "
         #                  "маршрута."):
         #     page.enter_departure_station(driver, value=depart_station)

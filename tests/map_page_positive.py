@@ -577,13 +577,12 @@ class TestMapPagePositive:
     @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")
     @allure.epic("Пользовательский интерфейс (позитивные тесты)")
     @allure.feature("Проверка создания маршрута между двумя станциями метро")
-    def test_build_route_in_metro(self, driver, departure_station="Домодедовская", destination_station="Парк Победы"):
-        """Позитивный тест проверки создания оптимального маршрута между двумя станциями на схеме метро. Местонахождение
+    def test_build_ride_on_metro(self, driver, departure_station="Домодедовская", destination_station="Парк Победы"):
+        """Позитивный тест проверки создания оптимального маршрута между двумя станциями метро. Местонахождение
          в момент выполнения теста - РФ, Московская область. Указываются станции отправления и назначения (аргументы
          depart_station и destin_station), после чего система планирует оптимальный/один из оптимальных маршрутов и
-         отображает его на карте. Валидация теста выполнена успешно, если построенный маршрут отображается на схеме,
-         стек карточек с вариантами маршрутов (в зависимости от времени в пути до конечной точки) не пустой и содержит
-         информацию о времени прибытия по указанному адресу."""
+         отображает его на схеме метро. Валидация теста выполнена успешно, если построенный маршрут отображается на
+         схеме, стек карточек с вариантами сформированных поездок не пустой и содержит информацию о времени в пути."""
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех "
                          "элементов."):
@@ -592,14 +591,19 @@ class TestMapPagePositive:
         with allure.step("Шаг 2: Нажать на элемент 'Детали' в правом верхнем углу (линия из трех квадратов)"):
             page.details_btn_click(driver)
             page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_build_ride_on_metro_DETAILS.png")
+            allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_DETAILS",
+                          attachment_type=allure.attachment_type.PNG)
         with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
             map_tab_link = page.get_relative_link()
             page.metro_scheme_btn_click(driver)
-            page.wait_page_loaded()
-        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование "
-                         "станции отправления."):
             page.switch_to_new_browser_tab()
             page.wait_page_loaded()
+            page.make_screenshot(file_path=screenshots_folder + "\\test_build_ride_on_metro_METRO_SCHEME.png")
+            allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_METRO_SCHEME",
+                          attachment_type=allure.attachment_type.PNG)
+        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование станции "
+                         "отправления."):
             metro_tab_link = page.get_relative_link()
             metro_tab_title = page.get_title_of_tab()
             page.enter_departure_metro_station(driver, departure_station)
@@ -607,31 +611,21 @@ class TestMapPagePositive:
         with allure.step("Шаг 5: В поле 'Куда' указать наименование станции назначения."):
             page.enter_destination_metro_station(driver, destination_station)
             page.wait_page_loaded(check_page_changes=True)
-        with allure.step("Шаг 6: Выполнить проверку результатов теста."):
+        with allure.step("Шаг 6: Выполнить проверку результата теста."):
             result = page.check_all_variants_of_metro_rides(driver)
             if len(result) != 0:
                 assert map_tab_link != metro_tab_link, (f"Ошибка! Проверить работу ссылки на открытие вкладки "
-                                                        f"<{metro_tab_title}>! ")
-                page.make_screenshot(file_path=screenshots_folder + "\\test_build_route_by_car.png")
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_PASSED",
+                                                        f"<{metro_tab_title}> со схемой метро!")
+                page.make_screenshot(file_path=screenshots_folder + "\\test_build_ride_on_metro.png")
+                allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_PASSED",
                               attachment_type=allure.attachment_type.PNG)
-                page.clear_searching_field(driver)
-                page.switch_off_3D_map_mode(driver)
-                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_car выполнен успешно, маршрут "
-                                               f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
+                page.close_current_browser_tab()
+                time.sleep(2)
+                print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_ride_on_metro выполнен успешно, маршрут построен."
+                                               f"\nВремя в пути (один/все предложенные варианты):\n{result}")
             else:
-                allure.attach(page.get_page_screenshot_PNG(),
-                              name="build_route_by_car_FAILED",
+                allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_FAILED",
                               attachment_type=allure.attachment_type.PNG)
-                page.clear_searching_field(driver)
-                page.switch_off_3D_map_mode(driver)
-                raise Exception(
-                    Style.DIM + Fore.RED + "\nОшибка! Маршрут не построен, список с вариантами маршрутов(а)"
-                                           " по заданному пути отсутствует!\nОтразить ошибку в системе и "
-                                           "создать баг-репорт!")
-
-
-
-            print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_route_by_foot выполнен успешно, маршрут "
-                                           f"построен.\nВремя в пути (все предложенные варианты):\n{result}")
+                raise Exception(Style.DIM + Fore.RED + "\nОшибка! Сведения о построенном маршруте отсутствуют, список "
+                                                       "маршрутов пуст(не сформирован).\nОтразить ошибку в системе и"
+                                                       "создать баг-репорт!")

@@ -35,6 +35,17 @@ class BasePage(object):
                 self.driver.switch_to.window(window_handle)
                 break
 
+    def close_current_browser_tab(self):
+        """"""
+        current_tab = self.driver.current_window_handle
+        self.driver.close(current_tab)
+
+        # for window_handle in self.driver.window_handles:
+        #     if window_handle != original_window:
+        #         self.driver.switch_to.window(window_handle)
+        #         break
+
+
     def refresh_page(self):
         """Метод обновления(перезагрузки) страницы."""
         self.driver.refresh()

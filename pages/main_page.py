@@ -312,3 +312,14 @@ class MainPage(BasePage):
         ActionChains(driver).send_keys_to_element(departure_station, value).pause(2).send_keys(Keys.DOWN)\
             .send_keys(Keys.ENTER).perform()
 
+    def check_all_variants_of_metro_rides(self, driver):
+        """Метод для получения(парсинга) информации о всех(либо одном) возможных вариантах поездки между указанными
+        станциям метро, сформированных системой. Возвращает список с указанной длительностью поездки по каждому(либо
+        одному)предложенному варианту. Необходим для валидации теста."""
+
+        all_metro_rides = driver.find_elements(*MapPageLocators.MAP_METRO_RIDES_DURATION)
+        list_of_rides_duration = []
+        for i in range(len(all_metro_rides)):
+            duration_time = all_metro_rides[i].text
+            list_of_rides_duration.append(duration_time)
+        return list_of_rides_duration

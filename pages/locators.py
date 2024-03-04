@@ -41,4 +41,4 @@ class MapPageLocators:
     MAP_METRO_SCHEME = (By.LINK_TEXT, "Схема метро")
     MAP_DEPARTURE_METRO_STATION_FIELD = (By.CSS_SELECTOR, "input[placeholder='Откуда']")
     MAP_DESTINATION_METRO_STATION_FIELD = (By.CSS_SELECTOR, "input[placeholder='Куда']")
-
+    MAP_METRO_RIDES_DURATION = (By.CSS_SELECTOR, "div[class='masstransit-route-snippet-view__route-duration']")

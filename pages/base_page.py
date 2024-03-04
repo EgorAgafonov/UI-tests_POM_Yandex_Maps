@@ -22,6 +22,11 @@ class BasePage(object):
         url = urlparse(self.driver.current_url)
         return url.path
 
+    def get_title_of_tab(self):
+        """"""
+        title = self.driver.title
+        return title
+
     def switch_to_new_browser_tab(self):
         """Метод для перехода в открывшуюся по ссылке вкладку браузера или новое окно."""
         original_window = self.driver.current_window_handle

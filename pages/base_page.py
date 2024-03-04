@@ -27,8 +27,10 @@ class BasePage(object):
         title = self.driver.title
         return title
 
-    def get_current_tab_ID_descriptor(self):
+    def get_current_tab_ID_descriptor(self) -> str:
         """"""
+        current_tab = self.driver.current_window_handle
+        return current_tab
 
     def switch_to_new_browser_tab(self):
         """Метод для перехода в открывшуюся по ссылке вкладку браузера или новое окно."""
@@ -45,7 +47,8 @@ class BasePage(object):
     def switch_back_to_main_tab(self, main_window_id: str):
         """Метод для возвращения к начальному окну сеанса. Аргумент main_window_id принимает строковое значение
         дескриптора окна - идентификационного номера окна(вкладки), с которого начался сеанс работы браузера. ВАЖНО:
-        Значение дескриптора основного окна необходимо определить заранее (в начале теста) с помощью метода """
+        Значение дескриптора основного окна необходимо определить заранее (в начале теста) с помощью метода
+        get_current_tab_ID_descriptor()"""
 
         self.driver.switch_to.window(main_window_id)
 

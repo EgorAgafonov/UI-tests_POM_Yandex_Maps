@@ -588,7 +588,7 @@ class TestMapPagePositive:
                          "элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
-            main_window = driver.current_window_handle
+            main_window = page.get_current_tab_ID_descriptor()
         with allure.step("Шаг 2: Нажать на элемент 'Детали' в правом верхнем углу (линия из трех квадратов)"):
             page.details_btn_click(driver)
             page.wait_page_loaded()
@@ -621,14 +621,14 @@ class TestMapPagePositive:
                 allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_PASSED",
                               attachment_type=allure.attachment_type.PNG)
                 page.close_current_browser_tab()
-                page.switch_back_to_main_tab(main_window_id=main_window)
-                page.wait_page_loaded()
-                print(f"\n\n{type(main_window)}\n\n")
+                page.switch_back_to_main_tab(main_window)
                 print(Style.DIM + Fore.GREEN + f"\n\nТест test_build_ride_on_metro выполнен успешно, маршрут построен."
                                                f"\nВремя в пути (один/все предложенные варианты):\n{result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_FAILED",
                               attachment_type=allure.attachment_type.PNG)
+                page.close_current_browser_tab()
+                page.switch_back_to_main_tab(main_window)
                 raise Exception(Style.DIM + Fore.RED + "\nОшибка! Сведения о построенном маршруте отсутствуют, список "
                                                        "маршрутов пуст(не сформирован).\nОтразить ошибку в системе и"
                                                        "создать баг-репорт!")

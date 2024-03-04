@@ -28,12 +28,15 @@ class BasePage(object):
         return title
 
     def get_current_tab_ID_descriptor(self) -> str:
-        """"""
+        """Метод для получения строкового значения дескриптора(идентификационного номера) текущего окна(вкладки)
+        браузера."""
+
         current_tab = self.driver.current_window_handle
         return current_tab
 
     def switch_to_new_browser_tab(self):
         """Метод для перехода в открывшуюся по ссылке вкладку браузера или новое окно."""
+
         original_window = self.driver.current_window_handle
         for window_handle in self.driver.window_handles:
             if window_handle != original_window:
@@ -42,6 +45,7 @@ class BasePage(object):
 
     def close_current_browser_tab(self):
         """Метод для закрытия текущей вкладки браузера."""
+
         self.driver.close()
 
     def switch_back_to_main_tab(self, main_window_id: str):
@@ -52,14 +56,14 @@ class BasePage(object):
 
         self.driver.switch_to.window(main_window_id)
 
-
-
     def refresh_page(self):
         """Метод обновления(перезагрузки) страницы."""
+
         self.driver.refresh()
 
     def make_screenshot(self, file_path=screenshots_folder):
         """Метод сохранения изображения на экране в момент выполнения теста."""
+
         self.driver.save_screenshot(file_path)
 
     def get_page_screenshot_PNG(self) -> bytes:

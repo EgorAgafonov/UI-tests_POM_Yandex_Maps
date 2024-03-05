@@ -19,6 +19,7 @@ class BasePage(object):
     def get_relative_link(self):
         """Метод для получения из URL-адреса текущей страницы значения параметра path. Необходим для валидации
         тестов при переходе на другие path-директории(эндпоинты) в тестируемом домене."""
+
         url = urlparse(self.driver.current_url)
         return url.path
 

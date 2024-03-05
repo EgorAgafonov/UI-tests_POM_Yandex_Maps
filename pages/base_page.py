@@ -23,7 +23,7 @@ class BasePage(object):
         return url.path
 
     def get_title_of_tab(self):
-        """"""
+        """Метод для получения названия заголовка текущей(используемой) вкладки браузера."""
         title = self.driver.title
         return title
 

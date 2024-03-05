@@ -27,7 +27,7 @@ class TestMapPagePositive:
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.wait_page_loaded()
+            page.wait_page_loaded(check_page_changes=True)
         with allure.step(f"Шаг 2: Ввести в поле поиска, выбрать из выпадающего списка название искомого топонима:\n"
                          f"{toponyms_name}."):
             page.enter_searching_address(driver, toponyms_name)

@@ -148,14 +148,21 @@ class MainPage(BasePage):
         build_route_btn.click()
 
     def route_by_car_btn_click(self, driver):
+        """Осуществляет нажатие(выбор) элемента 'На автомобиле' для создания автомобильного маршрута на карте."""
+
         car_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CAR_BTN)
         car_btn.click()
 
     def route_by_trnsprt_btn_click(self, driver):
+        """Осуществляет нажатие(выбор) элемента 'На общественном транспорте' для создания маршрута с использованием
+        общественного транспорта."""
+
         city_trnsprt_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_CITY_TRANSPORT_BTN)
         city_trnsprt_btn.click()
 
     def route_by_foot_btn_click(self, driver):
+        """Осуществляет нажатие(выбор) элемента 'Пешком' для создания пешего маршрута."""
+
         walking_btn = driver.find_element(*MapPageLocators.MAP_ROUTE_BY_WALKING_BTN)
         walking_btn.click()
 

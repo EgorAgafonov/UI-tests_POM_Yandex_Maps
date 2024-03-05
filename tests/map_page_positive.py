@@ -4,8 +4,6 @@ from settings import *
 from colorama import Fore, Style
 import allure
 from allure_commons.types import LabelType
-from urllib.parse import urlparse
-import time
 
 
 class TestMapPagePositive:

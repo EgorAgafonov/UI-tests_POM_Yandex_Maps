@@ -595,12 +595,13 @@ class TestMapPagePositive:
         with allure.step("Шаг 3: В выпадающем списке нажать 'Схема метро'."):
             map_tab_link = page.get_relative_link()
             page.metro_scheme_btn_click(driver)
-            page.switch_to_new_browser_tab()
+            page.switch_to_new_browser_tab(starting_page=main_window)
             page.wait_page_loaded()
             page.make_screenshot(file_path=screenshots_folder + "\\test_build_ride_on_metro_METRO_SCHEME.png")
             allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_METRO_SCHEME",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование станции отправления."):
+        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование станции "
+                         "отправления."):
             metro_tab_link = page.get_relative_link()
             metro_tab_title = page.get_title_of_tab()
             page.enter_departure_metro_station(driver, departure_station)

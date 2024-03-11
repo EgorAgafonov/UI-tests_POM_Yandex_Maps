@@ -35,12 +35,12 @@ class BasePage(object):
         current_tab = self.driver.current_window_handle
         return current_tab
 
-    def switch_to_new_browser_tab(self):
-        """Метод для перехода в открывшуюся по ссылке вкладку браузера или новое окно."""
+    def switch_to_new_browser_tab(self, home_page: str):
+        """Метод для перехода и работы в новой вкладке браузера (в новом окне). Аргументу home_page необходимо
+        передать строковое значение ID-дескриптора окна (вкладки) стартовой страницы (home page) для """
 
-        original_window = self.driver.current_window_handle
         for window_handle in self.driver.window_handles:
-            if window_handle != original_window:
+            if window_handle != home_page:
                 self.driver.switch_to.window(window_handle)
                 break
 

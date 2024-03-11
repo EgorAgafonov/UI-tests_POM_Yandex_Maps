@@ -582,8 +582,7 @@ class TestMapPagePositive:
          отображает его на схеме метро. Валидация теста выполнена успешно, если построенный маршрут отображается на
          схеме, стек карточек с вариантами сформированных поездок не пустой и содержит информацию о времени в пути."""
 
-        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех "
-                         "элементов."):
+        with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
             page.wait_page_loaded()
             main_window = page.get_current_tab_ID_descriptor()
@@ -601,8 +600,7 @@ class TestMapPagePositive:
             page.make_screenshot(file_path=screenshots_folder + "\\test_build_ride_on_metro_METRO_SCHEME.png")
             allure.attach(page.get_page_screenshot_PNG(), name="build_ride_on_metro_METRO_SCHEME",
                           attachment_type=allure.attachment_type.PNG)
-        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование станции "
-                         "отправления."):
+        with allure.step("Шаг 4: В открывшейся вкладке браузера в поле 'Откуда' указать наименование станции отправления."):
             metro_tab_link = page.get_relative_link()
             metro_tab_title = page.get_title_of_tab()
             page.enter_departure_metro_station(driver, departure_station)

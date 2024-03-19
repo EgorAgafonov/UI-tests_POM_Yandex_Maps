@@ -428,15 +428,11 @@ class TestMapPagePositive:
                                                        f"в системе и создать баг-репорт!")
 
     @pytest.mark.city_trans
-    @allure.title("Отображение маршрутного транспорта на карте.")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-CITYTRNS-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Отображение маршрутного транспорта на карте.")
     @allure.feature("Отображение на дорогах города движущегося маршрутного транспорта.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-CITYTRNS-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_city_trans_btn_click(self, driver, random_address="Москва, ст. метро Домодедовская"):
         """Позитивный тест проверки нажатия кнопки "Движущийся транспорт", отображающей на карте местоположение
         городского общественного транспорта (ОТ) с номером маршрута. Валидация теста выполнена успешно в случае, если
@@ -476,15 +472,11 @@ class TestMapPagePositive:
                                                        f"баг-репорт!")
 
     @pytest.mark.panorama
-    @allure.title("Просмотр панорам улиц.")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAMA-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Просмотр панорам улиц.")
     @allure.feature("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAMA-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, Красная площадь"):
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
@@ -536,14 +528,10 @@ class TestMapPagePositive:
 
     @pytest.mark.metro
     @allure.title("Маршрут между станциями метро (ГУП Московский метрополитен).")
+    @allure.feature("Проверка создания маршрута между двумя станциями метро")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-METRO-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
     @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
-    @allure.feature("Проверка создания маршрута между двумя станциями метро")
     def test_build_ride_on_metro(self, driver, departure_station="Домодедовская", destination_station="Парк Победы"):
         """Позитивный тест проверки создания оптимального маршрута между двумя станциями метро. Местонахождение
          в момент выполнения теста - РФ, Московская область. Указываются станции отправления и назначения (аргументы

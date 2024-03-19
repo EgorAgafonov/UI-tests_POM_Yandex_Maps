@@ -6,19 +6,20 @@ import allure
 from allure_commons.types import LabelType
 
 
+@allure.epic("UI-Yandex.Карты")
+@allure.story("Функциональное тестирование UI (позитивные тесты)")
+@allure.label("Агафонов Е.А.", "владелец")
+@allure.label(LabelType.LANGUAGE, "Python")
+@allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
 class TestMapPagePositive:
     """Класс с коллекцией UI-тестов для функционального тестирования веб-приложения "Яндекс.Карты."""
 
     @pytest.mark.search_address
-    @allure.title("Поиск адреса(топонима) на карте")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Поиск адреса(топонима) на карте")
     @allure.feature("Поиск объекта(топонима) на карте по названию")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_search_address_positive(self, driver, toponyms_name="Музей космонавтики"):
         """Позитивный тест проверки поиска объекта(топонима) на карте по его названию. Валидация теста выполнена успешно
         в случае, если после ввода названия объекта в поле поиска и подтверждения действия, система определяет
@@ -31,7 +32,7 @@ class TestMapPagePositive:
         with allure.step(f"Шаг 2: Ввести в поле поиска, выбрать из выпадающего списка название искомого топонима:\n"
                          f"{toponyms_name}."):
             page.enter_searching_address(driver, toponyms_name)
-            page.wait_page_loaded()
+            page.wait_page_loaded(check_images=True)
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_toponyms_name = page.get_toponym_descript(driver)
             if toponyms_name not in parsed_toponyms_name:
@@ -50,15 +51,11 @@ class TestMapPagePositive:
                 print("\nВалидация теста test_search_address_positive выполнена успешно!")
 
     @pytest.mark.geoloc
-    @allure.title("Определение геолокации пользователя на карте")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-GLC-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Определение геолокации пользователя на карте")
     @allure.feature("Определение текущей геолокации пользователя на карте")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-GLC-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_current_geoloc_btn_click(self, driver, current_geoloc='Видное'):
         """Позитивный тест проверки работы кнопки "Моё местоположение", определяющую текущую геолокацию пользователя.
         Тестирование выполняется без предварительной авторизации пользователя в системе. Аргумент current_geoloc должен
@@ -88,15 +85,11 @@ class TestMapPagePositive:
                                                      f"'{current_geoloc}'.")
 
     @pytest.mark.map_size
-    @allure.title("Увеличение/уменьшение размера изображения карты")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Увеличение/уменьшение размера изображения карты")
     @allure.feature("Проверка работы элементов увеличения/уменьшения размера карты")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_change_map_size_btn_click(self, driver, random_place="Москва, ст. метро Чистые пруды"):
         """Позитивный тест проверки работы кнопок "Приблизить" "Отдалить", отвечающих за увеличение/уменьшение размера
         карты. Валидация теста выполнена успешно если после каждого воздействия на указанные контроллеры,
@@ -142,15 +135,11 @@ class TestMapPagePositive:
                                 "баг-репорт.")
 
     @pytest.mark.map_3D_click
-    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-3DMD-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
     @allure.feature("Проверка работы элемента 'Наклонить карту' (3D-режим карты)")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-3DMD-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_3D_map_btn_click(self, driver, random_place="Москва, Музей советских игровых автоматов"):
         """Позитивный тест проверки работы кнопки 3D-режима карты. Валидация теста выполнена успешно в случае, если
         после воздействия на элемент "Наклонить карту" изображение карты меняется с плоского вида "сверху" на режим
@@ -184,15 +173,11 @@ class TestMapPagePositive:
                                 "баг-репорт")
 
     @pytest.mark.map_display_mode
-    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-MPSTPS-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
     @allure.feature("Проверка работы режимов отображения карты ('Схема'', 'Спутник', 'Гибрид')")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-MPSTPS-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_checking_map_display_modes(self, driver, random_place="Париж, Эйфелева башня"):
         """Позитивный тест проверки работы режимов отображения карты. Валидация теста выполнена успешно в случае, если
         после воздействия на элементы "Схема", "Спутник", "Гибрид" в меню выбора, изображение карты принимает вид,
@@ -241,15 +226,11 @@ class TestMapPagePositive:
                     "баг-репорт")
 
     @pytest.mark.build_route
-    @allure.title("Создание маршрута на карте ('Автомобиль')")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Создание маршрута на карте ('Автомобиль')")
     @allure.feature("Построение маршрута  на карте для частного ТС по начальной и конечной точкам.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_car(self, driver, depart_point="Музей-заповедник Царицыно",
                                 destin_point="Музей-заповедник Коломенское"):
         """Позитивный тест проверки создания на карте маршрута для поездки на автомобиле. Указываются адреса места
@@ -298,16 +279,12 @@ class TestMapPagePositive:
                                                        "создать баг-репорт!")
 
     @pytest.mark.build_route
-    @allure.title("Создание маршрута на карте ('Городской транспорт')")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-02")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Создание маршрута на карте ('Городской транспорт')")
     @allure.feature("Построение маршрута  на карте для поездки на общественном транспорте по начальной и конечной "
                     "точкам.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-02")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_city_trnsprt(self, driver, depart_point="Московский зоопарк",
                                          destin_point="Московский дом книги, ул. Новый Арбат"):
         """Позитивный тест проверки создания на карте маршрута для планирования поездки на общественном транспорте.
@@ -355,16 +332,12 @@ class TestMapPagePositive:
                                                        "создать баг-репорт!")
 
     @pytest.mark.build_route
-    @allure.title("Создание маршрута на карте ('Городской транспорт')")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-03")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Создание маршрута на карте ('Городской транспорт')")
     @allure.feature("Построение маршрута на карте для планирования пешей прогулки от начальной до конечной "
                     "точки.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-03")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_foot(self, driver, depart_point="м. Тверская", destin_point="Патриаршие пруды"):
         """Позитивный тест проверки создания на карте маршрута для планирования пешей прогулки. По содержанию, условиям
         валидации тест-кейс аналогичен тестам test_build_route_by_car, test_build_route_by_city_trnsprt."""
@@ -410,15 +383,11 @@ class TestMapPagePositive:
                                                        "создать баг-репорт!")
 
     @pytest.mark.traffic
-    @allure.title("Отображение дорожной ситуации(пробки) на карте.")
-    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.label(LabelType.LANGUAGE, "Python")
-    @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
-    @allure.label("Агафонов Е.А.", "владелец")
-    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
-    @allure.epic("Пользовательский интерфейс (позитивные тесты)")
+    @allure.title("Отображение дорожной ситуации(пробки) на карте.")
     @allure.feature("Отображение на карте текущей ситуации на дорогах города.")
+    @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
+    @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_traffic_btn_click(self, driver, traffic_point="Москва, Садовое кольцо"):
         """Позитивный тест проверки нажатия кнопки "Дорожная ситуация", отображающей на карте текущую ситуацию на
         дорогах города. Валидация теста выполнена успешно в случае, если после воздействия на контроллер на

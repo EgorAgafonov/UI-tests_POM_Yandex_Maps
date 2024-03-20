@@ -1,3 +1,4 @@
+import allure
 import pytest
 from selenium.webdriver.chrome.options import *
 from selenium import webdriver
@@ -24,10 +25,14 @@ def driver():
     выполнения тестовой функции, инициализирует запуск драйвера браузера Chrome и передает его в любую тестовую функцию
     коллекции как объект класса webdriver фреймворка Selenium."""
 
-    options = Options()
-    options.add_argument("--start-maximized")
-    driver = webdriver.Chrome(options=options)
-    url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
-    driver.get(url)
-    yield driver
-    driver.quit()
+    with allure.step("Шаг 1: Определяем драйвер и настройки Chrome"):
+        options = Options()
+        options.add_argument("--start-maximized")
+        driver = webdriver.Chrome(options=options)
+        url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
+    with allure.step("Шаг 2: Переходим на страницу https://yandex.ru/maps/"):
+        driver.get(url)
+        yield driver
+    with allure.step("Закрываем сессию"):
+        driver.quit()
+

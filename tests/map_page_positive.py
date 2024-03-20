@@ -7,7 +7,7 @@ from allure_commons.types import LabelType
 
 
 @allure.epic("UI-Yandex.Карты")
-@allure.story("Функциональное тестирование UI (позитивные тесты)")
+@allure.feature("Функциональное тестирование UI (позитивные тесты)")
 @allure.label("Агафонов Е.А.", "владелец")
 @allure.label(LabelType.LANGUAGE, "Python")
 @allure.label(LabelType.FRAMEWORK, "Pytest", "Selenium")
@@ -16,8 +16,8 @@ class TestMapPagePositive:
 
     @pytest.mark.search_address
     @allure.severity(allure.severity_level.CRITICAL)
+    @allure.story("Поиск объекта(топонима) на карте по названию")
     @allure.title("Поиск адреса(топонима) на карте")
-    @allure.feature("Поиск объекта(топонима) на карте по названию")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_search_address_positive(self, driver, toponyms_name="Музей космонавтики"):

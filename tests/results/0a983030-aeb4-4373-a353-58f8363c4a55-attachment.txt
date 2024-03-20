@@ -1,2 +1,0 @@
-
-Валидация теста test_search_address_positive выполнена успешно!

@@ -5,6 +5,7 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import json
 
 
 class BasePage(object):
@@ -85,7 +86,7 @@ class BasePage(object):
             self.driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
 
     def scroll_up(self, offset=0):
-        """Метод прокрутки страницы вниз."""
+        """Метод прокрутки страницы вверх."""
 
         if offset:
             self.driver.execute_script(f'window.scrollTo(0, -{offset});')
@@ -191,12 +192,9 @@ class BasePage(object):
         # Go up:
         self.driver.execute_script('window.scrollTo(document.body.scrollHeight, 0);')
 
-
-
-
     # # Методы open page, wait_for_animation, wait_for_ajax_loading в рамках текущего проекта неактивны (не
     # используются)
-    #
+
     # def open_page(self, driver, url):
     #     """ This is advanced function which also checks that all images completely loaded. """
     #

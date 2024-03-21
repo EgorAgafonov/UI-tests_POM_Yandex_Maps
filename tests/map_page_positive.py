@@ -4,6 +4,7 @@ from settings import *
 from colorama import Fore, Style
 import allure
 from allure_commons.types import LabelType
+import makefile
 
 
 @allure.epic("UI-Yandex.Карты")
@@ -69,10 +70,7 @@ class TestMapPagePositive:
         with allure.step("Шаг 2: Нажать на элемент 'Моё местоположение'(стрелка геолокации)."):
             page.my_current_geoloc_btn_click(driver)
             page.wait_page_loaded()
-            page.refresh_page()
-            page.wait_page_loaded()
             page.zoom_out_map(driver, amount="high")
-            page.zoom_out_map(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Выполнить сравнение ожидаемого и фактического результатов теста."):
             parsed_geoloc = page.get_current_geoloc_name(driver)

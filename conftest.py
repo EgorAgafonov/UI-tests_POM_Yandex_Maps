@@ -18,21 +18,21 @@ def duration_of_test(request):
                                                     f"{end_time - start_time} сек.")
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope='session')
 def driver():
     """Pytest-фикстура(декоратор) для выполнения UI-тестов, спроектированных с помощью паттерна PageObjectModel и
     фреймворка Selenium в рамках тестирования платформы "Yandex Карты". Определяет setup-настройки перед началом
     выполнения тестовой функции, инициализирует запуск драйвера браузера Chrome и передает его в любую тестовую функцию
     коллекции как объект класса webdriver фреймворка Selenium."""
 
-    with allure.step("Шаг 1: Определяем драйвер и настройки Chrome"):
+    with allure.step("SETUP 1/2: Определить драйвер и настройки Chrome"):
         options = Options()
         options.add_argument("--start-maximized")
         driver = webdriver.Chrome(options=options)
+    with allure.step("SETUP 2/2: Перейти на страницу https://yandex.ru/maps/"):
         url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
-    with allure.step("Шаг 2: Переходим на страницу https://yandex.ru/maps/"):
         driver.get(url)
         yield driver
-    with allure.step("Закрываем сессию"):
+    with allure.step("TEAR UP: Закрыть браузер Chrome"):
         driver.quit()
 

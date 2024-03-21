@@ -4,7 +4,6 @@ from settings import *
 from colorama import Fore, Style
 import allure
 from allure_commons.types import LabelType
-import makefile
 
 
 @allure.epic("UI-Yandex.Карты")

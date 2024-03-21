@@ -33,6 +33,6 @@ def driver():
         url = os.getenv("MAIN_URL") or "https://yandex.ru/maps/"
         driver.get(url)
         yield driver
-    with allure.step("TEAR UP: Закрыть браузер Chrome"):
+    with allure.step("TEAR DOWN: Закрыть браузер Chrome"):
         driver.quit()
 

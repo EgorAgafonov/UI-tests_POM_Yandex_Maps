@@ -16,8 +16,8 @@ class TestMapPagePositive:
 
     @pytest.mark.search_address
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Поиск адреса(топонима) на карте")
-    @allure.story("Поиск объекта(топонима) на карте по названию")
+    @allure.story("Поиск адреса(топонима) на карте")
+    @allure.title("Поиск объекта(топонима) на карте по названию")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-SA-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_search_address_positive(self, driver, toponyms_name="Музей космонавтики"):
@@ -52,8 +52,8 @@ class TestMapPagePositive:
 
     @pytest.mark.geoloc
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Определение геолокации пользователя на карте")
-    @allure.story("Определение текущей геолокации пользователя на карте")
+    @allure.story("Определение геолокации пользователя на карте")
+    @allure.title("Определение текущей геолокации пользователя на карте")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-GLC-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_current_geoloc_btn_click(self, driver, current_geoloc='Видное'):
@@ -83,8 +83,8 @@ class TestMapPagePositive:
 
     @pytest.mark.map_size
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Увеличение/уменьшение размера изображения карты")
-    @allure.story("Проверка работы элементов увеличения/уменьшения размера карты")
+    @allure.story("Увеличение/уменьшение размера изображения карты")
+    @allure.title("Проверка работы элементов увеличения/уменьшения размера карты")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-ZOOM-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_change_map_size_btn_click(self, driver, random_place="Москва, ст. метро Чистые пруды"):
@@ -133,8 +133,8 @@ class TestMapPagePositive:
 
     @pytest.mark.map_3D_click
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
-    @allure.story("Проверка работы элемента 'Наклонить карту' (3D-режим карты)")
+    @allure.story("Работа карты в режиме изометрического отображения объектов (3D-режим)")
+    @allure.title("Проверка работы элемента 'Наклонить карту' (3D-режим карты)")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-3DMD-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_3D_map_btn_click(self, driver, random_place="Москва, Музей советских игровых автоматов"):
@@ -171,8 +171,8 @@ class TestMapPagePositive:
 
     @pytest.mark.map_display_mode
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Работа карты в режиме изометрического отображения объектов (3D-режим)")
-    @allure.story("Проверка работы режимов отображения карты ('Схема'', 'Спутник', 'Гибрид')")
+    @allure.story("Работа режимов отображения карты")
+    @allure.title("Проверка работы режимов отображения карты ('Схема'', 'Спутник', 'Гибрид')")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-MPSTPS-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_checking_map_display_modes(self, driver, random_place="Париж, Эйфелева башня"):
@@ -224,8 +224,8 @@ class TestMapPagePositive:
 
     @pytest.mark.build_route
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Создание маршрута на карте ('Автомобиль')")
-    @allure.story("Построение маршрута  на карте для частного ТС по начальной и конечной точкам.")
+    @allure.story("Создание маршрутов на карте")
+    @allure.title("Создание маршрута для поездки на частном 'Автомобиле'")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_car(self, driver, depart_point="Музей-заповедник Царицыно",
@@ -277,9 +277,8 @@ class TestMapPagePositive:
 
     @pytest.mark.build_route
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Создание маршрута на карте ('Городской транспорт')")
-    @allure.story("Построение маршрута  на карте для поездки на общественном транспорте по начальной и конечной "
-                  "точкам.")
+    @allure.story("Создание маршрутов на карте")
+    @allure.title("Создание маршрута для поездки на общественном 'Городском транспорте'")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-02")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_city_trnsprt(self, driver, depart_point="Московский зоопарк",
@@ -330,9 +329,8 @@ class TestMapPagePositive:
 
     @pytest.mark.build_route
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Создание маршрута на карте ('Городской транспорт')")
-    @allure.story("Построение маршрута на карте для планирования пешей прогулки от начальной до конечной "
-                    "точки.")
+    @allure.story("Создание маршрутов на карте")
+    @allure.title("Создание маршрута для пешей прогулки 'Пешком'")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-BLDRT-03")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_build_route_by_foot(self, driver, depart_point="м. Тверская", destin_point="Патриаршие пруды"):
@@ -381,8 +379,8 @@ class TestMapPagePositive:
 
     @pytest.mark.traffic
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Отображение дорожной ситуации(пробки) на карте.")
-    @allure.story("Отображение на карте текущей ситуации на дорогах города.")
+    @allure.story("Отображение дорожной ситуации(пробки) на карте.")
+    @allure.title("Отображение на карте текущей ситуации на дорогах города.")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-TRFFC-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_traffic_btn_click(self, driver, traffic_point="Москва, Садовое кольцо"):
@@ -426,8 +424,8 @@ class TestMapPagePositive:
 
     @pytest.mark.city_trans
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Отображение маршрутного транспорта на карте.")
-    @allure.story("Отображение на дорогах города движущегося маршрутного транспорта.")
+    @allure.story("Отображение маршрутного транспорта на карте.")
+    @allure.title("Отображение на дорогах города движущегося маршрутного транспорта.")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-CITYTRNS-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_city_trans_btn_click(self, driver, random_address="Москва, ст. метро Домодедовская"):
@@ -470,8 +468,8 @@ class TestMapPagePositive:
 
     @pytest.mark.panorama
     @allure.severity(allure.severity_level.CRITICAL)
-    @allure.title("Просмотр панорам улиц.")
-    @allure.story("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
+    @allure.story("Просмотр панорам улиц.")
+    @allure.title("Отображение на карте доступных к просмотру панорам улиц и фотографий объектов.")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-PANORAMA-01")
     @allure.link("https://yandex.ru/maps", name="https://yandex.ru/maps")
     def test_street_panorama_btn_click(self, driver, toponyms_name="Москва, Красная площадь"):
@@ -524,8 +522,8 @@ class TestMapPagePositive:
                                                        f"ошибку в системе и создать баг-репорт!")
 
     @pytest.mark.metro
-    @allure.title("Маршрут между станциями метро (ГУП Московский метрополитен).")
-    @allure.story("Проверка создания маршрута между двумя станциями метро")
+    @allure.story("Создание маршрутов на карте")
+    @allure.title("Создание маршрута между двумя станциями метро (ГУП 'Московский метрополитен').")
     @allure.testcase("https://yandex.ru/maps", "TC-YMPS-METRO-01")
     @allure.severity(allure.severity_level.CRITICAL)
     @allure.link("https://yandex.ru/maps/metro/moscow", name="https://yandex.ru/maps/metro/moscow")

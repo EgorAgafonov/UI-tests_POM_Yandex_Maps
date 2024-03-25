@@ -2,7 +2,7 @@ from selenium.webdriver.common.by import By
 
 
 class MapPageLocators:
-    """Класс с методами определения локаторов элементов на странице "https://yandex.ru/maps"""
+    """Класс переменных для определения локаторов элементов на странице "https://yandex.ru/maps"""
 
     MAP_SEARCH_FIELD = (By.CSS_SELECTOR, "input[placeholder='Поиск мест и адресов']")
     MAP_MY_GEOLOC_BTN = (By.CSS_SELECTOR, "button[aria-label='Моё местоположение']")

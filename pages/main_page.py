@@ -20,8 +20,8 @@ class MainPage(BasePage):
         """Поиск топонима на веб-платформе Яндекс.Карты. Передает в поле поиска название(адрес) искомого объекта и
         подтверждает действие."""
 
-        address = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
-        ActionChains(driver).send_keys_to_element(address, value).pause(3).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
+        address_field = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
+        ActionChains(driver).send_keys_to_element(address_field, value).pause(3).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
             .perform()
 
     def clear_searching_field(self, driver):
@@ -49,24 +49,15 @@ class MainPage(BasePage):
         """Осуществляет нажатие кнопки 'Приблизить' на карте. Для выбора кратности увеличения масштаба карты можно
         задать значение аргумента amount равным: 'low', 'medium' или 'high'."""
 
+        increase_btn = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
+
         if amount == "low":
-            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
-            increase.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(increase_btn).pause(0.5).perform()
         elif amount == "medium":
-            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
-            increase.click()
-            time.sleep(0.5)
-            increase.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(increase_btn).pause(0.5).click(increase_btn).pause(0.5).perform()
         elif amount == "high":
-            increase = driver.find_element(*MapPageLocators.MAP_INCREASE_VIEW_SIZE)
-            increase.click()
-            time.sleep(0.5)
-            increase.click()
-            time.sleep(0.5)
-            increase.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(increase_btn).pause(0.5).click(increase_btn).pause(0.5)\
+                                .click(increase_btn).pause(0.5).perform()
         else:
             raise Exception(
                 f"\nОшибка! Методу incrise_map_size() задано некорректное значение параметра amount={amount}!\n"
@@ -77,24 +68,15 @@ class MainPage(BasePage):
         """Осуществляет нажатие кнопки 'Отдалить' на карте. Для выбора кратности уменьшения масштаба карты можно задать
         значение аргумента amount равным: 'low', 'medium' или 'high'."""
 
+        decrease_btn = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
+
         if amount == "low":
-            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
-            decrease.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(decrease_btn).pause(0.5).perform()
         elif amount == "medium":
-            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
-            decrease.click()
-            time.sleep(0.5)
-            decrease.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(decrease_btn).pause(0.5).click(decrease_btn).pause(0.5).perform()
         elif amount == "high":
-            decrease = driver.find_element(*MapPageLocators.MAP_DECREASE_VIEW_SIZE)
-            decrease.click()
-            time.sleep(0.5)
-            decrease.click()
-            time.sleep(0.5)
-            decrease.click()
-            time.sleep(0.5)
+            ActionChains(driver).click(decrease_btn).pause(0.5).click(decrease_btn).pause(0.5)\
+                                .click(decrease_btn).pause(0.5).perform()
         else:
             raise Exception(
                 f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"

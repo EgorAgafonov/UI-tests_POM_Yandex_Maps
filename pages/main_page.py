@@ -78,7 +78,7 @@ class MainPage(BasePage):
             ActionChains(driver).click(decrease_btn).pause(0.5).click(decrease_btn).pause(0.5)\
                                 .click(decrease_btn).pause(0.5).perform()
         else:
-            raise Exception(
+            raise ValueError(
                 f"\nОшибка! Методу dicrise_map_size() задано некорректное значение параметра amount={amount}!\n"
                 f"Доступные значения:"
                 f"\n'low', 'medium' или 'high'")

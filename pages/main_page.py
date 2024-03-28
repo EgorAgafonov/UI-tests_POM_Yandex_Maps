@@ -21,7 +21,8 @@ class MainPage(BasePage):
         подтверждает действие."""
 
         address_field = driver.find_element(*MapPageLocators.MAP_SEARCH_FIELD)
-        ActionChains(driver).send_keys_to_element(address_field, value).pause(3).send_keys(Keys.DOWN).send_keys(Keys.ENTER) \
+        ActionChains(driver).send_keys_to_element(address_field, value).pause(3).send_keys(Keys.DOWN)\
+            .send_keys(Keys.ENTER) \
             .perform()
 
     def clear_searching_field(self, driver):

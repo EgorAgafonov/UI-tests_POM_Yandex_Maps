@@ -1,5 +1,4 @@
 import time
-
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.action_chains import ActionBuilder
 from selenium.webdriver import Keys

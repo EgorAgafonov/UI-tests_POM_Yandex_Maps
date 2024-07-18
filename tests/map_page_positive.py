@@ -303,7 +303,6 @@ class TestMapPagePositive:
                          "маршрута."):
             page.enter_destination_address(driver, destin_point)
             page.switch_to_3D_map_click(driver)
-            page.zoom_out_map(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 6: Выполнить проверку результатов теста."):
             result = page.check_all_variants_of_arrivals_city(driver)

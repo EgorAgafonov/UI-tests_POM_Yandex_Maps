@@ -386,11 +386,12 @@ class TestMapPagePositive:
         """Позитивный тест проверки нажатия кнопки "Дорожная ситуация", отображающей на карте текущую ситуацию на
         дорогах города. Валидация теста выполнена успешно в случае, если после воздействия на контроллер на
         дорогах города отображается текущая плотность трафика с обозначением "зеленых", "красных", "оранжевых" зон
-        (степень загруженности участка дороги), контроллер кнопки отображает индекс загруженности по шкале 1/10."""
+        (степень загруженности участка дороги), контроллер кнопки отображает индекс загруженности дорог (ИЗД) по шкале
+        1/10."""
 
         with allure.step("Шаг 1: Перейти на сайт https://yandex.ru/maps/ и дождаться полной загрузки всех элементов."):
             page = MainPage(driver)
-            page.wait_page_loaded()
+            page.wait_page_loaded(check_page_changes=True)
         with allure.step("Шаг 2: В поле 'Поиск мест и адресов' ввести название места с интересующей дорожной "
                          "обстановкой"):
             page.enter_searching_address(driver, traffic_point)
@@ -398,19 +399,21 @@ class TestMapPagePositive:
             page.switch_to_3D_map_click(driver)
             page.wait_page_loaded()
         with allure.step("Шаг 3: Нажать на элемент 'Дорожная ситуация'."):
-            page.traffic_btn_click(driver)
-            page.wait_page_loaded()
-        with allure.step("Шаг 4: Выполнить проверку результата теста."):
-            if True:
+            page.traffic_btn_click()
+            page.wait_page_loaded(check_page_changes=True)
+            result = page.get_value_of_traffic_index()
+        with allure.step("Шаг 4: Проверить отображение значения ИЗД на элементе 'Дорожная ситуация'."):
+            if result != '':
                 page.make_screenshot(file_path=screenshots_folder + "\\test_traffic_btn_click.png")
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="traffic_btn_click_PASSED",
                               attachment_type=allure.attachment_type.PNG)
-                page.traffic_btn_click(driver)
+                page.traffic_btn_click()
                 page.clear_searching_field(driver)
                 page.switch_off_3D_map_mode(driver)
                 page.wait_page_loaded()
-                print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!")
+                print(Style.DIM + Fore.GREEN + f"\n Тест test_traffic_btn_click выполнен успешно!\n"
+                                               f"Индекс загруженности дорог равен: {result}")
             else:
                 allure.attach(page.get_page_screenshot_PNG(),
                               name="traffic_btn_click_FAILED",

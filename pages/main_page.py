@@ -207,12 +207,19 @@ class MainPage(BasePage):
         result = scale_line.text
         return result
 
-    def traffic_btn_click(self, driver):
+    def traffic_btn_click(self):
         """Осуществляет нажатие кнопки 'Дорожная ситуация' для отображения на карте уровня загруженности дорог(пробок) и
         дорожной обстановки."""
 
-        traffic = driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
+        traffic = self.driver.find_element(*MapPageLocators.MAP_TRAFFIC_BTN)
         traffic.click()
+
+    def get_value_of_traffic_index(self) -> str:
+        """Метод для получения(парсинга) значения индекса загруженности дорог. Необходим
+        для валидации теста."""
+
+        index_value = self.driver.find_element(*MapPageLocators.MAP_TRAFFIC_INDEX_VAL).text
+        return index_value
 
     def city_transprt_btn_click(self, driver):
         """Осуществляет нажатие кнопки 'Движущийся транспорт' для отображения на карте движущихся единиц общественного

@@ -35,6 +35,7 @@ class MapPageLocators:
                                                                   "-hint']")
     MAP_TRAVEL_TIME_BY_FOOT = (By.CSS_SELECTOR, "div[class='pedestrian-route-snippet-view__route-title-primary']")
     MAP_TRAFFIC_BTN = (By.CSS_SELECTOR, "a[aria-label='Пробки в Москве']")
+    MAP_TRAFFIC_INDEX_VAL = (By.CSS_SELECTOR, 'div[class="traffic-raw-icon__text"]')
     MAP_CITY_TRANSPORT = (By.CSS_SELECTOR, "a[aria-label='Движущийся транспорт']")
 
     MAP_DETAILS_MENU = (By.CSS_SELECTOR, "button[aria-label='Детали']")
